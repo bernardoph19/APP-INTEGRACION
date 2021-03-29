@@ -1,0 +1,185 @@
+.cabece {
+  display: flex;
+  background: white;
+  padding-top: 60px;
+  justify-content: start;
+  padding-left: 17px;
+}
+
+.fs {
+  width: 40px;
+  height: 40px;
+  background-color: #EA3E3E;
+  color: white;
+  font-size: 30px;
+  font-weight: 500;
+  padding: 4px 4px;
+  border-radius: 5px;
+}
+
+.flex-col {
+  flex-direction: column;
+  display: flex;
+  padding-left: 10px;
+}
+
+.text-sm {
+  font-size: medium;
+  color: #282828;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 10px;  
+}
+
+.text-color{
+font-family: Hind Jalandhar;
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 30px;
+display: flex;
+color: #EA3E3E;
+align-items: center;
+letter-spacing: 0.02em;
+}
+
+
+
+
+
+.bg-color{
+  background: white;
+}
+
+
+ion-toolbar{
+  --ion-background-color:transparent;
+  --opacity:0;
+}
+
+ion-card{
+  --ion-background-color:transparent;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+ ion-card-title{
+   margin-top: 6px !important;
+   font-size: 22px;
+   color: #53565A;
+   font-weight: 500;
+   text-align: start;
+ }
+
+
+ ion-card-subtitle{
+   text-align: start;   
+   font-size: 13px;
+   color: #888C91;
+   font-weight: 400;
+   text-transform: none;
+   padding: 0 2px;
+ }
+
+
+ion-card-content{
+  padding-top: 5px;
+}
+ ion-item {
+   color:#74787E;
+  --border-color:#bfc2c5;
+   --highlight-color-focused:#215AB7;
+   --padding-start:0;
+   --inner-padding-end:0;
+   --highlight-color-invalid: #215AB7;
+   --highlight-color-valid: #215AB7;
+   border: #215AB7;   
+   font-size: 13px;
+
+   ion-input{
+     color:#74787E;
+     font-size: 13px;
+
+     ion-icon{
+       padding-right: 7px;
+       font-size: 19px;
+     }
+   }
+
+   ion-input:hover{
+     color:#215AB7;
+   }
+
+
+
+ }
+
+ .sign-btn-wrap{
+    text-align: center;
+    padding-top: 35px;
+    font-weight: 400;
+    
+   .sign-btn{
+     --ion-danger-primary-color:#EA3E3E;
+     --background:#EA3E3E;
+     --background-activated:#fac6bd;
+     --background-focused:#f5aea9;
+     --background-hover:#e01818da;
+     color:white;
+     background-color: #f35858;
+     border-radius: 50px;
+     font-weight: 400;
+   }
+      
+ }
+
+ .text-tag{
+   margin-top: 35px;
+   text-align: center;
+   span{
+     font-size: 13px;
+     font-weight: normal;
+     color:#888C91;
+   }
+ }
+
+ .social-btns{
+   margin-top: 18px;
+   text-align: center;
+   ion-button{
+     width:30px;
+     padding-left: 5px !important;
+   }
+ }
+
+ .error_message{
+   font-size: 9px;
+   font-weight:400;
+   color: #be100a;
+ }
+ 
+
+ .registr{
+   color: #EA3E3E;
+   cursor: pointer;
+
+   .registr :hover{
+    color: #be100a;
+  }
+ }
+
+
+
+ .olvist{
+   color: #EA3E3E;
+   font-size: 13px;
+   padding-top: 15px;
+   text-align: end;
+   text-decoration: underline;
+   cursor: pointer;
+   .olvist:hover{
+     color: #be100a;     
+   }
+ }
