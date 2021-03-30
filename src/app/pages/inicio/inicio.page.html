@@ -1,17 +1,23 @@
 
 
 <ion-content>
-  <ion-slides pager="true" [options]="slideOpts">
-    <ion-slide>
-      <ion-img src="assets/img/bienvenido.svg"></ion-img>   
-    </ion-slide>
-    <ion-slide>
-      <ion-img src="assets/img/estadist.svg"></ion-img>  
-       
-    </ion-slide>
-    <ion-slide>
-      <ion-img src="assets/img/repor.svg"></ion-img>
-      
+  <ion-slides pager="true" [options]="slideOpts" >
+    <ion-slide class="pb-10 " *ngFor="let slid of slides">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12" >
+            <ion-img [src]="slid.img"></ion-img>
+            <label class="bienvenida">{{slid.titulo}} </label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-slide>
   </ion-slides>
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button (click)="omitir()" expand="block" fill="clear" shape="round" color="dark">
+      Omitir
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

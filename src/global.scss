@@ -29,3 +29,17 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #f44336;
+}
+
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 100%;
+  background: rgb(245, 4, 4);
+}
