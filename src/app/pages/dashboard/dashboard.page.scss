@@ -1,17 +1,43 @@
-svg{
+svg {
   width: 30px;
   height: 30px;
 }
 
-ion-title{
+ion-title {
   font-size: 14px;
   font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-display: flex;
-align-items: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
 
-color: #262626;
+  color: #262626;
+}
+
+ion-item {
+  ion-label {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    color: #939393;
+  }
+  ion-label .cant {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    letter-spacing: 0.08em;
+
+    color: #000000;
+  }
 }
