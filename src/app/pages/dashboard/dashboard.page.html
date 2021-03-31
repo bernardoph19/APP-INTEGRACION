@@ -17,27 +17,39 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <mat-accordion class="mt-8">
-
     <ion-item>
-      <ion-label >Listado de Bases</ion-label>
-      <ion-label class=".cant" >Cant. Bases:   0</ion-label>
+      <ion-label>Listado de Bases</ion-label>
+      <ion-label class=".cant">Cant. Bases: 0</ion-label>
     </ion-item>
-   
-    
-  
-  
     <!-- Detraccion -->
     <mat-expansion-panel>
       <mat-expansion-panel-header class="text-gray-800">
         <mat-panel-title>
-           DETRACCIÓN
+          <div class="cabece">
+            <div class="flex-col">
+              <span class="text-sm">DB_PRINCIPAL</span>
+              <span class="text-color">
+                <ion-icon color="success" name="checkbox-outline"></ion-icon> 16/12/2020
+              </span>
+            </div>
+            <span slot="end" class="text-color">Activo</span>     
+          </div>
         </mat-panel-title>
 
       </mat-expansion-panel-header>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea est tempora quasi unde, temporibus exercitationem
-      modi architecto earum eos porro, itaque a minus repudiandae facere perferendis molestiae neque placeat aliquid.
+      <label for="" class="enviocompro">Envio de Comprobantes</label>
+      <ion-progress-bar color="success" value="0.5"></ion-progress-bar>
+      <ion-item>
+        <label  slot="start" class="enviocompro">100/102</label> 
+        <label  slot="end" class="enviocompro">100%</label>
+      </ion-item>
+   
+      <ion-button (click)="Ver"  expand="block"  color="success" shape="round" class="ion-padding">
+        Ver
+      </ion-button>
+    
     </mat-expansion-panel>
   </mat-accordion>
 </ion-content>

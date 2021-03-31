@@ -3,6 +3,33 @@ svg {
   height: 30px;
 }
 
+
+.mat-expansion-panel-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 8px;
+  border-radius: inherit;
+  transition: height 225ms cubic-bezier(0.4, 0, 0.2, 1);
+} 
+.cabece{
+  display: flex; 
+  justify-content:space-between;
+}
+
+.enviocompro{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;  
+  color: #263238;
+  margin-bottom: 2px;
+}
+
+
 ion-title {
   font-size: 14px;
   font-family: Roboto;
@@ -14,6 +41,33 @@ ion-title {
   align-items: center;
 
   color: #262626;
+}
+
+.flex-col {
+  flex-direction: column;
+  display: flex;
+  padding-left: 10px;
+}
+
+.text-sm {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: #4a4a4a;
+}
+
+.text-color {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: #263238;
 }
 
 ion-item {
