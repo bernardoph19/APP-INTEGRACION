@@ -5,51 +5,48 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
       </svg>
     </ion-button>
-    <ion-title>
-      Migrador
-    </ion-title>
+    <ion-title> Migrador </ion-title>
     <ion-button slot="end" (click)="alert()" expand="block" fill="clear" color="dark">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-      </svg>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <mat-accordion class="mt-8">
-    <ion-item>
-      <ion-label>Listado de Bases</ion-label>
-      <ion-label class=".cant">Cant. Bases: 0</ion-label>
-    </ion-item>
+    <div class="envioc pb-2">
+      <span class="listado"> Listado de Bases </span>
+      <span class="Cantidad">Cant. Bases:  0</span>
+    </div>
     <!-- Detraccion -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header class="text-gray-800">
+    <mat-expansion-panel *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1]">
+      <mat-expansion-panel-header class="text-gray-800"  >
         <mat-panel-title>
-          <div class="cabece">
-            <div class="flex-col">
-              <span class="text-sm">DB_PRINCIPAL</span>
-              <span class="text-color">
-                <ion-icon color="success" name="checkbox-outline"></ion-icon> 16/12/2020
-              </span>
-            </div>
-            <span slot="end" class="text-color">Activo</span>
+          <div class="flex-col">
+            <span class="principal">DB_PRINCIPAL</span>
+            <span class="fecha">
+              <ion-icon color="success" class="checksucc" name="checkbox-outline"></ion-icon>
+              16/12/2020
+            </span>
           </div>
+          <span  class="activo mb-4">Activo</span>
         </mat-panel-title>
-
       </mat-expansion-panel-header>
-      <label for="" class="enviocompro">Envio de Comprobantes</label>
+      <label class="enviocompro">Envio de Comprobantes</label>
       <ion-progress-bar color="success" value="0.5"></ion-progress-bar>
-      <ion-item>
-        <label  slot="start" class="enviocompro">100/102</label>
-        <label  slot="end" class="enviocompro">100%</label>
-      </ion-item>
-
-      <ion-button (click)="Ver"  expand="block"  color="success" shape="round" class="ion-padding">
-        Ver
-      </ion-button>
-
+      <div class="envioc">
+        <span class="porcentaje"> 104/221 </span>
+        <span class="porcentaje">100%</span>
+      </div>
+      <ion-button (click)="Ver" expand="block" color="success" >VER</ion-button>
     </mat-expansion-panel>
   </mat-accordion>
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger">
+      <ion-icon name="checkmark-done"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
+

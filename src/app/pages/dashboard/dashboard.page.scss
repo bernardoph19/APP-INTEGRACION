@@ -3,95 +3,127 @@ svg {
   height: 30px;
 }
 
-
-.mat-expansion-panel-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0 8px;
-  border-radius: inherit;
-  transition: height 225ms cubic-bezier(0.4, 0, 0.2, 1);
-} 
-.cabece{
-  display: flex; 
-  justify-content:space-between;
-}
-
-.enviocompro{
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 15px;
-  display: flex;
-  align-items: center;  
-  color: #263238;
-  margin-bottom: 2px;
-}
-
-
 ion-title {
   font-size: 14px;
-  font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
   display: flex;
   align-items: center;
-
   color: #262626;
 }
 
-.flex-col {
-  flex-direction: column;
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
   display: flex;
-  padding-left: 10px;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.text-sm {
+mat-expansion-panel{
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+.mat-expansion-panel-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: inherit;
+  transition: height 225ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.activo {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: #474747;
+}
+
+.fecha{
+  font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 16px;
+display: flex;
+padding-top: 3px;
+align-items: center;
+
+color: #263238;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.principal {
+  font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
   display: flex;
   align-items: center;
-  color: #4a4a4a;
+  color: #3b3b3b;
 }
 
-.text-color {
-  font-family: Roboto;
+.enviocompro {
+  padding-bottom: 5px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.envioc {
+  justify-content: space-between;
+  display: flex;
+  padding-bottom: 8px;
+}
+
+.pb-2 {
+  padding-bottom: 10px;
+}
+.porcentaje {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  padding-top: 3px;
+  align-items: center;
+  text-align: right;
+
+  color: #263238;
+}
+
+.listado {
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 16px;
   display: flex;
   align-items: center;
-  color: #263238;
+  color: #939393;
 }
 
-ion-item {
-  ion-label {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-    color: #939393;
-  }
-  ion-label .cant {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 13px;
-    line-height: 15px;
-    display: flex;
-    align-items: center;
-    text-align: right;
-    letter-spacing: 0.08em;
+.Cantidad {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  letter-spacing: 0.06em;
 
-    color: #000000;
-  }
+  color: #000000;
 }
