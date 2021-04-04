@@ -36,7 +36,7 @@ slides: {img: string, titulo: string} [] = [
   }
 
   omitir(){
-    this.navCtrl.navigateRoot ('/dashboard');
+    this.navCtrl.navigateRoot ('/menu-principal/migrador');
   }
 
 }

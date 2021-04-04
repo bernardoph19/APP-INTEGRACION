@@ -1,0 +1,78 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Atras"  color="dark" defaultHref="/menu-principal/migrador"></ion-back-button>
+    </ion-buttons>
+    <ion-title titulo="Proceso de Migración"ion-title> Proceso de Migración </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="fechas">
+    <input class="input-form" placeholder="28/12/2020" [matDatepicker]="picker">
+    <mat-datepicker  #picker></mat-datepicker>
+    <button  class="button-piker focus" (click)="picker.open()">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z" fill="#626262"/><path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z" fill="#626262"/></svg>
+    </button>
+  </div>
+
+  <div class="border-b">
+    <div class="bdprincipal">
+      <span class="bd"> BD </span>
+      <ion-label class="bd-principal">BD_PRINCIPAL</ion-label>
+    </div>
+    <div class="envioc">
+      <span class="porcentaje"> Envio de Comprobantes </span>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true" focusable="false"  width="1.7em" height="1.7em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z" fill="#43B26E"/><path d="M11 13.586l-2.293-2.293l-1.414 1.414L11 16.414l6.207-6.207l-1.414-1.414z" fill="#43B26E"/></svg>
+    </div>
+    <ion-progress-bar color="success" value="0.5"></ion-progress-bar>
+    <div class="envioc">
+      <span class="porcentaje"> 104/221 </span>
+      <span class="porcentaje">100%</span>
+    </div>
+  </div>
+
+  <div class="flex">
+    <span class="rado"> </span>
+    <span class="comprobante">Comprobantes por enviar</span>
+  </div>
+
+  <div class="facturac">
+    <span class="factura"> Facturas </span>
+    <span class="factura"> 105 </span>
+  </div>
+  <div class="facturac">
+    <span class="factura"> Boletas  </span>
+    <span class="factura"> 600 </span>
+  </div>
+  <div class="facturac">
+    <span class="factura"> Notas de Crédito </span>
+    <span class="factura"> 105 </span>
+  </div>
+
+
+  <div class="flex">
+    <span class="verde"> </span>
+    <span class="comprobante">Comprobantes recepcionados</span>
+  </div>
+  <div class="facturac">
+    <span class="factura"> Facturas </span>
+    <span class="factura-exito"> 105 </span>
+  </div>
+  <div class="facturac">
+    <span class="factura"> Boletas  </span>
+    <span class="factura-exito"> 600 </span>
+  </div>
+  <div class="facturac">
+    <span class="factura"> Notas de Crédito </span>
+    <span class="factura-exito"> 105 </span>
+  </div>
+
+
+  <ion-button (click)="onClick()" expand="block"   color="danger">
+    Migrar
+  </ion-button>
+
+</ion-content>

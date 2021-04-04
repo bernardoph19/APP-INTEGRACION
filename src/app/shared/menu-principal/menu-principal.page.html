@@ -1,0 +1,40 @@
+
+
+<ion-menu contentId="menu-content" menuId="menu-content" side="start" type="overlay">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div  *ngFor="let p of pages">
+      <ion-menu-toggle  *ngIf="p.url">
+        <ion-item [routerLink]="p.url" routerDirection="root"  routerLinkActive="active">
+          <ion-icon slot="start" [name]="p.icon"></ion-icon>
+          <ion-label>{{p.title}} </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-item class="menunn" button *ngIf="p.children?. length > 0 " (click)=" p.open = !p.open"
+         [class.active-parent]="p.open" detail="false">
+         <ion-icon slot="start" [name]="p.icon"></ion-icon>
+         <ion-icon slot="end" name="chevron-forward-outline" *ngIf="!p.open"></ion-icon>
+         <ion-icon slot="end" name="chevron-down-outline" *ngIf="p.open"></ion-icon>
+        <ion-label> {{ p.title}} </ion-label>
+      </ion-item>
+
+      <ion-list *ngIf="p.open">
+        <ion-menu-toggle >
+          <ion-item class="sub-menu" *ngFor="let submenu of p.children" [routerLink]="submenu.url" routerDirection="root"  routerLinkActive="active">
+            <ion-icon slot="start" [name]="submenu.icon"></ion-icon>
+            <ion-label>{{submenu.title}} </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+    </div>
+
+  </ion-content>
+</ion-menu>
+<ion-router-outlet id="menu-content"> </ion-router-outlet>

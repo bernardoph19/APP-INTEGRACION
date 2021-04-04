@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
- 
+
   {
     path: '',
     redirectTo: 'login',
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   { path: 'login',     loadChildren: () => import('./auth/login/login.module')          .then( m => m.LoginPageModule)     },
   { path: 'inicio',    loadChildren: () => import('./pages/inicio/inicio.module')       .then( m => m.InicioPageModule)    },
-  { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module') .then( m => m.DashboardPageModule) },
+  { path: 'menu-principal', loadChildren: () => import('./shared/menu-principal/menu-principal.module').then( m => m.MenuPrincipalPageModule) },
 ];
 
 @NgModule({

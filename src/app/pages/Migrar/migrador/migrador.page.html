@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="dark" menuId="menu-content">
+        <svg  class="menutoogle" class="www" xmlns="http://www.w3.org/2000/svg"  width="1.9em" height="1.9em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+        </svg>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title color="primary">Migrador</ion-title>
+    <ion-button slot="end" (click)="onClick()"   class="alert-button"  color="light" >
+      <ion-icon class="alet" name="notifications-outline" ></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <mat-accordion class="mt-8">
+    <div class="envioc pb-2">
+      <span class="listado"> Listado de Bases </span>
+      <span class="Cantidad">Cant. Bases:  0</span>
+    </div>
+
+    <!-- Detraccion -->
+    <mat-expansion-panel *ngFor="let item of [1,1]">
+      <mat-expansion-panel-header class="text-gray-800"  >
+        <mat-panel-title>
+          <div class="flex-col">
+            <span class="principal">DB_PRINCIPAL</span>
+            <span class="fecha">
+              <!-- <ion-icon color="success" class="checksucc" name="checkbox-outline"></ion-icon> -->
+              <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M11 15.5h2v2h-2v-2m3 3.5v-.4H5.4L12 7.3l4.11 7.14c.51-.44 1.09-.79 1.73-1.03L12 3.3L2 20.6h12.22c-.14-.51-.22-1.04-.22-1.6m-1-8.5h-2v4h2v-4m9.12 4.96L20 17.59l-2.12-2.13l-1.41 1.42L18.59 19l-2.12 2.12l1.41 1.42L20 20.41l2.12 2.13l1.42-1.42L21.41 19l2.13-2.12l-1.42-1.42z" fill="#EA3E3E"/></svg> -->
+             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true" focusable="false"  width="1.7em" height="1.7em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z" fill="#43B26E"/><path d="M11 13.586l-2.293-2.293l-1.414 1.414L11 16.414l6.207-6.207l-1.414-1.414z" fill="#43B26E"/></svg>
+              16/12/2020
+            </span>
+          </div>
+          <span  class="activo mb-4">Activo</span>
+          <!-- <span  class=" mb-4  inactivo">Inactivo</span> -->
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <label class="enviocompro">Envio de Comprobantes</label>
+      <ion-progress-bar color="success" value="0.5"></ion-progress-bar>
+      <div class="envioc">
+        <span class="porcentaje"> 104/221 </span>
+        <span class="porcentaje">100%</span>
+      </div>
+      <ion-button (click)="Ver()"  expand="block" color="success" >VER</ion-button>
+    </mat-expansion-panel>
+
+      <!-- Detraccion -->
+      <mat-expansion-panel *ngFor="let item of [1,1]">
+        <mat-expansion-panel-header class="text-gray-800"  >
+          <mat-panel-title>
+            <div class="flex-col">
+              <span class="principal">DB_PRINCIPAL</span>
+              <span class="fecha">
+                <!-- <ion-icon color="success" class="checksucc" name="checkbox-outline"></ion-icon> -->
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1.7em" height="1.7em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M11 15.5h2v2h-2v-2m3 3.5v-.4H5.4L12 7.3l4.11 7.14c.51-.44 1.09-.79 1.73-1.03L12 3.3L2 20.6h12.22c-.14-.51-.22-1.04-.22-1.6m-1-8.5h-2v4h2v-4m9.12 4.96L20 17.59l-2.12-2.13l-1.41 1.42L18.59 19l-2.12 2.12l1.41 1.42L20 20.41l2.12 2.13l1.42-1.42L21.41 19l2.13-2.12l-1.42-1.42z" fill="#EA3E3E"/></svg>
+               <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false"  width="1.7em" height="1.7em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z" fill="#43B26E"/><path d="M11 13.586l-2.293-2.293l-1.414 1.414L11 16.414l6.207-6.207l-1.414-1.414z" fill="#43B26E"/></svg>      -->
+                16/12/2020
+              </span>
+            </div>
+            <span  class=" mb-4  inactivo">Inactivo</span>
+            <!-- <span  class="activo mb-4">Activo</span> -->
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <label class="enviocompro">Envio de Comprobantes</label>
+        <ion-progress-bar color="success" value="0.5"></ion-progress-bar>
+        <div class="envioc">
+          <span class="porcentaje"> 104/221 </span>
+          <span class="porcentaje">100%</span>
+        </div>
+        <ion-button (click)="Ver()" expand="block" color="success" >VER</ion-button>
+      </mat-expansion-panel>
+  </mat-accordion>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger">
+      <ion-icon name="checkmark-done"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
