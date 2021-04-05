@@ -1,7 +1,7 @@
 .active {
-  --ion-text-color: var(--ion-color-primary);
+  --ion-text-color: var(--ion-color-light);
   ion-icon {
-    --ion-text-color-rgb: var(--ion-color-primary);
+    --ion-text-color-rgb: var(--ion-color-light);
   }
 }
 .active-parent {
@@ -65,8 +65,8 @@ ion-menu {
               }
               ion-icon {
                 color: white;
-                width: 26px;
-                height: 26px;
+                width: 25px;
+                height: 25px;
               }
             }
           }
@@ -74,4 +74,17 @@ ion-menu {
       }
     }
   }
+}
+
+
+.list-md {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  /* padding-top: 8px; */
+  /* padding-bottom: 8px; */
+  /* background: var(--ion-item-background, var(--ion-background-color, #fff)); */
 }
