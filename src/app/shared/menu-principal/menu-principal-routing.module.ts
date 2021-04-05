@@ -17,6 +17,7 @@ const routes: Routes = [
     children:[
       { path: 'migrador',           loadChildren:  ()  =>  import ('../../pages/Migrar/migrador/migrador.module').then( m => m.MigradorPageModule) },
       { path: 'proceso-migracion',  loadChildren:  ()  =>  import ('../../pages/Migrar/proceso-migracion/proceso-migracion.module').then( m => m.ProcesoMigracionPageModule)},
+      { path: 'error-migracion',  loadChildren: () => import('../../pages/migrar/error-migracion/error-migracion.module').then( m => m.ErrorMigracionPageModule) },
     ],
 
   }

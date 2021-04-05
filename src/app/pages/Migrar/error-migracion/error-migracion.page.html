@@ -1,0 +1,23 @@
+<ion-header>  
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  color="dark" defaultHref="/menu-principal/proceso-migracion"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Errores de Migración </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  class="ion-padding">
+  <ion-list>
+    <ion-item lines="none"  detail="true"  *ngFor="let item of  [1,1,1,1,1,1,1]" color="light" button class="ion-no-border">
+      <div class="flex-col">
+        <ion-label class="cabece">BV01- 940</ion-label>
+        <ion-label class="sub-title"> Fuera de fecha </ion-label>
+      </div>
+      </ion-item>    
+  </ion-list>
+  
+  <ion-button  (click)="presentLoading()"  color="factedsol" expand="block">
+    Procesar Todo
+  </ion-button>
+</ion-content>

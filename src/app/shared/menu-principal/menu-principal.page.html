@@ -1,32 +1,54 @@
-
-
 <ion-menu contentId="menu-content" menuId="menu-content" side="start" type="overlay">
   <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Menu</ion-title>
+    <ion-toolbar color="factedsol">
+      <ion-grid fixed class="ion-justify-content-center ion-align-items-center">
+        <ion-row>
+          <ion-col size="2">
+            <ion-button shape="round"  routerLink="/login" (click)="onClick()" color="factedsol">
+              <ion-icon name="backspace-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="8" class="ion-justify-content-center ion-align-items-center">
+            <ion-avatar class="ion-justify-content-center ion-align-items-center">
+              <img  src="https://s03.s3c.es/imag/_v0/770x420/3/8/9/Cesar-Acuna.jpg" />
+            </ion-avatar>
+            <ion-label>Cesar Acuña</ion-label>
+         
+          </ion-col>
+
+          <ion-col size="2">
+            <ion-button shape="round" class="roundas" (click)="onClick()" color="factedsol">
+              <ion-icon name="settings-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
     </ion-toolbar>
+
   </ion-header>
 
-  <ion-content>
-    <div  *ngFor="let p of pages">
-      <ion-menu-toggle  *ngIf="p.url">
-        <ion-item [routerLink]="p.url" routerDirection="root"  routerLinkActive="active">
+  <ion-content >
+    <div color="success" *ngFor="let p of pages">
+      <ion-menu-toggle *ngIf="p.url">
+        <ion-item [routerLink]="p.url" routerDirection="root" routerLinkActive="active">
           <ion-icon slot="start" [name]="p.icon"></ion-icon>
           <ion-label>{{p.title}} </ion-label>
         </ion-item>
       </ion-menu-toggle>
 
       <ion-item class="menunn" button *ngIf="p.children?. length > 0 " (click)=" p.open = !p.open"
-         [class.active-parent]="p.open" detail="false">
-         <ion-icon slot="start" [name]="p.icon"></ion-icon>
-         <ion-icon slot="end" name="chevron-forward-outline" *ngIf="!p.open"></ion-icon>
-         <ion-icon slot="end" name="chevron-down-outline" *ngIf="p.open"></ion-icon>
+        [class.active-parent]="p.open" detail="false">
+        <ion-icon slot="start" [name]="p.icon"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline" *ngIf="!p.open"></ion-icon>
+        <ion-icon slot="end" name="chevron-down-outline" *ngIf="p.open"></ion-icon>
         <ion-label> {{ p.title}} </ion-label>
       </ion-item>
 
       <ion-list *ngIf="p.open">
-        <ion-menu-toggle >
-          <ion-item class="sub-menu" *ngFor="let submenu of p.children" [routerLink]="submenu.url" routerDirection="root"  routerLinkActive="active">
+        <ion-menu-toggle>
+          <ion-item class="sub-menu" *ngFor="let submenu of p.children" [routerLink]="submenu.url"
+            routerDirection="root" routerLinkActive="active">
             <ion-icon slot="start" [name]="submenu.icon"></ion-icon>
             <ion-label>{{submenu.title}} </ion-label>
           </ion-item>

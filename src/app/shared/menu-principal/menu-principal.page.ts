@@ -11,7 +11,7 @@ export class MenuPrincipalPage implements OnInit {
   pages = [
 
     {
-      title: 'Main',
+      title: 'Home',
       url: '/menu-principal/migrador',
       icon: 'home',
     },

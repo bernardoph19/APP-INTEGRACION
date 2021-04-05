@@ -1,4 +1,4 @@
-.active{
+.active {
   --ion-text-color: var(--ion-color-primary);
   ion-icon {
     --ion-text-color-rgb: var(--ion-color-primary);
@@ -13,8 +13,65 @@
   font-size: 14px;
 }
 
-.menunn{
+.menunn {
   font-size: 15px;
   background: rgb(250, 143, 143);
+}
 
+ion-menu {
+  ion-header {
+    ion-toolbar {
+      ion-grid {
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        display: flex;
+        ion-row {
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          display: flex;
+          ion-col {
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            ion-label {            
+              font-style: normal;
+              font-weight: 500;
+              font-size: 15px;
+              line-height: 19px;   
+              display: flex;
+              margin-top: 5px;
+              align-items: center;
+              color: #ffffff;
+            }
+
+            ion-avatar {
+              box-shadow: 0px -1px 6px 2px rgba(212, 0, 0, 1);
+              -webkit-box-shadow: 0px -1px 6px 2px rgba(212, 0, 0, 1);
+              -moz-box-shadow: 0px -1px 6px 2px rgba(212, 0, 0, 1);
+              border: white;
+              box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+              filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
+            }
+            ion-button {
+              border-radius: 100% !important;
+              box-shadow: red 10px;
+              box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+              .roundas {
+                border-radius: 50% !important;
+              }
+              ion-icon {
+                color: white;
+                width: 26px;
+                height: 26px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

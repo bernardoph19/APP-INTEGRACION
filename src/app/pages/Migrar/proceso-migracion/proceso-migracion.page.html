@@ -2,7 +2,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="Atras"  color="dark" defaultHref="/menu-principal/migrador"></ion-back-button>
+      <ion-back-button  color="dark" defaultHref="/menu-principal/migrador"></ion-back-button>
     </ion-buttons>
     <ion-title titulo="Proceso de Migración"ion-title> Proceso de Migración </ion-title>
   </ion-toolbar>
@@ -34,11 +34,14 @@
     </div>
   </div>
 
+
   <div class="flex">
     <span class="rado"> </span>
-    <span class="comprobante">Comprobantes por enviar</span>
+    <span class="comprobante">Comprobantes por enviar</span>  
+    <a  class="ver-errores"  routerLink="/menu-principal/error-migracion" > ver Errores</a>  
   </div>
-
+ 
+  
   <div class="facturac">
     <span class="factura"> Facturas </span>
     <span class="factura"> 105 </span>
@@ -71,7 +74,7 @@
   </div>
 
 
-  <ion-button (click)="onClick()" expand="block"   color="danger">
+  <ion-button (click)="onClick()" expand="block"   color="factedsol">
     Migrar
   </ion-button>
 
