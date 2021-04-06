@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  color="dark" defaultHref="/menu-principal/proceso-migracion"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Nombres </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form>
+    <ion-card-content>
+   
+      <!-- Nombres -->
+      <ion-item>
+        <ion-input name="nombres" 
+                    type="text"
+                   placeholder="Nombres"
+                   required>
+       </ion-input>
+          <ion-icon  name="close-circle"></ion-icon>
+          <!-- <ion-icon slot="end" color="success" name="checkmark-circle"></ion-icon> -->
+      </ion-item>
+      <div>
+        <!-- <ng-container>
+          <div class="error_message">
+           campo requerido
+          </div>
+        </ng-container> -->
+      </div>
+
+        <!-- Apellidos -->
+        <ion-item>           
+          <ion-input name="apellidos" 
+                      type="text"                     
+                     placeholder="Apellidos"
+                     required>
+          </ion-input>
+          <!-- <ion-icon  name="close-circle"></ion-icon> -->
+          <ion-icon  color="success" name="checkmark-circle"></ion-icon>
+        </ion-item>
+        <div>
+          <ng-container>
+            <div class="error_message">
+             campo requerido
+            </div>
+          </ng-container>
+        </div>
+    </ion-card-content>
+
+    <ion-button (click)="onClick()" expand="block"   color="factedsol">
+     Guardar
+    </ion-button>
+  </form>
+
+
+
+
+</ion-content>

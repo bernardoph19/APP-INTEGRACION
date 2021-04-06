@@ -28,24 +28,23 @@ export class MenuPrincipalPage implements OnInit {
        ]
     },
 
-     {
-       title: 'Reportes',
+     {  title: 'Reportes',
        icon: 'bar-chart-outline',
         children:[
           {
             title: 'Rep. Administrativo',
-            url: '/menu/ionic',
+            url: '/menu-principal/rep-administrativo',
             icon: 'logo-ionic',
           },
 
           {
             title: 'Rep. Contable',
-            url: '/menu/flutter',
+            url: '/menu-principal/rep-contable',
             icon: 'logo-ionic',
           },
         ]
      }
-
+     
   ];
   constructor() { }
 

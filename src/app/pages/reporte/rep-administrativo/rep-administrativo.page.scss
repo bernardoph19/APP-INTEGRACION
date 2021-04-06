@@ -1,0 +1,111 @@
+ion-title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  color: #262626;
+}
+.bd {
+  padding: 2px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  justify-items: center;
+  background: #dadada;
+  border-radius: 100%;
+  margin-right: 5px;
+  font-weight: 500;
+  font-size: 15px;
+  color: #263238;
+}
+
+.bd-principal {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  align-items: flex-end;
+  letter-spacing: 0.01em;
+  color: #263238;
+}
+
+.bdprincipal {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+ion-content {
+  ion-list {
+    display: flex;
+    flex-direction: column;
+
+    ion-item {
+      flex-direction: column;
+
+      ion-icon {
+        background: #fdecec;
+        border-radius: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        color: #ea3e3e;
+      }
+
+      ion-label {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        align-items: center;
+        letter-spacing: 0.01em;
+        color: #313131;
+      }
+      .datos {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 14px;
+        display: flex;
+        align-items: center;
+
+        color: #777777;
+      }
+
+      .fecha {
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 5px ;
+      }
+
+      .fech {
+        width: 30px;
+        height: 30px;
+        background: #fdecec;
+        border-radius: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+
+  ion-grid{
+    ion-row{
+      ion-col{
+        font-size: 13px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+
+.icons-calen{
+  width: 20px;
+  height: 20px;
+}

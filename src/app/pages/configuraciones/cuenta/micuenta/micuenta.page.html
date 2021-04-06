@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="bg" class="ion-padding">
+<ion-content  class=" bg" color="light">
   <!-- <ion-list>
     <ion-item lines="none">
       <ion-avatar>
@@ -18,24 +18,26 @@
   </ion-list> -->
 
 
-  <div class="micuenta">
+  <div class="micuenta" >
     <ion-grid fixed>
       <ion-row>
-        <ion-col size="6">     
+        <ion-col size="7">     
           <ion-icon name="mail-outline"></ion-icon>                        
-          <ion-label> johns98@hotmail.com </ion-label>   
+          <ion-label>thomas12@gmail.com </ion-label>   
         </ion-col>
-        <ion-col size="6">
+        <ion-col size="5">
           <ion-icon class="telefono" name="call-outline"></ion-icon>                      
           <ion-label> 985 124 548 </ion-label>   
         </ion-col>
       </ion-row>
-    </ion-grid>
-      <h1 class="info">Información Personal</h1>
-  </div>
+    </ion-grid>  
 
+
+
+      
   <ion-list>
-    <ion-item button >   
+    <h1 class="info">Información Personal</h1>
+    <ion-item button (click)="editarNombre()" >   
       <ion-icon  slot="end" name="person-outline"></ion-icon>       
       <div class="flex-col">
       <ion-label class="nom">Nombre</ion-label>
@@ -59,30 +61,27 @@
   </ion-list>
 
  
-  <h1 class="info">Información Personal</h1>
-  <ion-list>
+  <ion-list>    
+    <label class="info">Cambiar Contraseña</label>
     <ion-item button >   
-      <ion-icon  slot="end" name="person-outline"></ion-icon>       
-      <div class="flex-col">
-      <ion-label class="nom">Nombre</ion-label>
-      <ion-label class="nombre">Alexander Mercedez Carranza</ion-label>
-     </div>     
-    </ion-item>
-    <ion-item button >   
-      <ion-icon slot="end" name="mail-unread-outline"></ion-icon>
+      <ion-icon slot="end" name="person-circle-outline"></ion-icon>
       <div class="flex-col">
       <ion-label class="nom">Usuario </ion-label>
       <ion-label class="nombre">Admin</ion-label>
      </div>     
     </ion-item>
     <ion-item button > 
-      <ion-icon slot="end" name="call-outline"></ion-icon>  
+      <ion-icon slot="end" name="lock-closed"></ion-icon>
       <div class="flex-col">
       <ion-label class="nom">Contraseña</ion-label>
-      <ion-label class="nombre">954 216 287</ion-label>
+      <ion-label class="nombre">**********</ion-label>
      </div>     
     </ion-item>
   </ion-list>
+
+  </div>
+
+
 
 </ion-content>
 

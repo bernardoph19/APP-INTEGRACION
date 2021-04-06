@@ -14,10 +14,10 @@ const routes: Routes = [
     component: MenuConfiguracionesPage,
 
     children:[
-      { path: 'micuenta',          loadChildren: () => import('../../pages/configuracones/micuenta/micuenta.module').then( m => m.MicuentaPageModule) },
-      { path: 'usuarios',          loadChildren: () => import('../../pages/configuracones/usuarios/usuarios.module').then( m => m.UsuariosPageModule) },
-      { path: 'conexiones',        loadChildren: () => import('../../pages/configuracones/conexiones/conexiones.module').then( m => m.ConexionesPageModule) },
-      { path: 'facturacion-sunat', loadChildren: () => import('../../pages/configuracones/facturacion-sunat/facturacion-sunat.module').then( m => m.FacturacionSunatPageModule) },
+      { path: 'micuenta',          loadChildren: () => import('../../pages/configuraciones/cuenta/micuenta/micuenta.module').then( m => m.MicuentaPageModule) },
+      { path: 'usuarios',          loadChildren: () => import('../../pages/configuraciones/usuarios/usuarios.module').then( m => m.UsuariosPageModule) },
+      { path: 'conexiones',        loadChildren: () => import('../../pages/configuraciones/conexiones/conexiones.module').then( m => m.ConexionesPageModule) },
+      { path: 'facturacion-sunat', loadChildren: () => import('../../pages/configuraciones/facturacion-sunat/facturacion-sunat.module').then( m => m.FacturacionSunatPageModule) },
       ],    
   }
 ];
