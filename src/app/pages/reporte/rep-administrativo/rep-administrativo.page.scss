@@ -46,6 +46,17 @@ ion-content {
 
     ion-item {
       flex-direction: column;
+      ion-input{
+        font-size: 14px;
+      }
+      ion-select{
+        font-size: 14px;
+
+        ion-select-option{
+          font-size: 14px;
+          font-weight: 400;
+       }
+      }
 
       ion-icon {
         background: #fdecec;
@@ -58,8 +69,8 @@ ion-content {
 
       ion-label {
         font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
+        font-weight: 500px;
+        font-size: 15px;
         line-height: 24px;
         align-items: center;
         letter-spacing: 0.01em;
@@ -77,9 +88,14 @@ ion-content {
       }
 
       .fecha {
-        font-size: 14px;
+        font-style: normal;
         font-weight: 500;
-        margin-left: 5px ;
+        font-size: 14px;
+        line-height: 24px;
+        padding-left: 5px;
+        align-items: center;
+        letter-spacing: 0.01em;
+        color: #313131;
       }
 
       .fech {
@@ -93,19 +109,91 @@ ion-content {
     }
   }
 
+  .fecha {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    padding-left: 5px;
+    align-items: center;
+    letter-spacing: 0.01em;
+    color: #313131;
+  }
+
+  #ionc-icons{
+    background: #fdecec;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    color: #ea3e3e;
+  }
+
+
 
   ion-grid{
     ion-row{
+      width: 100%;
       ion-col{
         font-size: 13px;
         font-weight: 400;
+        width: 100%;
+        ion-select{
+          ion-select-option{
+            font-size: 14px;
+            font-weight: 400;
+            .select-text {
+              flex: 1 1 0%;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+              font-size: 14px;
+            }
+         }
+        }
+
+
+
+        ion-label{
+
+        }
+        ion-item{
+          display: flex;
+          flex-direction: column;
+        }
+        .input-calendar{
+          width: 80px;
+          font-size: 14px;
+          border: none;
+          color: #455A64;
+          background: #F4F5F8;
+        }
+
+        .input-calendar:focus{
+          outline: none;
+        }
+
+        .datepikerbut{
+          padding: 3px;
+          border-radius: 100%;
+
+        }
+        .datepikerbut:focus{
+          outline: none;
+        }
+
+        .icons-calen{
+          width: 22px;
+          height: 22px;
+          color: #455A64;
+        }
+
       }
     }
   }
+
+
+
 }
 
 
-.icons-calen{
-  width: 20px;
-  height: 20px;
-}

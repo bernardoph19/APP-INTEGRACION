@@ -2,9 +2,6 @@
   <ion-toolbar>
     <ion-buttons slot="start" class="md">
       <ion-menu-button color="dark" menuId="menu-content">
-        <svg  class="menutoogle" class="www" xmlns="http://www.w3.org/2000/svg"  width="1.2em" height="1.2em" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
-        </svg>
       </ion-menu-button>
     </ion-buttons>
     <ion-title color="primary">Reporte Administrativo</ion-title>
@@ -18,35 +15,76 @@
         <div class="flex-col">
          <ion-label>Modos de busqueda</ion-label>
          <ion-label class="datos">Ingresa datos para un mejor resultado</ion-label>
-        </div>    
+        </div>
        </ion-item>
-   
-      <ion-item lines="none">  
+
+      <ion-item lines="none">
          <ion-icon name="calendar-outline"></ion-icon>
          <ion-label class="fecha">Fecha</ion-label>
        </ion-item>
      </ion-list>
-   
+
      <ion-grid fixed>
        <ion-row>
-         <ion-col size="6">  
-           <ion-item >
-             <input placeholder="12/12/2020" [matDatepicker]="picker">  
-             <mat-datepicker #picker></mat-datepicker>
-             <button clas (click)="picker.open()">
-               <ion-icon class="icons-calen" name="calendar-outline"></ion-icon>
-             </button>  
-           </ion-item>
-           
-             </ion-col>
          <ion-col size="6">
-           
+           <ion-label class="inicio">Inicio</ion-label>
+           <ion-item color="light" lines="none" shapes="round">
+              <input placeholder="12/12/2020" class="input-calendar"  [matDatepicker]="fechaInicio">
+              <mat-datepicker #fechaInicio></mat-datepicker>
+              <button  class="datepikerbut"  (click)="fechaInicio.open()">
+                <ion-icon class="icons-calen" name="calendar-outline"></ion-icon>
+              </button>
+           </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-label class="inicio">Fin</ion-label>
+            <ion-item color="light" lines="none">
+               <input placeholder="12/12/2020" class="input-calendar"  [matDatepicker]="fechaFin">
+               <mat-datepicker #fechaFin></mat-datepicker>
+               <button  class="datepikerbut" clas (click)="fechaFin.open()">
+                 <ion-icon class="icons-calen" name="calendar-outline"></ion-icon>
+               </button>
+            </ion-item>
+           </ion-col>
+       </ion-row>
+     </ion-grid>
 
+     <ion-list>
+      <ion-item lines="none">
+        <ion-icon  id="ionc-icons" name="document"></ion-icon>
+        <ion-label class="fecha">Serie y Número </ion-label>
+      </ion-item>
+     </ion-list>
+
+     <ion-grid fixed>
+       <ion-row>
+         <ion-col size="6">
+          <ion-label class="inicio">Serie</ion-label>
+         <ion-list>
+          <ion-item lines="none" color="light">
+            <ion-select  interface="popover" placeholder="B001">
+              <ion-select-option value="B003">B011</ion-select-option>
+              <ion-select-option value="B004">B024</ion-select-option>
+              <ion-select-option value="B005">B021</ion-select-option>
+            </ion-select>
+          </ion-item>
+         </ion-list>
+
+         </ion-col>
+         <ion-col size="6">
+          <ion-label class="inicio"> Número</ion-label>
+          <ion-list>
+            <ion-item color="light" lines="none">
+            <ion-input type="number"  class="" placeholder="00023"></ion-input>
+            </ion-item>
+          </ion-list>
          </ion-col>
        </ion-row>
      </ion-grid>
-    
+
+
+
   </div>
- 
+
 
 </ion-content>
