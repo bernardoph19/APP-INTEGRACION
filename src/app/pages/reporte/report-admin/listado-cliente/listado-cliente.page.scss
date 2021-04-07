@@ -1,0 +1,82 @@
+ion-title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  color: #262626;
+}
+
+ion-button {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+ion-content {
+  ion-searchbar {
+    font-size: 14px;
+
+    .buscar {
+      font-size: 14px;
+    }
+  }
+
+  ion-list{
+    ion-radio-group{
+      padding-bottom: 14px;
+      ion-item{
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border-bottom: 0.5px solid #CBCBCB;       
+      }
+    }
+  }
+  
+  
+}
+
+.ruc {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: #4a4a4a;
+}
+
+.empresa {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.direcion { 
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  text-transform: uppercase;
+
+  color: #6e7b9b;
+}
+
+
+.p-b-1{
+  padding-bottom: 3px;
+}
+
+.icons{
+  width: 22px;
+  height: 22px;
+}

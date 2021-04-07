@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+   <ion-button slot="start" (click)="cancelar()" expand="block" fill="clear" color="dark" shape="round">
+    <ion-icon class="icons" name="backspace"></ion-icon>
+   </ion-button>
+    <ion-title>Cliente</ion-title>
+    <ion-button (click)="guardar()" slot="end" expand="block" fill="clear" color="factedsol" shape="round">
+      Guardar
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-searchbar placeholder="Buscar Cliente" class="buscar"></ion-searchbar>
+
+  <ion-list>
+    <ion-radio-group value="biff" *ngFor="let item of [1,1,1,1,1,1] ">    
+    
+      <ion-item lines="none">
+        <ion-radio color="danger" slot="start" value="bif"></ion-radio>
+        <div class="p-b-1">
+          <label class="ruc" >20525426778</label>
+          <label class="empresa" >CONCEPTOS & CONSTRUCCIONES V.G EIRL</label>
+          <label class="direcion">JR. ABAD PUELL NRO. 791 (LADO HOTEL COSTA DEL SOL) TUMBES - TUMBES - TUMBES</label>
+        </div>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-radio color="danger" slot="start" value="bifds"></ion-radio>
+        <div class="p-b-1">
+          <label class="ruc" >20525426778</label>
+          <label class="empresa" >CONCEPTOS & CONSTRUCCIONES V.G EIRL</label>
+          <label class="direcion">JR. ABAD PUELL NRO. 791 (LADO HOTEL COSTA DEL SOL) TUMBES - TUMBES - TUMBES</label>
+        </div>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-radio color="danger" slot="start" value="bifs"></ion-radio>
+        <div class="p-b-1">
+          <label class="ruc" >20525426778</label>
+          <label class="empresa" >CONCEPTOS & CONSTRUCCIONES V.G EIRL</label>
+          <label class="direcion">JR. ABAD PUELL NRO. 791 (LADO HOTEL COSTA DEL SOL) TUMBES - TUMBES - TUMBES</label>
+        </div>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+</ion-content>
