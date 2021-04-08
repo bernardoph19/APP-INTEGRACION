@@ -9,17 +9,16 @@ import {take} from 'rxjs/operators';
 })
 export class MostrarComprobantesPage implements OnInit {
 
+  app_bar: boolean;
+
   constructor(private _ngZone: NgZone) {}
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  triggerResize() {
-    // Wait for changes to be applied, then trigger textarea resize.
-    this._ngZone.onStable.pipe(take(1))
-        .subscribe(() => this.autosize.resizeToFitContent(true));
-  }
-
   ngOnInit() {
+  }
+  onClick(){
+    
   }
 
 }

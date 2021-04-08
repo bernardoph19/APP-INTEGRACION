@@ -12,16 +12,15 @@ ion-button {
   font-size: 14px;
   text-transform: capitalize;
 }
+ion-searchbar{
+   font-size: 13px;
+   font-style: normal;
+   font-weight: 500;
+}
 
 ion-content {
-  ion-searchbar {
-    font-size: 14px;
-
-    .buscar {
-      font-size: 14px;
-    }
-  }
-
+ 
+  
   ion-list{
     ion-radio-group{
       padding-bottom: 14px;
