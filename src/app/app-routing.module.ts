@@ -15,6 +15,8 @@ const routes: Routes = [
   { path: 'micuenta',              loadChildren: () => import('./pages/configuraciones/cuenta/micuenta/micuenta.module').then( m => m.MicuentaPageModule) },
   { path: 'editar-nombre',         loadChildren: () => import('./pages/configuraciones/cuenta/editar-nombre/editar-nombre.module').then( m => m.EditarNombrePageModule) },
   { path: 'listado-cliente',       loadChildren: () => import('./pages/reporte/report-admin/listado-cliente/listado-cliente.module').then( m => m.ListadoClientePageModule) },
+  
+
 
 ];
 
