@@ -3,16 +3,16 @@
   <ion-toolbar *ngIf="!app_bar">
     <ion-buttons slot="start">
       <ion-back-button  color="dark" defaultHref="/menu-principal/rep-administrativo">
-        <ion-icon name="funnel"></ion-icon>
+        <ion-icon color="dark" name="funnel"></ion-icon>
       </ion-back-button>
     </ion-buttons>
     <ion-title >Reporte Administrativo</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="app_bar = !app_bar">
-        <ion-icon src="assets/img/check.svg"></ion-icon> 
+      <ion-button    (click)="app_bar = !app_bar">
+        <ion-icon color="dark" src="assets/img/check.svg"></ion-icon> 
       </ion-button>
       <ion-button (click)="onClick()">
-        <ion-icon name="funnel" ></ion-icon>   
+        <ion-icon color="dark" name="funnel" ></ion-icon>   
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -21,7 +21,7 @@
   <ion-toolbar *ngIf="app_bar">
     <ion-buttons slot="start">
       <ion-button (click)=" app_bar = !app_bar ">
-        <ion-icon name="close"></ion-icon>
+        <ion-icon color="dark"  name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -30,15 +30,15 @@
     <ion-buttons slot="end">
       <!-- selecionar todos los chech -->
       <ion-button (click)="onClick()">
-        <ion-icon  src="assets/img/selecionartodos.svg"></ion-icon>
+        <ion-icon color="dark"  src="assets/img/selecionartodos.svg"></ion-icon>
       </ion-button>
       <!-- compartirt -->
       <ion-button (click)="onClick()">
-        <ion-icon name="share-social"></ion-icon>
+        <ion-icon color="dark"  name="share-social"></ion-icon>
       </ion-button>
       <!-- descargar -->
       <ion-button (click)="onClick()">
-        <ion-icon name="cloud-download"></ion-icon> 
+        <ion-icon color="dark"  name="cloud-download"></ion-icon> 
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
