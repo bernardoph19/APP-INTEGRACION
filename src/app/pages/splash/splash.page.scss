@@ -1,0 +1,96 @@
+.cabece {
+    display: flex;
+    background: white; 
+    justify-content: start;
+    padding-left: 17px;
+  }
+  
+  .fs {
+    width: 40px;
+    height: 40px;
+    background-color: #EA3E3E;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    padding: 4px 4px;
+    border-radius: 5px;
+  }
+  
+  .flex-col {
+    flex-direction: column;
+    display: flex;
+    padding-left: 10px;
+  }
+  
+  .center{
+     justify-content: center;
+     align-items: center;
+     margin: auto;
+     height: 100%;
+     width: 100%;
+  }
+  .text-sm {
+    font-size: medium;
+    color: #282828;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 10px;  
+  }
+  
+  .text-color{
+  font-family: Hind Jalandhar;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 30px;
+  display: flex;
+  color: #EA3E3E;
+  align-items: center;
+  animation-delay: 2s ;
+  animation: 2s ease-out infinite;
+  letter-spacing: 0.02em;  
+  }
+  
+
+
+  
+.animated {
+    -webkit-animation-duration: 4s;
+    animation-duration: 4s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.animated.fast {
+    -webkit-animation-duration: 1000ms;
+    animation-duration: 1000ms;
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+  }
+ 
+  
