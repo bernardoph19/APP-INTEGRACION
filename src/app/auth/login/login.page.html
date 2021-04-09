@@ -18,61 +18,72 @@
         Inicie sesión para continuar
       </ion-card-subtitle>
     </ion-card-header>
-    <form>
+
+    <form (ngSubmit)="inicioSesion()" [formGroup]="formLogin">
       <ion-card-content>
+          
         <!-- ruc -->
-        <ion-item>
-          <ion-input name="ruc" type="text" placeholder="Ruc">
-            <ion-icon name="business-outline"></ion-icon>
-          </ion-input>
-        </ion-item>
-        <!-- <div>
-          <ng-container>
-            <div class="error_message">
-             campo requerido
-            </div>
-          </ng-container>
-        </div> -->
-        <!-- Usuario -->
-        <ion-item>
-          <ion-input name="names" type="text" placeholder="Usuario">
-            <ion-icon name="person-outline"></ion-icon>
-          </ion-input>
-        </ion-item>
-        <div>
-          <!-- <ng-container>
-            <div class="error_message">
-             campo requerido
-            </div>
-          </ng-container> -->
-        </div>
+          <ion-item>
+            <ion-input name="ruc" type="text" placeholder="Ruc" formControlName="ruc" required [class.error]="rucNovalido">
+              <ion-icon name="business-outline"></ion-icon>
+            </ion-input>
+          </ion-item>
+          
+          <div *ngIf="rucNovalido">
+            <ng-container>
+              <div class="error_message">
+                Campo requerido
+              </div>
+            </ng-container>
+          </div>
+         
+          <!-- Usuario -->
+          <ion-item>
+            <ion-input name="names" type="text" placeholder="Usuario" formControlName="usuario">
+              <ion-icon name="person-outline"></ion-icon>
+            </ion-input>
+          </ion-item>
+          <div *ngIf="userNovalido">
+            <ng-container>
+              <div class="error_message">
+              campo requerido
+              </div>
+            </ng-container>
+          </div>
 
-        <!-- password -->
-        <ion-item>
-          <ion-input name="password" type="password" placeholder="Contraseña">
-            <ion-icon name="lock-closed"></ion-icon>
-          </ion-input>
-        </ion-item>
-        <div>
-          <!-- <ng-container>
-            <div class="error_message">
-             campo requerido
-            </div>
-          </ng-container> -->
-        </div>
+          <!-- password -->
+          <ion-item>
+            <ion-input name="password" type="password" placeholder="Contraseña" formControlName="password">
+              <ion-icon name="lock-closed"></ion-icon>
+            </ion-input>
+          </ion-item>
+          <div *ngIf="passNovalido">
+            <ng-container>
+              <div class="error_message">
+              campo requerido
+              </div>
+            </ng-container>
+          </div>
 
-        <div class="olvist">
-          <a class="olvist">¿Olvidaste tu contraseña? </a>
-        </div>
-        <div class="sign-btn-wrap">
-          <ion-button routerLink="/inicio" shape="round" type="submit" fill="solid" class="sign-btn">
-            Iniciar
-          </ion-button>
-        </div>
-        <div class="text-tag">
-          <span>¿No tienes una cuenta? <a class="registr"> Registrate</a> </span>
-        </div>
+          <!-- Olvidaste tu contraseña -->
+          <div class="olvist">
+            <a class="olvist">¿Olvidaste tu contraseña? </a>
+          </div>
+
+          <!-- Submit Inicar -->
+          <div class="sign-btn-wrap">
+            <ion-button  shape="round" type="submit" fill="solid" class="sign-btn">  <!-- routerLink="/inicio" -->
+              Iniciar
+            </ion-button>
+          </div>
+
+          <!-- No tienes una cuenta -->
+          <div class="text-tag">
+            <span>¿No tienes una cuenta? <a class="registr"> Registrate</a> </span>
+          </div>
+
       </ion-card-content>
     </form>
+
   </ion-card>
 </ion-content>
