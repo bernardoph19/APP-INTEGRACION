@@ -13,10 +13,8 @@ export class AppComponent {
   
   constructor(private platform: Platform,
     private statusBar: StatusBar,
-    private router: Router,
-  ) 
-
-  {
+    private router: Router
+  ) {
     this.iniciarApp();
   }
 
