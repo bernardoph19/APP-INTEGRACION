@@ -1,12 +1,16 @@
 <ion-header>
   <ion-toolbar>
-   <ion-button slot="start" (click)="cancelar()" expand="block" fill="clear" color="dark" shape="round">
-    <ion-icon class="icons" name="backspace"></ion-icon>
-   </ion-button>
-    <ion-title>Cliente</ion-title>
-    <ion-button (click)="guardar()" slot="end" expand="block" fill="clear" color="factedsol" shape="round">
-      Guardar
+  <ion-buttons slot="start">
+    <ion-button (click)="onClick()">
+      <ion-icon slot="start" name="close"></ion-icon>     
     </ion-button>
+  </ion-buttons>
+    <ion-title>Lista Cliente</ion-title>  
+    <ion-buttons slot="end">
+      <ion-button  expand="block" fill="clear" color="factedsol" shape="round">
+        Guardar
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

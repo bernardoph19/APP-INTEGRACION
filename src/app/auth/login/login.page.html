@@ -1,5 +1,4 @@
 <ion-content class="bg-color">
-
   <div class="cabece">
     <div>
       <span class="fs">FS</span>
@@ -21,7 +20,6 @@
     </ion-card-header>
     <form>
       <ion-card-content>
-
         <!-- ruc -->
         <ion-item>
           <ion-input name="ruc" type="text" placeholder="Ruc">
@@ -49,36 +47,31 @@
           </ng-container> -->
         </div>
 
-
-
-
+        <!-- password -->
         <ion-item>
           <ion-input name="password" type="password" placeholder="Contraseña">
             <ion-icon name="lock-closed"></ion-icon>
           </ion-input>
         </ion-item>
-        <!-- <ng-container *ngFor="let validation of validationMessages.password">
+        <div>
+          <!-- <ng-container>
+            <div class="error_message">
+             campo requerido
+            </div>
+          </ng-container> -->
+        </div>
 
-          <div class="error_message"
-            *ngIf="ValidationFormUSer.get('password').hasError(validation.type) && (ValidationFormUSer.get('password').dirty || ValidationFormUSer.get('password').touched)">
-            {{validation.message}}
-          </div>
-
-        </ng-container> -->
         <div class="olvist">
           <a class="olvist">¿Olvidaste tu contraseña? </a>
         </div>
-
         <div class="sign-btn-wrap">
           <ion-button routerLink="/inicio" shape="round" type="submit" fill="solid" class="sign-btn">
             Iniciar
           </ion-button>
         </div>
-
         <div class="text-tag">
           <span>¿No tienes una cuenta? <a class="registr"> Registrate</a> </span>
         </div>
-
       </ion-card-content>
     </form>
   </ion-card>

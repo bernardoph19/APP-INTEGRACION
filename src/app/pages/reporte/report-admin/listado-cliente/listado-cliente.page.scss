@@ -1,12 +1,13 @@
 ion-title {
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 19px;
   display: flex;
   align-items: center;
   color: #262626;
 }
+
 
 ion-button {
   font-size: 14px;
@@ -19,8 +20,6 @@ ion-searchbar{
 }
 
 ion-content {
- 
-  
   ion-list{
     ion-radio-group{
       padding-bottom: 14px;

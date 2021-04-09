@@ -15,7 +15,7 @@ const routes: Routes = [
     component: MenuPrincipalPage,
 
     children:[
-            
+
       { path: 'migrador',             loadChildren:  ()  =>  import ('../../pages/Migrar/migrador/migrador.module').then( m => m.MigradorPageModule) },
       { path: 'proceso-migracion',    loadChildren:  ()  =>  import ('../../pages/Migrar/proceso-migracion/proceso-migracion.module').then( m => m.ProcesoMigracionPageModule)},
       { path: 'error-migracion',      loadChildren:  ()  =>  import ('../../pages/migrar/error-migracion/error-migracion.module').then( m => m.ErrorMigracionPageModule) },
@@ -23,8 +23,8 @@ const routes: Routes = [
       { path: 'rep-contable',         loadChildren:  ()  =>  import ('../../pages/reporte/rep-contable/rep-contable.module').then( m => m.RepContablePageModule) },
       { path: 'mostrar-comprobantes', loadChildren:  ()  =>  import ('../../pages/reporte/report-admin/mostrar-comprobantes/mostrar-comprobantes.module').then( m => m.MostrarComprobantesPageModule)},
       { path: 'detalle-comprobante',  loadChildren:   () =>  import('../../pages/reporte/report-admin/detalle-comprobante/detalle-comprobante.module').then( m => m.DetalleComprobantePageModule)},  
+    
     ],
-
   }
 ];
 
