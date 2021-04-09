@@ -23,7 +23,6 @@ const routes: Routes = [
       { path: 'rep-contable',         loadChildren:  ()  =>  import ('../../pages/reporte/rep-contable/rep-contable.module').then( m => m.RepContablePageModule) },
       { path: 'mostrar-comprobantes', loadChildren:  ()  =>  import ('../../pages/reporte/report-admin/mostrar-comprobantes/mostrar-comprobantes.module').then( m => m.MostrarComprobantesPageModule)},
       { path: 'detalle-comprobante',  loadChildren:   () =>  import('../../pages/reporte/report-admin/detalle-comprobante/detalle-comprobante.module').then( m => m.DetalleComprobantePageModule)},  
-    
     ],
   }
 ];

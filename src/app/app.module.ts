@@ -8,6 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './module.material';
 import { SharedModule } from './shared/shared.module';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 576a957b036c04108c2e87cefe11ee0f57a44de9
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +21,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
+<<<<<<< HEAD
     DemoMaterialModule,
     SharedModule    
   ],
@@ -24,6 +29,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
     StatusBar,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
+=======
+     DemoMaterialModule,
+    SharedModule,
+  ],
+  providers: [
+    StatusBar,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+>>>>>>> 576a957b036c04108c2e87cefe11ee0f57a44de9
   bootstrap: [AppComponent],
 })
 export class AppModule {}

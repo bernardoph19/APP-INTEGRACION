@@ -10,10 +10,18 @@ import { Router } from '@angular/router';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  
   constructor(private platform: Platform,
     private statusBar: StatusBar,
+<<<<<<< HEAD
     private router: Router
   ) {
+=======
+    private router: Router,
+  ) 
+
+  {
+>>>>>>> 576a957b036c04108c2e87cefe11ee0f57a44de9
     this.iniciarApp();
   }
 
@@ -24,4 +32,5 @@ export class AppComponent {
       this.router.navigateByUrl('splash');
     });
   }
+
 }

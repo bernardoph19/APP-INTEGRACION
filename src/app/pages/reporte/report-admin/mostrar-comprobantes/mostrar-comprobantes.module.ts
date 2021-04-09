@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MostrarComprobantesPageRoutingModule } from './mostrar-comprobantes-routing.module';
 
 import { MostrarComprobantesPage } from './mostrar-comprobantes.page';
-import { DemoMaterialModule } from '../../../../module.material';
+ import { DemoMaterialModule } from '../../../../module.material';
 
 @NgModule({
   imports: [
