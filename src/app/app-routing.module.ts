@@ -3,11 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  // {
-  //   path: '',
-  //   redirectTo: 'login',
-  //   pathMatch: 'full'
-  // },
+  //  {
+  //    path: '',
+  //    redirectTo: 'login',
+  //    pathMatch: 'full'
+  //  },
 
   { path:  'login',                loadChildren: () => import  ('./auth/login/login.module')                                 .then( m => m.LoginPageModule)     },
   { path:  'inicio',               loadChildren: () => import  ('./pages/inicio/inicio.module')                              .then( m => m.InicioPageModule)    },
@@ -16,9 +16,7 @@ const routes: Routes = [
   { path: 'micuenta',              loadChildren: () => import('./pages/configuraciones/cuenta/micuenta/micuenta.module').then( m => m.MicuentaPageModule) },
   { path: 'editar-nombre',         loadChildren: () => import('./pages/configuraciones/cuenta/editar-nombre/editar-nombre.module').then( m => m.EditarNombrePageModule) },
   { path: 'listado-cliente',       loadChildren: () => import('./pages/reporte/report-admin/listado-cliente/listado-cliente.module').then( m => m.ListadoClientePageModule) },
-  {
-    path: 'splash',
-    loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
+  { path: 'splash',                loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
   },  
 
 

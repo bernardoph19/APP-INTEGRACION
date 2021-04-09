@@ -7,14 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { RepAdministrativoPageRoutingModule } from './rep-administrativo-routing.module';
 
 import { RepAdministrativoPage } from './rep-administrativo.page';
-import { DemoMaterialModule } from '../../../../module.material';
+ import { DemoMaterialModule } from '../../../../module.material';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DemoMaterialModule,
+     DemoMaterialModule,
     RepAdministrativoPageRoutingModule
   ],
   declarations: [RepAdministrativoPage]

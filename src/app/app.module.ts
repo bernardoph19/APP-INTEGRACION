@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './module.material';
 import { SharedModule } from './shared/shared.module';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,10 +18,12 @@ import { SharedModule } from './shared/shared.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
-    DemoMaterialModule,
+     DemoMaterialModule,
     SharedModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    StatusBar,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
