@@ -1,20 +1,21 @@
 <ion-header>
   <ion-toolbar>
   <ion-buttons slot="start">
-    <ion-button (click)="onClick()">
+    <ion-button (click)="cancelar()">
       <ion-icon slot="start" name="close"></ion-icon>     
     </ion-button>
   </ion-buttons>
     <ion-title>Lista Cliente</ion-title>  
     <ion-buttons slot="end">
-      <ion-button  expand="block" fill="clear" color="factedsol" shape="round">
+      <ion-button (click)="guardar()" expand="block" fill="clear" color="factedsol" shape="round">
         Guardar
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+
+<ion-content>
   <ion-searchbar placeholder="Buscar Cliente"  class="buscar"></ion-searchbar>
   <ion-list>
     <ion-radio-group value="biff" *ngFor="let item of [1,1,1,1,1,1] ">    
