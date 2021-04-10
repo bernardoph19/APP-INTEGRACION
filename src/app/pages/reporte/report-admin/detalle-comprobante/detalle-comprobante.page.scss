@@ -19,16 +19,19 @@
   line-height: 16px;
   display: flex;
   align-items: center;
-  text-align: center;        
+  text-align: center; 
+        
  }
+ 
  
 
  .noenviado{
-     width: 0.8rem; 
-     height: 0.8rem; 
+     width:  1rem; 
+     height: 1rem; 
      background: #EA3E3E;
      border-radius: 100%;  
-     border-radius: 80px;
+     margin-left: -5px;
+     border: white 2px solid;    
  }
  .enviado{
      width: 1rem; 
@@ -36,8 +39,13 @@
      background: #3DC873;
      border-radius: 100%;
      margin-left: -5px;
-     border: white 2px solid;    
-     border-radius: 80px;
+     border: white 2px solid;   
+    
+ }
+
+ .border-b{
+  border: 1px solid rgba(126, 131, 137, 0.2);
+  margin-top: 4px;
  }
  .focus{
     outline: none;
@@ -56,3 +64,105 @@
     
     color: #424242;
  }
+
+ .coprobanteenviado{  
+   background: #BDBDBD;
+ }
+
+ ion-item{
+
+  ion-label{
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+  }
+  ion-select{
+    font-size: 14px;
+    ion-select-option span{
+     
+    }
+  }
+  
+ }
+
+ #alert-1-hdr{
+   font-size: 14px;
+ }
+
+ .ruc {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: #4a4a4a;
+}
+
+.empresa {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.direcion { 
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  text-transform: uppercase;
+
+  color: #6e7b9b;
+}
+
+
+.p-b-1{
+  padding-bottom: 3px;
+}
+
+.icons{
+  width: 22px;
+  height: 22px;
+}
+
+#ionc-icons{
+  background: #fdecec;
+  border-radius: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: #ea3e3e;
+  margin-right: 5px;
+}
+
+.flex-jus{
+  display: flex;
+  padding-top: 1px;
+  justify-content: space-between;
+  align-items: center;
+}
+.text-t{
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 18px;
+display: flex;
+align-items: center;
+letter-spacing: -0.08px;
+color: #424242;
+}
+
+.text-as{
+  text-transform: uppercase;
+  color: #7E8389;
+}

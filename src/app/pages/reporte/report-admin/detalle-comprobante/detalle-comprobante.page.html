@@ -17,18 +17,48 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" >
 <!-- No enviado -->
   <div class="flex" *ngIf="!estadocompro">
     <span class="noenviado"></span>
     <span class="text-">No Enviado</span>
-    <button class="enviar" (click)="estadocompro = !estadocompro">Enviar</button>
+    <button class="enviar focus" (click)="estadocompro = !estadocompro">Enviar</button>
   </div>
   <!-- enviado -->
-  <div class="flex" *ngIf="estadocompro">
+  <div class="flex border-b" *ngIf="estadocompro">
     <span class="enviado"></span>
     <span class="text-">Enviado</span>
-    <button class="enviar">Enviar</button>
+    <button class="enviar focus coprobanteenviado"(click)="estadocompro = !estadocompro">Enviar</button>
   </div>
+
+  <ion-item>
+    <ion-label>Condición</ion-label>
+    <ion-select color="danger" >
+      <ion-select-option color="danger" value="A">Activo</ion-select-option>
+      <ion-select-option color="danger" value="ANU">Anulado</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-label class="flex-jus">
+    <span class="text-t" >Rpta.Envio:</span>
+    <span class="text-t" >Rpta.Validación:</span>
+  </ion-label>
+  <ion-label class="flex-jus">
+    <span class="text-as text-t" >BB4 7PF EXAMPLE</span>
+    <span class="text-as text-t" >BB4 7PF EXAMPLE</span>
+  </ion-label>
+
+  <ion-list>   
+    <ion-item lines="none">
+      <ion-icon id="ionc-icons" name="document-text"></ion-icon>
+      <div class="p-b-1">
+        <label class="empresa" >BB01-19</label>
+        <label class="ruc" >Conceptos & Construcciones Inversiones E.I.R.L.</label>
+        <label class="ruc">20854585461</label>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  
 
 </ion-content>
