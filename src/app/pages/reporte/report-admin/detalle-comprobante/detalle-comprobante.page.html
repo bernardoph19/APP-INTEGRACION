@@ -10,13 +10,25 @@
       <ion-button  >
         <ion-icon color="dark" src="assets/img/check.svg"></ion-icon> 
       </ion-button>
-      <ion-button (click)="onClick()">
+      <ion-button>
         <ion-icon color="dark" name="funnel" ></ion-icon>   
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+<!-- No enviado -->
+  <div class="flex" *ngIf="!estadocompro">
+    <span class="noenviado"></span>
+    <span class="text-">No Enviado</span>
+    <button class="enviar" (click)="estadocompro = !estadocompro">Enviar</button>
+  </div>
+  <!-- enviado -->
+  <div class="flex" *ngIf="estadocompro">
+    <span class="enviado"></span>
+    <span class="text-">Enviado</span>
+    <button class="enviar">Enviar</button>
+  </div>
 
 </ion-content>

@@ -33,11 +33,11 @@
         <ion-icon color="dark"  src="assets/img/selecionartodos.svg"></ion-icon>
       </ion-button>
       <!-- compartirt -->
-      <ion-button (click)="shared()">
+      <ion-button (click)="onClick()">
         <ion-icon color="dark"  name="share-social"></ion-icon>
       </ion-button>
       <!-- descargar -->
-      <ion-button (click)="onClick()">
+      <ion-button (click)="descargar()">
         <ion-icon color="dark"  name="cloud-download"></ion-icon> 
       </ion-button>
     </ion-buttons>
@@ -49,10 +49,9 @@
     <ion-label class="titles" >
       <p class="valor -colorr">Comprobantes</p>
       <p class="valor" slot="end">20</p>
-    </ion-label>   
+    </ion-label> 
     
-  
-    <ion-item button  lines="none"  style="border-radius: 12px !important;"  *ngFor="let item of [1,1]">
+    <ion-item button  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active"  lines="none"  style="border-radius: 12px !important;"  *ngFor="let item of [1,1]">
       <ion-grid class="ion-no-margin ion-no-padding py-2">
         <ion-row>
           <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 

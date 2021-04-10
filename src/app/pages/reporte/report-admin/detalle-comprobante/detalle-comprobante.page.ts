@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detalle-comprobante.page.scss'],
 })
 export class DetalleComprobantePage implements OnInit {
+  
+  estadocompro : boolean;
 
   constructor() { }
 

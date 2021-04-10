@@ -15,14 +15,14 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router
   ) {
-    this.iniciarApp();
+    // this.iniciarApp();
   }
 
 
   iniciarApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.router.navigateByUrl('splash');
+      this.router.navigateByUrl('/menu-principal/migrador');
     });
   }
 

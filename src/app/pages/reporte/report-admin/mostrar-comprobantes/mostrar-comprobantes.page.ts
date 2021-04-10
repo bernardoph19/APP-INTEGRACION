@@ -14,43 +14,35 @@ export class MostrarComprobantesPage implements OnInit {
   constructor(public compartir: ActionSheetController ) {}
 
  
-  async shared() {
+  async descargar() {
     const actionSheet = await this.compartir.create({
-      header: 'Albums',
-      cssClass: 'my-custom-class',
+      header: 'Descargar como',
+      cssClass: 'my-custom-class',      
+      
       buttons: [{
-        text: 'Delete',
+        text: 'PDF',
         role: 'destructive',
-        icon: 'trash',
+        icon: 'download',
         handler: () => {
           console.log('Delete clicked');
         }
+
       }, {
-        text: 'Share',
-        icon: 'share',
+        text: 'XLM',        
+        icon: 'download',
         handler: () => {
           console.log('Share clicked');
         }
-      }, {
-        text: 'Play (open modal)',
-        icon: 'caret-forward-circle',
+     
+      }, 
+      {
+        text: 'CDR',
+        icon: 'download',
         handler: () => {
           console.log('Play clicked');
         }
-      }, {
-        text: 'Favorite',
-        icon: 'heart',
-        handler: () => {
-          console.log('Favorite clicked');
-        }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
+      }, 
+      ]
     });
     await actionSheet.present();
   }

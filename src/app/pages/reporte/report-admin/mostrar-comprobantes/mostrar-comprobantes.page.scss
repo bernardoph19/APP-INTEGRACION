@@ -144,3 +144,27 @@ flex-wrap: wrap;
   .checkccc{
     margin-left: -0px;
   }
+
+  .my-custom-class{
+     display: flex;
+  }
+
+  .action-sheet-group .sc-ion-action-sheet-md{
+    display: flex;
+  }
+  
+  
+  .action-sheet-group.sc-ion-action-sheet-md:last-child {
+    padding-bottom: 0;
+    display: flex;
+  }
+  .action-sheet-button.sc-ion-action-sheet-md {
+    padding-left: unset;
+    padding-right: unset;
+    /* -webkit-padding-start: 16px; */
+    /* padding-inline-start: 16px; */
+    /* -webkit-padding-end: 16px; */
+    /* padding-inline-end: 16px; */
+  }
+
+ 

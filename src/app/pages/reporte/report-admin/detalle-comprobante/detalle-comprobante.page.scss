@@ -1,0 +1,58 @@
+ 
+  .flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F2F2F2;
+    border-radius: 8px;
+ }
+
+ .enviar{
+   padding: 10px 20px 10px 20px;   
+   color: white;  
+   background: #EA3E3E;
+   border-radius: 8px;
+   font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-align: center;        
+ }
+ 
+
+ .noenviado{
+     width: 0.8rem; 
+     height: 0.8rem; 
+     background: #EA3E3E;
+     border-radius: 100%;  
+     border-radius: 80px;
+ }
+ .enviado{
+     width: 1rem; 
+     height: 1rem; 
+     background: #3DC873;
+     border-radius: 100%;
+     margin-left: -5px;
+     border: white 2px solid;    
+     border-radius: 80px;
+ }
+ .focus{
+    outline: none;
+ }
+
+ .text-{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.08px;
+    
+    color: #424242;
+ }
