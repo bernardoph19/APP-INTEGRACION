@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service.service';
 import { FormGroup,  FormBuilder, Validators} from '@angular/forms';
 import { ValidarformloginService } from 'src/app/services/validarformlogin.service';
 import { Router } from '@angular/router';
+import { DataLocalService } from 'src/app/services/data-local.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginPage implements OnInit {
     private vform            : ValidarformloginService,
     private formBuilder      : FormBuilder,
     private router           : Router,
+    private dataLocalService : DataLocalService
     
   ) {
     this.CrearFormulario();
@@ -53,15 +55,11 @@ export class LoginPage implements OnInit {
     } */
     this.auth.login(body)
       .subscribe( (res : any) => {
-        console.log(res);
 
         if( res.message === "exito" ){
-
-          const result    = res.result;
-          this.token      = result.token;
-          this.datosLogin = result.datos; 
           
-          //this.dataLocalService.setUserLogin( this.userLogueado );
+          this.datosLogin = res.result;           
+          this.dataLocalService.setUserLogin( 'this.datosLogin' );          
           this.resetForm();
           this.navigateRute();
           
