@@ -11,7 +11,7 @@
       <ion-button    (click)="app_bar = !app_bar">
         <ion-icon color="dark" src="assets/img/check.svg"></ion-icon> 
       </ion-button>
-      <ion-button (click)="onClick()">
+      <ion-button (click)="Filtros()">
         <ion-icon color="dark" name="funnel" ></ion-icon>   
       </ion-button>
     </ion-buttons>
@@ -33,7 +33,7 @@
         <ion-icon color="dark"  src="assets/img/selecionartodos.svg"></ion-icon>
       </ion-button>
       <!-- compartirt -->
-      <ion-button (click)="onClick()">
+      <ion-button (click)="shared()">
         <ion-icon color="dark"  name="share-social"></ion-icon>
       </ion-button>
       <!-- descargar -->
@@ -44,6 +44,7 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content >  
   <ion-list class="ion-justify-content-between  ion-align-items-center" color="light">
     <ion-label class="titles" >
@@ -51,7 +52,7 @@
       <p class="valor" slot="end">20</p>
     </ion-label> 
     
-    <ion-item button  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active"  lines="none"  style="border-radius: 12px !important;"  *ngFor="let item of [1,1]">
+    <ion-item button  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active"  lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;"  *ngFor="let item of [1,1]">
       <ion-grid class="ion-no-margin ion-no-padding py-2">
         <ion-row>
           <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 
@@ -95,10 +96,10 @@
       </ion-grid>         
     </ion-item> 
 
-    <ion-item button lines="none"  style="border-radius: 12px !important;"  *ngFor="let item of [1,1]">
+    <ion-item button lines="none"  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active" style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;"  *ngFor="let item of [1,1]">
       <ion-grid class="ion-no-margin ion-no-padding py-2">
         <ion-row>
-          <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 
+          <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center" > 
             <ion-checkbox class="checkccc" color="danger" > </ion-checkbox>     
           </ion-col>
 
@@ -139,7 +140,7 @@
     </ion-item> 
 
     
-    <ion-item button lines="none"  style="border-radius: 12px !important;" *ngFor="let item of [1,1]"  >     
+    <ion-item button lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;" *ngFor="let item of [1,1]"  >     
       <ion-grid class="ion-no-margin ion-no-padding ion-no-border py-2" >
         <ion-row>
           <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 
@@ -180,7 +181,6 @@
          </ion-label>      
       </ion-grid>         
     </ion-item>   
-  </ion-list>
-  
+  </ion-list> 
 
 </ion-content>

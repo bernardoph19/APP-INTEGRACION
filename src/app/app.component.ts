@@ -18,7 +18,7 @@ export class AppComponent {
     // this.iniciarApp();
   }
 
-
+  
   iniciarApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

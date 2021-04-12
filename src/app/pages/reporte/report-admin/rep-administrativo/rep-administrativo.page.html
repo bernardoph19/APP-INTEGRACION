@@ -17,8 +17,6 @@
          <ion-label class="datos">Ingresa datos para un mejor resultado</ion-label>
         </div>
        </ion-item>
-
-
       <ion-item lines="none">
          <ion-icon name="calendar-outline"></ion-icon>
          <ion-label class="fecha">Fecha</ion-label>
@@ -66,12 +64,13 @@
          <ion-col size="6">
           <ion-label class="inicio">Serie</ion-label>
          <ion-list>
-          <ion-item lines="none" color="light">
-            <ion-select  interface="popover" placeholder="B001">
-              <ion-select-option value="B003">B011</ion-select-option>
-              <ion-select-option value="B004">B024</ion-select-option>
-              <ion-select-option value="B005">B021</ion-select-option>
-            </ion-select>
+          <ion-item lines="none" color="light">            
+            <mat-select placeholder="B0012" style="font-size: 14px;">
+              <mat-option value="B003">B011</mat-option>
+              <mat-option value="B004">B024</mat-option>
+              <mat-option value="B005">B024</mat-option>
+              <mat-option value="B006">B024</mat-option>
+            </mat-select>
           </ion-item>
          </ion-list>
          </ion-col>
@@ -110,9 +109,13 @@
      </ion-row>
    </ion-grid>
 
-   <ion-button  routerLink="/menu-principal/mostrar-comprobantes" color="factedsol" expand="block">
-     Buscar
-   </ion-button>
+    <!-- buscar -->
+   <div class="content-center">
+    <button class="btn"  routerLink="/menu-principal/mostrar-comprobantes" color="factedsol" expand="block">
+      Buscar
+    </button>
+   </div>
+   
 
   </div>
 
