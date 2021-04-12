@@ -15,7 +15,7 @@
    font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 16px;
   display: flex;
   align-items: center;
@@ -55,7 +55,7 @@
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     line-height: 18px;
     display: flex;
@@ -72,12 +72,12 @@
  ion-item{
 
   ion-label{
-    font-size: 14px;
+    font-size: 13px;
     font-style: normal;
     font-weight: 400;
   }
   ion-select{
-    font-size: 14px;
+    font-size: 13px;
     ion-select-option span{
      
     }
@@ -86,14 +86,14 @@
  }
 
  #alert-1-hdr{
-   font-size: 14px;
+   font-size: 13px;
  }
 
  .ruc {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 15px;
   display: flex;
   align-items: center;
@@ -159,10 +159,75 @@ line-height: 18px;
 display: flex;
 align-items: center;
 letter-spacing: -0.08px;
-color: #424242;
+color: #3d3d3d;
 }
 
 .text-as{
-  text-transform: uppercase;
+  font-size: 13px;
   color: #7E8389;
+}
+
+
+.color--{
+color: #6E7B9B;
+font-size: 10px;
+}
+
+.pt-2{
+  padding-top: 5px;
+}
+
+.bg-gray-500{
+  background: rgba(242, 242, 242, 0.87);
+  border-radius: 6px;
+  padding: 5px;
+  color: #7E8389;
+}
+
+ion-title{
+  font-size: 14px;
+}
+
+.font{
+   font-weight: 500;
+}
+
+.bg-white{
+  background: white;   
+  background: #FFFFFF;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.02), 0px 1px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.mt-2{
+  margin-top: 16px;
+}
+
+ion-list{
+  font-size: 13px;
+  ion-item{
+     font-size: 13px;
+     ion-select{
+      font-size: 13px;
+      ion-select-option{
+         font-size: 13px;
+      }
+     }
+  }
+}
+
+.alert-checkbox-label.sc-ion-alert-md {
+  -ms-flex: 1;
+  flex: 1;
+  color: var(--ion-color-step-850, #262626);
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+#text-{
+  font-size: 12px;
 }
