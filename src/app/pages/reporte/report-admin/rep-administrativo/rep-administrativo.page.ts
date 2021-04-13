@@ -4,6 +4,8 @@ import { ListadoClientePage } from '../listado-cliente/listado-cliente.page';
 import { DataLocalService } from 'src/app/services/data-local.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { FunctionsService } from 'src/app/services/functions.service';
+import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 
 @Component({
   selector: 'app-rep-administrativo',
@@ -22,13 +24,17 @@ export class RepAdministrativoPage implements OnInit {
     private modalListadoCliente : ModalController,
     private dataLocalService    : DataLocalService,
     private sformValidator      : FormValidatorService,
-    
+    private sfunction           : FunctionsService,
+    private fb                  : FormBuilder,
+    private sreportVenta        : ReporteVentaService,
   ) {
 
-    this.dataLocalService.getUserLogin().then((x : any) => {
-      console.log(JSON.stringify(x));
+    this.createFormReport();
 
-    });
+    /* this.dataLocalService.getUserLogin().then((x : any) => {
+      console.log(JSON.stringify(x));
+    }); */
+
    }
 
   async listadoClientes(){
@@ -48,8 +54,17 @@ export class RepAdministrativoPage implements OnInit {
   ngOnInit() {
   }
 
-  initialize() {
-    
+  createFormReport() {
+    this.formAdministrative = this.fb.group({
+      fechainicio : [ new Date(), Validators.required ],
+      fechafin    : [ new Date(), Validators.required ],
+      serie       : [ '' ],
+      numero      : [ '' ],
+      cliente     : [ '' ]
+    });
+  }
+
+  initialize() {    
     this.error = false;
     this.message = null;
 
@@ -60,6 +75,22 @@ export class RepAdministrativoPage implements OnInit {
     if (this.formAdministrative.invalid) {
       return this.sformValidator.Empty_data(this.formAdministrative);
     }
+
+    this.initialize();
+
+    const body = {
+      ... this.formAdministrative.value
+    };
+
+    body.fechainicio = this.sfunction.convertFecha(body.fechainicio);
+    body.fechafin    = this.sfunction.convertFecha(body.fechafin);
+    body.numero      = (String(body.numero) === 'null') ? '0' : String(body.numero);
+
+    this.sreportVenta.AdministrativeReport(body)
+      .subscribe( (res) => {
+        const r = JSON.stringify(res);
+        console.log(r);
+      });
 
   }
 
