@@ -10,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     BrowserAnimationsModule,
     DemoMaterialModule,
     SharedModule,  
+    NgxSpinnerModule
   ],
   providers: [
     StatusBar,
