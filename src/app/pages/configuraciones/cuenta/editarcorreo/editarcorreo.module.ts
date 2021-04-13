@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-
-import { EditarNombrePage } from './editar-nombre.page';
+import { EditarcorreoPage } from './editarcorreo.page';
 
 @NgModule({
   imports: [
@@ -13,6 +10,6 @@ import { EditarNombrePage } from './editar-nombre.page';
     FormsModule,
     IonicModule,
   ],
-  declarations: [EditarNombrePage]
+  declarations: [EditarcorreoPage]
 })
-export class EditarNombrePageModule {}
+export class EditarcorreoPageModule {}

@@ -4,6 +4,8 @@ import { ListadoClientePage } from '../listado-cliente/listado-cliente.page';
 import { DataLocalService } from 'src/app/services/data-local.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-rep-administrativo',
@@ -14,16 +16,20 @@ export class RepAdministrativoPage implements OnInit {
 
   formAdministrative : FormGroup;
   error              : boolean;
-
-  message            : string;
-  
+  message            : string;  
 
   constructor(
     private modalListadoCliente : ModalController,
     private dataLocalService    : DataLocalService,
     private sformValidator      : FormValidatorService,
+    private router              : Router,
+    private spinner:       NgxSpinnerService
     
-  ) {
+  ) 
+
+   
+
+  {
 
     this.dataLocalService.getUserLogin().then((x : any) => {
       console.log(JSON.stringify(x));
@@ -62,5 +68,10 @@ export class RepAdministrativoPage implements OnInit {
     }
 
   }
+
+  buscar(){     
+    this.router.navigate(['/menu-principal/mostrar-comprobantes']);
+    // this.spinner.hide(); 
+   }
 
 }
