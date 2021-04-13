@@ -9,6 +9,7 @@ import { DemoMaterialModule } from './module.material';
 import { SharedModule } from './shared/shared.module';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HttpClientModule } from '@angular/common/http';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     StatusBar,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    NativeStorage
   ],
   bootstrap: [AppComponent],
 })
