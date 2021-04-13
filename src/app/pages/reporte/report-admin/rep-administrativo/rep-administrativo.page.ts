@@ -6,6 +6,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
+import { MostrarComprobantesPage } from '../mostrar-comprobantes/mostrar-comprobantes.page';
 
 @Component({
   selector: 'app-rep-administrativo',
@@ -14,6 +17,7 @@ import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 })
 export class RepAdministrativoPage implements OnInit {
 
+  listcpe : any[] = []
   formAdministrative : FormGroup;
   error              : boolean;
 
@@ -22,15 +26,16 @@ export class RepAdministrativoPage implements OnInit {
 
   constructor(
     private modalListadoCliente : ModalController,
-    private dataLocalService    : DataLocalService,
     private sformValidator      : FormValidatorService,
     private sfunction           : FunctionsService,
     private fb                  : FormBuilder,
     private sreportVenta        : ReporteVentaService,
+    private spinner             : NgxSpinnerService,
+    private modalEditNombRe:ModalController
   ) {
 
     this.createFormReport();
-
+    
     /* this.dataLocalService.getUserLogin().then((x : any) => {
       console.log(JSON.stringify(x));
     }); */
@@ -77,6 +82,7 @@ export class RepAdministrativoPage implements OnInit {
     }
 
     this.initialize();
+    this.spinner.show();
 
     const body = {
       ... this.formAdministrative.value
@@ -87,11 +93,25 @@ export class RepAdministrativoPage implements OnInit {
     body.numero      = (String(body.numero) === 'null') ? '0' : String(body.numero);
 
     this.sreportVenta.AdministrativeReport(body)
-      .subscribe( (res) => {
-        const r = JSON.stringify(res);
-        console.log(r);
+      .subscribe( (response : any []) => {
+
+        console.log( response )
+        this.Mostrar_cpe( response );
+        this.spinner.hide();
       });
 
+  }
+
+  async Mostrar_cpe( list : any [] ){
+    const modal = await this.modalEditNombRe.create({
+      component:MostrarComprobantesPage,
+      componentProps: {
+        listcpe : list
+      }
+  });
+   await modal.present();
+   const {data} = await modal.onDidDismiss();
+   console.log('retorno con daots',  data);
   }
 
 }

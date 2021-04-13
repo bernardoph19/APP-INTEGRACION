@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -9,6 +9,7 @@ import { RepAdministrativoPageRoutingModule } from './rep-administrativo-routing
 import { RepAdministrativoPage } from './rep-administrativo.page';
  import { DemoMaterialModule } from '../../../../module.material';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { MostrarComprobantesPageModule } from '../mostrar-comprobantes/mostrar-comprobantes.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,10 @@ import { ComponentsModule } from 'src/app/components/components.module';
     IonicModule,
      DemoMaterialModule,
     RepAdministrativoPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule,
+    MostrarComprobantesPageModule
+    
   ],
   declarations: [RepAdministrativoPage]
 })

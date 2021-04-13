@@ -1,7 +1,7 @@
 
-import { Component, OnInit } from '@angular/core'; 
+import { Component, Input, OnInit } from '@angular/core'; 
 import { Share } from '@capacitor/core';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mostrar-comprobantes',
@@ -10,10 +10,13 @@ import { ActionSheetController, AlertController } from '@ionic/angular';
 })
 export class MostrarComprobantesPage implements OnInit {
 
+  @Input() listcpe : any [];
   app_bar: boolean;
 
   constructor(public Descargar: ActionSheetController, 
-    public filtrar: AlertController) {}
+    public filtrar: AlertController, 
+    private modalRepoteAdmin:ModalController
+    ) {}
 
   // filtrar datos 
   async Filtros(){
@@ -136,10 +139,13 @@ export class MostrarComprobantesPage implements OnInit {
   ngOnInit() {
   }
 
- 
+  onClick(){
 
-  
+  }
 
+  atras() {
+    this.modalRepoteAdmin.dismiss();
+  }
 
 }
 
