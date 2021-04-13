@@ -8,6 +8,7 @@ import { MostrarComprobantesPageRoutingModule } from './mostrar-comprobantes-rou
 
 import { MostrarComprobantesPage } from './mostrar-comprobantes.page';
  import { DemoMaterialModule } from '../../../../module.material';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -15,8 +16,10 @@ import { MostrarComprobantesPage } from './mostrar-comprobantes.page';
     FormsModule,
     IonicModule,
     MostrarComprobantesPageRoutingModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    ComponentsModule 
   ],
+  
   declarations: [MostrarComprobantesPage]
 })
 export class MostrarComprobantesPageModule {}

@@ -8,6 +8,7 @@ import { RepAdministrativoPageRoutingModule } from './rep-administrativo-routing
 
 import { RepAdministrativoPage } from './rep-administrativo.page';
  import { DemoMaterialModule } from '../../../../module.material';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { RepAdministrativoPage } from './rep-administrativo.page';
     FormsModule,
     IonicModule,
      DemoMaterialModule,
-    RepAdministrativoPageRoutingModule
+    RepAdministrativoPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [RepAdministrativoPage]
 })

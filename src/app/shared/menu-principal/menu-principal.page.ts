@@ -7,14 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuPrincipalPage implements OnInit {
 
+  open: boolean;
 
   pages = [
 
-    {
-      title: 'Home',
-      url: '/menu-principal/migrador',
-      icon: 'home',
-    },
+   
 
     {
       title: 'Documentos',
