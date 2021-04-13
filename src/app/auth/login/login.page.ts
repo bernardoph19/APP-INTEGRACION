@@ -59,7 +59,7 @@ export class LoginPage implements OnInit {
         if( res.message === "exito" ){
           
           this.datosLogin = res.result;           
-          this.dataLocalService.setUserLogin( 'this.datosLogin' );          
+          this.dataLocalService.setUserLogin( this.datosLogin );          
           this.resetForm();
           this.navigateRute();
           
