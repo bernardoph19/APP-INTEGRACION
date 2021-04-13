@@ -25,14 +25,31 @@ export class DataLocalService {
 
   getUserLogin () {
     return this.nativeStorage.getItem('userLogueado')
-      .then(
-        data => {          
-          return data;
-          //return true;
+      .then(  
+        data  => {
+          console.log('desde el services')
+          console.log(JSON.stringify(data));
+           return data;   /*return true;*/ 
         },
         error => {          
           return error;
           //return false;
+        }
+      );
+
+  }
+
+  getTokenLogin () {
+    return this.nativeStorage.getItem('userLogueado')
+      .then(  
+        (data : any)  => {
+          const token = data.token;
+          return token;
+          
+        },
+        (error :  any) => {          
+          return error;
+          
         }
       );
 
