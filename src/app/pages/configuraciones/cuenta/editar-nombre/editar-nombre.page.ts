@@ -19,6 +19,7 @@ export class EditarNombrePage implements OnInit {
   
   guardar() {
     this.modalEditNombre.dismiss({  
+      
     });
 }
 

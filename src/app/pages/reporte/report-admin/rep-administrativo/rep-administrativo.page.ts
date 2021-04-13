@@ -4,11 +4,14 @@ import { ListadoClientePage } from '../listado-cliente/listado-cliente.page';
 import { DataLocalService } from 'src/app/services/data-local.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
+
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 import { FunctionsService } from 'src/app/services/functions.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Router } from '@angular/router';
 import { MostrarComprobantesPage } from '../mostrar-comprobantes/mostrar-comprobantes.page';
+
 
 @Component({
   selector: 'app-rep-administrativo',
@@ -20,13 +23,12 @@ export class RepAdministrativoPage implements OnInit {
   listcpe : any[] = []
   formAdministrative : FormGroup;
   error              : boolean;
-
-  message            : string;
-  
+  message            : string;  
 
   constructor(
     private modalListadoCliente : ModalController,
     private sformValidator      : FormValidatorService,
+    private router              : Router,
     private sfunction           : FunctionsService,
     private fb                  : FormBuilder,
     private sreportVenta        : ReporteVentaService,
@@ -102,6 +104,7 @@ export class RepAdministrativoPage implements OnInit {
 
   }
 
+
   async Mostrar_cpe( list : any [] ){
     const modal = await this.modalEditNombRe.create({
       component:MostrarComprobantesPage,
@@ -113,5 +116,10 @@ export class RepAdministrativoPage implements OnInit {
    const {data} = await modal.onDidDismiss();
    console.log('retorno con daots',  data);
   }
+
+  buscar(){     
+    this.router.navigate(['/menu-principal/mostrar-comprobantes']);
+    // this.spinner.hide(); 
+   }
 
 }
