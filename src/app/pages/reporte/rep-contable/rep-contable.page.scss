@@ -1,0 +1,223 @@
+ion-title{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    color: #262626;
+}
+
+ion-content {
+    ion-list {
+      display: flex;
+      flex-direction: column;
+  
+      ion-item {
+        flex-direction: column;
+        ion-input{
+          font-size: 14px;
+        }
+        ion-select{
+          font-size: 14px;
+  
+          ion-select-option{
+            font-size: 14px;
+            font-weight: 400;
+         }
+        }
+  
+        ion-icon {
+          background: #fdecec;
+          border-radius: 100%;
+          align-items: center;
+          justify-content: center;
+          padding: 6px;
+          color: #ea3e3e;
+        }
+  
+        ion-label {
+          font-style: normal;
+          font-weight: 500px;
+          font-size: 15px;
+          line-height: 24px;
+          align-items: center;
+          letter-spacing: 0.01em;
+          color: #313131;
+        }
+        .datos {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 12px;
+          line-height: 14px;
+          display: flex;
+          align-items: center;
+  
+          color: #777777;
+        }
+  
+        .fecha {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 24px;
+          padding-left: 5px;
+          align-items: center;
+          letter-spacing: 0.01em;
+          color: #313131;
+        }
+  
+        .fech {
+          width: 30px;
+          height: 30px;
+          background: #fdecec;
+          border-radius: 100%;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  
+    .fecha {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+      padding-left: 5px;
+      align-items: center;
+      letter-spacing: 0.01em;
+      color: #313131;
+    }
+  
+    #ionc-icons{
+      background: #fdecec;
+      border-radius: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      color: #ea3e3e;
+    }
+  
+  
+  
+    ion-grid{
+      ion-row{
+        width: 100%;
+        ion-col{
+          font-size: 13px;
+          font-weight: 400;
+          width: 100%;
+          ion-select{
+            ion-select-option{
+              font-size: 14px;
+              font-weight: 400;
+              .select-text {
+                flex: 1 1 0%;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                font-size: 14px;
+              }
+           }
+          }
+  
+  
+  
+          ion-label{
+  
+          }
+          ion-item{
+            display: flex;
+            flex-direction: column;
+          }
+          .input-calendar{
+            width: 100%;
+            font-size: 13px;
+            border: none;
+            color: #455A64;
+            background: #F4F5F8;
+          }
+  
+          .input-calendar:focus{
+            outline: none;
+          }
+  
+          .datepikerbut{
+            padding: 2px;
+            border-radius: 100%;  
+          }
+
+          .datepikerbut:focus{
+            outline: none;
+          }
+  
+          .icons-calen{
+            width: 15px;
+            height: 15px;
+            color: #455A64;
+          }
+  
+        }
+      }
+    }
+  
+  
+  
+  }
+
+  .btn{
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+      background: #EA3E3E;
+    
+    border-radius: 8px;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    width: 80%;
+    height: 40px;
+    font-size: 14px;
+    margin:  5px 20px 5px 20px;
+   
+    }
+    .focus{
+      outline: none;
+    }
+    .hover {
+      background: #d82929;
+    }
+
+
+    .content-center{
+      justify-content: center;
+      display: flex;
+      margin: auto;
+      align-items: center;
+      justify-items: center;
+   }
+
+   .descargarpdf{
+     border: #807d7d 2px  solid;
+     background: white;
+     border-radius: 3px;
+     color: #000000;
+     font-weight: 500;
+     width: 70%;
+   }
+   .descargarpdf:hover{
+    background: rgb(250, 221, 221);
+   }
+
+   .mt-5{
+      margin-top: 18px;
+   }
+   .pl-5{
+     padding-left: 14px;
+   }
+
+   .hidden{
+      display: none;
+   }
+   
+  

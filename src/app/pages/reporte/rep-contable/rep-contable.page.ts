@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rep-contable.page.scss'],
 })
 export class RepContablePage implements OnInit {
+  
+buscar: boolean;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  shared(){
+    
   }
 
 }

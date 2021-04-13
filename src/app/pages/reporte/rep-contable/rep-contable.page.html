@@ -1,9 +1,122 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>RepContable</ion-title>
+    <ion-buttons slot="start" class="md">
+      <ion-menu-button color="dark" menuId="menu-content"> </ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reporte Contable</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="shared()">
+        <ion-icon name="share-social"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item lines="none">
+      <div class="flex-col">
+        <ion-label>Modos de busqueda</ion-label>
+        <ion-label class="datos"
+          >Ingresa datos para un mejor resultado</ion-label
+        >
+      </div>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <ion-label class="fecha">Fecha</ion-label>
+    </ion-item>
+  </ion-list>
 
+  <!-- Mes y Fecha -->
+  <ion-grid fixed>
+    <ion-row>
+      <!-- (fecha Inicio) -->
+      <ion-col size="6">
+        <ion-label class="inicio">Mes</ion-label>
+        <ion-item color="light" lines="none" shape="round">
+          <mat-select placeholder="Seleccionar" style="font-size: 14px">
+            <mat-option value="01">Enero</mat-option>
+            <mat-option value="02">Febrero</mat-option>
+            <mat-option value="03">Marzo</mat-option>
+            <mat-option value="04">Abril</mat-option>
+            <mat-option value="05">Mayo</mat-option>
+            <mat-option value="06">Junio</mat-option>
+            <mat-option value="07">Julio</mat-option>
+            <mat-option value="08">Agosto</mat-option>
+            <mat-option value="09">Septiembre</mat-option>
+            <mat-option value="10">Octubre</mat-option>
+            <mat-option value="11">Noviembre</mat-option>
+            <mat-option value="12">Diciembre</mat-option>
+          </mat-select>
+        </ion-item>
+      </ion-col>
+      <!-- (Fechas Fin) -->
+      <ion-col size="6">
+        <ion-label class="inicio">Año</ion-label>
+        <ion-item color="light" lines="none">
+          <ion-datetime
+            placeholder="YYYY"
+            display-format="YYYY"
+            min="2019"
+            max="2025"
+            value="2020"
+          >
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <hr />
+
+  <!-- descargar pdf y EXCEL -->
+  <div class="mt-5" *ngIf="buscar">
+    <ion-label class="mt-5 pl-5">REPORTE - ABRIL / 2020</ion-label>
+    <ion-grid fixed>
+      <ion-row>
+        <!-- PDF -->
+        <ion-col size="6" class="content-center">
+          <ion-button
+            class="descargarpdf"
+            (click)="descargarPDF()"
+            expand="block"
+            color="light"
+          >
+            PDF
+          </ion-button>
+        </ion-col>
+        <!-- EXCEL -->
+        <ion-col size="6" class="content-center">
+          <ion-button
+            class="descargarpdf"
+            (click)="descargarExcel()"
+            expand="block"
+            color="light"
+          >
+            EXCEL
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div class="content-center mt-5">
+      <img src="assets/img/exportdata.svg" alt="" />
+    </div>
+  </div>
 </ion-content>
+<!-- buscar -->
+<ion-footer>
+  <ion-toolbar>
+    <div class="content-center">
+      <button
+        (click)="buscar= !buscar"
+        [ngClass]="{'hidden': buscar}"
+        class="btn focus hover"
+        color="factedsol"
+        expand="block"
+      >
+        Buscar
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
