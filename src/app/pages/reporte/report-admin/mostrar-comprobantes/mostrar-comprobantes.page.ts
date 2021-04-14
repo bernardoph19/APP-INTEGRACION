@@ -2,6 +2,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Share } from '@capacitor/core';
 import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ICondition, IStatus } from 'src/app/models/report.model';
 
 
@@ -23,6 +24,7 @@ export class MostrarComprobantesPage implements OnInit {
     public Descargar: ActionSheetController,
     public filtrar: AlertController,
     private modalRepoteAdmin: ModalController,
+    private spinner : NgxSpinnerService
     ) { }
 
   // filtrar datos 
@@ -190,7 +192,9 @@ export class MostrarComprobantesPage implements OnInit {
   ngOnInit() {}
 
   ToselectAll() {
+    this.spinner.show();
     this.listcpe.forEach( el=>{ el.isChecked = !el.isChecked })
+    this.spinner.hide();
   }
 
   atras() {
