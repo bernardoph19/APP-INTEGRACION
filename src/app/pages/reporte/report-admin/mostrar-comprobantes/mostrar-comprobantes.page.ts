@@ -164,7 +164,7 @@ export class MostrarComprobantesPage implements OnInit {
         text: 'PDF',
         role: 'destructive',
         icon: 'download',
-        handler: () => {
+        handler: () => { 
           console.log('Delete clicked');
         }
 
