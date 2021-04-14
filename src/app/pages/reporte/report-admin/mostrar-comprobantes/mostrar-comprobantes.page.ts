@@ -19,6 +19,7 @@ export class MostrarComprobantesPage implements OnInit {
   icondition: ICondition = new ICondition();
   istatus: IStatus = new IStatus();
 
+  checkAll : boolean;
   app_bar: boolean;
 
   constructor(
@@ -193,8 +194,11 @@ export class MostrarComprobantesPage implements OnInit {
   ngOnInit() { }
 
   ToselectAll() {
+
+    this.checkAll = !this.checkAll;
+
     this.spinner.show();
-    this.listcpe.forEach(el => { el.isChecked = !el.isChecked })
+    this.listcpe.forEach(el => { el.isChecked = this.checkAll })
     this.spinner.hide();
   }
 
