@@ -7,20 +7,16 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./editar-nombre.page.scss'],
 })
 export class EditarNombrePage implements OnInit {
+  
+  constructor(private modalEditNombre: ModalController) {}
 
-  constructor(private modalEditNombre:ModalController) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   cancelar() {
     this.modalEditNombre.dismiss();
   }
-  
-  guardar() {
-    this.modalEditNombre.dismiss({  
-      
-    });
-}
 
+  guardar() {
+    this.modalEditNombre.dismiss({});
+  }
 }

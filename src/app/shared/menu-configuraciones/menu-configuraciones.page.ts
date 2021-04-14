@@ -12,24 +12,25 @@ export class MenuConfiguracionesPage implements OnInit {
   ngOnInit() {
   }
 
-
   menuconfi = [
 
     {
       title: 'Mi Cuenta',
-      url: '/micuenta',
+      url: 'micuenta',
       icon: 'newspaper-outline',
     },
+
   
     {
       title: 'Usuarios',
-      url: '/menu-configuraciones/usuarios',
+      url: 'usuarios',
       icon: 'people-outline',
     },
+
   
     {
       title: 'Conexiones',
-      url: '/menu-configuraciones/conexiones',
+      url: 'conexion',
       icon: 'repeat-outline',
     },
    
