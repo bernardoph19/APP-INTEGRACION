@@ -140,6 +140,11 @@ export class MostrarComprobantesPage implements OnInit {
 
   // Compartir comprobante
   async shared() {
+
+    const listShared = this.listcpe.filter(x=>x.isChecked === true)
+    console.log(listShared);
+
+
     await Share.share({
       title: 'See cool stuff',
       text: 'Really awesome thing you need to see right meow',
@@ -184,8 +189,8 @@ export class MostrarComprobantesPage implements OnInit {
   }
   ngOnInit() {}
 
-  onClick() {
-
+  ToselectAll() {
+    this.listcpe.forEach( el=>{ el.isChecked = !el.isChecked })
   }
 
   atras() {
@@ -200,6 +205,10 @@ export class MostrarComprobantesPage implements OnInit {
     
     this.istatus.enviado = false;
     this.istatus.not_enviado = false;
+  }
+
+  hola(){
+    console.log(this.listcpe)
   }
 
 }

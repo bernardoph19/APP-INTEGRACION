@@ -29,7 +29,7 @@
 
     <ion-buttons slot="end">
       <!-- selecionar todos los chech -->
-      <ion-button (click)="onClick()">
+      <ion-button (click)="ToselectAll()">
         <ion-icon color="dark"  src="assets/img/selecionartodos.svg"></ion-icon>
       </ion-button>
       <!-- compartirt -->
@@ -56,7 +56,7 @@
       <ion-grid class="ion-no-margin ion-no-padding py-2">
         <ion-row>
           <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 
-            <ion-checkbox class="checkccc" color="danger" > </ion-checkbox>     
+            <ion-checkbox [(ngModel)]="item.isChecked" (click)="hola()" class="checkccc" color="danger" > </ion-checkbox>     
           </ion-col>
 
           <ion-col  size="2" class="ion-justify-content-start ion-align-self-center">            

@@ -106,6 +106,7 @@ export class RepAdministrativoPage implements OnInit {
 
 
   async Mostrar_cpe( list : any [] ){
+    list.forEach( el=>{ el.isChecked = false; })
     const modal = await this.modalEditNombRe.create({
       component:MostrarComprobantesPage,
       componentProps: {
