@@ -117,9 +117,4 @@ export class RepAdministrativoPage implements OnInit {
    console.log('retorno con daots',  data);
   }
 
-  buscar(){     
-    this.router.navigate(['/menu-principal/mostrar-comprobantes']);
-    // this.spinner.hide(); 
-   }
-
 }

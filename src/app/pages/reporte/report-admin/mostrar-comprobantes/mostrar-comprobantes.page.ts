@@ -1,99 +1,145 @@
 
-import { Component, Input, OnInit } from '@angular/core'; 
+import { Component, Input, OnInit } from '@angular/core';
 import { Share } from '@capacitor/core';
 import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
+import { ICondition, IStatus } from 'src/app/models/report.model';
+
 
 @Component({
   selector: 'app-mostrar-comprobantes',
   templateUrl: './mostrar-comprobantes.page.html',
-  styleUrls: ['./mostrar-comprobantes.page.scss'],
+  styleUrls: ['./mostrar-comprobantes.page.scss']
 })
 export class MostrarComprobantesPage implements OnInit {
 
-  @Input() listcpe : any [];
+  @Input() listcpe: any[];
+
+  icondition : ICondition = new ICondition() ;
+  istatus    : IStatus = new IStatus();
+
   app_bar: boolean;
 
-  constructor(public Descargar: ActionSheetController, 
-    public filtrar: AlertController, 
-    private modalRepoteAdmin:ModalController
-    ) {}
+  constructor(
+    public Descargar: ActionSheetController,
+    public filtrar: AlertController,
+    private modalRepoteAdmin: ModalController,
+    ) { }
 
   // filtrar datos 
-  async Filtros(){
-      
-      const alert = await this.filtrar.create({
-        cssClass: 'my-custom-class',
-        header: 'Filtros',
-      
-        inputs: [
+  async Filtros() {
 
-          {
-            name: 'activo',
-            type: 'checkbox',
-            label: 'Activo',
-            value: 'value1',
-            handler: () => {
-              console.log('Checkbox 1 selected');
-            },
-            checked: true
-          },
- 
-          {
-            name: 'Anulado',
-            type: 'checkbox',
-            label: 'Anulado',
-            value: 'value2',
-            handler: () => {
-              console.log('Checkbox 2 selected');
-            }
-           
-          },
+    const alert = await this.filtrar.create({
+      cssClass: 'my-custom-class',
+      header: 'Filtros',
 
-          {
-            name: 'Enviado',
-            type: 'checkbox',
-            label: 'Enviado',
-            value: 'value3',
-            handler: () => {
-              console.log('Checkbox 3 selected');
-            }
-          },
-  
-          {
-            name: 'No Enviado',
-            type: 'checkbox',
-            label: 'No Enviado',
-            value: 'value4',
-            handler: () => {
-              console.log('Checkbox 4 selected');
-            }
-          },          
-        ],
-
-        buttons: [
-          {
-            text: 'Restablecer',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirm Restablecer');
-            }
-          }, {
-            text: 'Hecho',         
-            handler: () => {
-              console.log('Confirm Ok');
-            }
+      inputs: [
+        {
+          name: 'activo',
+          type: 'checkbox',
+          label: 'activo',
+          value: this.icondition.activo,
+          checked: this.icondition.activo,
+          handler: () => {
+            console.log(alert.inputs);
           }
-        ]
-      });
-  
-      await alert.present();
-    
+        },
+        {
+          name: 'anulado',
+          type: 'checkbox',
+          label: 'anulado',
+          value: this.icondition.anulado,
+          checked: this.icondition.anulado,
+          handler: () => {
+            // console.log(alert.inputs);
+          }
+
+        },
+
+        {
+          name: 'enviado',
+          type: 'checkbox',
+          label: 'enviado',
+          value: this.istatus.enviado,
+          checked: this.istatus.enviado,
+          handler: () => {
+            // console.log(alert.inputs);
+          }
+        },
+
+        {
+          name: 'No Enviado',
+          type: 'checkbox',
+          label: 'No Enviado',
+          value: this.istatus.not_enviado,
+          checked: this.istatus.not_enviado,
+          handler: () => {
+            // console.log(alert.inputs);
+          }
+        },
+          {
+            name: 'f',
+            type: 'checkbox',
+            label: 'fdffff',
+            value: this.istatus.not_enviado,
+            checked: this.istatus.not_enviado,
+            handler: () => {
+              this.reestablecer();
+            }
+          
+        }
+      ],
+
+      buttons: [
+        {
+          text: 'Restablecer',
+          cssClass: 'secondary',
+          handler: () => {
+            this.reestablecer();
+
+            // console.log('alert: ', alert)
+            // // alert.inputs
+
+            // const keys1 = Object.keys( this.icondition );
+            // const keys2 = Object.keys( this.istatus );
+            // const keys = keys1.concat(keys2);
+
+            // keys.forEach( elm =>{
+
+            //   alert.inputs.forEach( el =>{
+
+            //     if( el.name === elm ){
+                
+
+            //       // debugger
+            //       const value = this.icondition[elm] ?? this.istatus[elm]
+            //       el.checked = value
+            //       el.value = value
+            //       console.log(alert.inputs);
+            //     }
+            //   })
+
+            // })
+            
+            return false;
+          },
+        },
+        {
+          text: 'Hecho',
+          handler: () => {
+            console.log('Confirm Ok');
+          }
+        }
+      ],
+      backdropDismiss : false
+    });
+
+    await alert.present();
+
 
   }
 
   // Compartir comprobante
-  async shared(){
+  async shared() {
     await Share.share({
       title: 'See cool stuff',
       text: 'Really awesome thing you need to see right meow',
@@ -107,8 +153,8 @@ export class MostrarComprobantesPage implements OnInit {
   async descargar() {
     const actionSheet = await this.Descargar.create({
       header: 'Descargar como',
-      cssClass: 'my-custom-class',      
-      
+      cssClass: 'my-custom-class',
+
       buttons: [{
         text: 'PDF',
         role: 'destructive',
@@ -118,33 +164,42 @@ export class MostrarComprobantesPage implements OnInit {
         }
 
       }, {
-        text: 'XLM',        
+        text: 'XLM',
         icon: 'download',
         handler: () => {
           console.log('Share clicked');
         }
-     
-      }, 
+
+      },
       {
         text: 'CDR',
         icon: 'download',
         handler: () => {
           console.log('Play clicked');
         }
-      }, 
+      },
       ]
     });
     await actionSheet.present();
   }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  onClick(){
+  onClick() {
 
   }
 
   atras() {
     this.modalRepoteAdmin.dismiss();
+  }
+
+  reestablecer(){
+
+    debugger
+    this.icondition.activo = false;
+    this.icondition.anulado = false;
+    
+    this.istatus.enviado = false;
+    this.istatus.not_enviado = false;
   }
 
 }
