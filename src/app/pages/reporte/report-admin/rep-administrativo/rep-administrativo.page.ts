@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ListadoClientePage } from '../listado-cliente/listado-cliente.page';
 import { DataLocalService } from 'src/app/services/data-local.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 import { MostrarComprobantesPage } from '../mostrar-comprobantes/mostrar-comprobantes.page';
+import { AlertService } from 'src/app/services/alert.service';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class RepAdministrativoPage implements OnInit {
     private fb                  : FormBuilder,
     private sreportVenta        : ReporteVentaService,
     private spinner             : NgxSpinnerService,
-    private modalEditNombRe:ModalController
+    private modalEditNombRe     : ModalController,
+    private salert              : AlertService
   ) {
 
     this.createFormReport();
@@ -97,8 +99,15 @@ export class RepAdministrativoPage implements OnInit {
     this.sreportVenta.AdministrativeReport(body)
       .subscribe( (response : any []) => {
 
-        console.log( response )
-        this.Mostrar_cpe( response );
+        if( response.length === 0 ){
+
+          const title = 'Oops!!!';
+          const message = 'No se encontro ningún comprobante';
+          this.salert.Alert( title, message );
+        }
+        else{
+          this.Mostrar_cpe( response );
+        }
         this.spinner.hide();
       });
 
@@ -106,6 +115,7 @@ export class RepAdministrativoPage implements OnInit {
 
 
   async Mostrar_cpe( list : any [] ){
+    list.forEach( el=>{ el.isChecked = false; })
     const modal = await this.modalEditNombRe.create({
       component:MostrarComprobantesPage,
       componentProps: {
@@ -116,10 +126,5 @@ export class RepAdministrativoPage implements OnInit {
    const {data} = await modal.onDidDismiss();
    console.log('retorno con daots',  data);
   }
-
-  buscar(){     
-    this.router.navigate(['/menu-principal/mostrar-comprobantes']);
-    // this.spinner.hide(); 
-   }
 
 }
