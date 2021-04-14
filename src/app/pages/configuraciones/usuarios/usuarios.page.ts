@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {  AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-usuarios',
@@ -7,8 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsuariosPage implements OnInit {
 
-  constructor() { }
+  
+  constructor(public alertController: AlertController) {}
 
+  async descrip() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alert',      
+      subHeader: 'Subtitle',
+      message: 'This is an alert message.',
+      buttons: ['OK, Cancelar']
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
+  
   ngOnInit() {
   }
 

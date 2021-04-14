@@ -1,17 +1,31 @@
-<ion-header>  
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button  color="dark" defaultHref="/menu-principal/proceso-migracion"></ion-back-button>
+      <ion-back-button
+        color="dark"
+        defaultHref="/menu-principal/proceso-migracion"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title> Configuración </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let config of menuconfi">  
-    <ion-item lines="none" [routerLink]="config.url" detail="true" routerDirection="root" routerLinkActive="active"  color="light" button class="ion-no-border">
+  <ion-list>
+
+    <ion-item
+    *ngFor="let config of menuconfi"
+      lines="none"
+      [routerLink]="config.url"
+      routerDirection="root"
+      routerLinkActive="active"
+      detail="true"
+      color="light"
+      button
+      class="ion-no-border"
+    >
       <ion-icon slot="start" [name]="config.icon"></ion-icon>
-      <ion-label class="cabece">{{ config.title }} </ion-label>
-      </ion-item>    
+      <ion-label class="cabece"> {{ config.title }} </ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>
