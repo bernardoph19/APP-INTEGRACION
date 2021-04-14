@@ -52,8 +52,8 @@
       <p class="valor" slot="end">listcpe.length</p>
     </ion-label> 
     
-    <ion-item *ngFor="let item of listcpe" button  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active"  lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;">
-      <ion-grid class="ion-no-margin ion-no-padding py-2">
+    <ion-item *ngFor="let item of listcpe" button lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;">
+      <ion-grid class="ion-no-margin ion-no-padding py-2" [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active"  >
         <ion-row>
           <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 
             <ion-checkbox [(ngModel)]="item.isChecked" class="checkccc" color="danger" > </ion-checkbox>     
