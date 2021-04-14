@@ -13,10 +13,11 @@ import { ICondition, IStatus } from 'src/app/models/report.model';
 })
 export class MostrarComprobantesPage implements OnInit {
 
-  @Input() listcpe: any[];
+  @Input() listcpe: any[] = [];
+  @Input() listcpeGeneral : any[] = [];
 
-  icondition : ICondition = new ICondition() ;
-  istatus    : IStatus = new IStatus();
+  icondition: ICondition = new ICondition();
+  istatus: IStatus = new IStatus();
 
   app_bar: boolean;
 
@@ -24,8 +25,8 @@ export class MostrarComprobantesPage implements OnInit {
     public Descargar: ActionSheetController,
     public filtrar: AlertController,
     private modalRepoteAdmin: ModalController,
-    private spinner : NgxSpinnerService
-    ) { }
+    private spinner: NgxSpinnerService
+  ) { }
 
   // filtrar datos 
   async Filtros() {
@@ -78,16 +79,16 @@ export class MostrarComprobantesPage implements OnInit {
             // console.log(alert.inputs);
           }
         },
-          {
-            name: 'f',
-            type: 'checkbox',
-            label: 'fdffff',
-            value: this.istatus.not_enviado,
-            checked: this.istatus.not_enviado,
-            handler: () => {
-              this.reestablecer();
-            }
-          
+        {
+          name: 'f',
+          type: 'checkbox',
+          label: 'fdffff',
+          value: this.istatus.not_enviado,
+          checked: this.istatus.not_enviado,
+          handler: () => {
+            this.reestablecer();
+          }
+
         }
       ],
 
@@ -110,7 +111,7 @@ export class MostrarComprobantesPage implements OnInit {
             //   alert.inputs.forEach( el =>{
 
             //     if( el.name === elm ){
-                
+
 
             //       // debugger
             //       const value = this.icondition[elm] ?? this.istatus[elm]
@@ -121,7 +122,7 @@ export class MostrarComprobantesPage implements OnInit {
             //   })
 
             // })
-            
+
             return false;
           },
         },
@@ -132,7 +133,7 @@ export class MostrarComprobantesPage implements OnInit {
           }
         }
       ],
-      backdropDismiss : false
+      backdropDismiss: false
     });
 
     await alert.present();
@@ -143,7 +144,7 @@ export class MostrarComprobantesPage implements OnInit {
   // Compartir comprobante
   async shared() {
 
-    const listShared = this.listcpe.filter(x=>x.isChecked === true)
+    const listShared = this.listcpe.filter(x => x.isChecked === true)
     console.log(listShared);
 
 
@@ -166,7 +167,7 @@ export class MostrarComprobantesPage implements OnInit {
         text: 'PDF',
         role: 'destructive',
         icon: 'download',
-        handler: () => { 
+        handler: () => {
           console.log('Delete clicked');
         }
 
@@ -189,11 +190,11 @@ export class MostrarComprobantesPage implements OnInit {
     });
     await actionSheet.present();
   }
-  ngOnInit() {}
+  ngOnInit() { }
 
   ToselectAll() {
     this.spinner.show();
-    this.listcpe.forEach( el=>{ el.isChecked = !el.isChecked })
+    this.listcpe.forEach(el => { el.isChecked = !el.isChecked })
     this.spinner.hide();
   }
 
@@ -201,39 +202,37 @@ export class MostrarComprobantesPage implements OnInit {
     this.modalRepoteAdmin.dismiss();
   }
 
-  reestablecer(){
+  reestablecer() {
 
     debugger
     this.icondition.activo = false;
     this.icondition.anulado = false;
-    
+
     this.istatus.enviado = false;
     this.istatus.not_enviado = false;
   }
 
 
 
-  @ViewChild(IonInfiniteScroll) infinityScroll:  IonInfiniteScroll;
-  data: any [] = Array(20);
- 
+  @ViewChild(IonInfiniteScroll) infinityScroll: IonInfiniteScroll;
+  loadData(event) {
 
-  loadData(event){
- console.log("cargardo mis  primeros Datos");
+    console.log('Cargando ......')
 
+    setTimeout(() => {
+      
+      if( this.listcpe.length === this.listcpeGeneral.length ){
+        event.target.complete();
+        this.infinityScroll.disabled = true;
+        return;
+      }
 
- setTimeout(() =>{
+      const cant = this.listcpe.length + 20;
+      const nuevoArr = this.listcpeGeneral.slice(0, cant);
+      this.listcpe = nuevoArr;
+      event.target.complete();
+    }, 1000);
 
-if( this.data.length > 50){
-  event.target.complete();
-  this.infinityScroll.disabled=true;
-  return;
-}
-
-   const nuevoArr = Array(20);
-   this.data.push(...nuevoArr);
-   event.target.complete();
-
- },1000);
 
   }
 

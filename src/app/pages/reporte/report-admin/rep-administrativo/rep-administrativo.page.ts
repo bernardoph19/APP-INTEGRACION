@@ -114,11 +114,15 @@ export class RepAdministrativoPage implements OnInit {
   }
 
   async Mostrar_cpe( list : any [] ){
+
+    const listcpeFilter  = list.slice(0, 20);
     list.forEach( el=>{ el.isChecked = false; })
     const modal = await this.modalEditNombRe.create({
       component:MostrarComprobantesPage,
       componentProps: {
-        listcpe : list
+        listcpe        : listcpeFilter,
+        listcpeGeneral : list
+
       }
   });
    await modal.present();
