@@ -11,7 +11,7 @@ export class AlertService {
   async Alert( title : string, message : string ){
 
     const alert = await this.alert.create({
-      cssClass : '',
+      cssClass : 'alert',
       header   : title,
       message  : message,
       buttons  : ['OK']
