@@ -211,9 +211,5 @@ export class MostrarComprobantesPage implements OnInit {
     this.istatus.not_enviado = false;
   }
 
-  hola(){
-    console.log(this.listcpe)
-  }
-
 }
 
