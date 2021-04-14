@@ -1,7 +1,7 @@
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Share } from '@capacitor/core';
-import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
+import { ActionSheetController, AlertController, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ICondition, IStatus } from 'src/app/models/report.model';
 
@@ -209,6 +209,32 @@ export class MostrarComprobantesPage implements OnInit {
     
     this.istatus.enviado = false;
     this.istatus.not_enviado = false;
+  }
+
+
+
+  @ViewChild(IonInfiniteScroll) infinityScroll:  IonInfiniteScroll;
+  data: any [] = Array(20);
+ 
+
+  loadData(event){
+ console.log("cargardo mis  primeros Datos");
+
+
+ setTimeout(() =>{
+
+if( this.data.length > 50){
+  event.target.complete();
+  this.infinityScroll.disabled=true;
+  return;
+}
+
+   const nuevoArr = Array(20);
+   this.data.push(...nuevoArr);
+   event.target.complete();
+
+ },1000);
+
   }
 
 }

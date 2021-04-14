@@ -46,12 +46,11 @@
 
 
 <ion-content >  
-  <ion-list class="ion-justify-content-between  ion-align-items-center" color="light">
+  <ion-list class="ion-justify-content-between ion-align-items-center" color="light">
     <ion-label class="titles" >
       <p class="valor -colorr">Comprobantes</p>
       <p class="valor" slot="end">listcpe.length</p>
-    </ion-label> 
-    
+    </ion-label>     
     <ion-item *ngFor="let item of listcpe" button  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active"  lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;">
       <ion-grid class="ion-no-margin ion-no-padding py-2">
         <ion-row>
@@ -99,8 +98,17 @@
          </ion-label>      
       </ion-grid>         
     </ion-item>
-
   </ion-list> 
+
+
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Cargando..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
 
