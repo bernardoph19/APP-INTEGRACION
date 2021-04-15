@@ -9,7 +9,7 @@ export class DataLocalService {
 
   constructor( private nativeStorage: NativeStorage ) { }
 
-  async setUserLogin (user ) {
+  async setUserLogin (user) {
     await this.nativeStorage.setItem('userLogueado', user)
       .then(
         () => {          

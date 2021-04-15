@@ -4,6 +4,7 @@ import { FormGroup,  FormBuilder, Validators} from '@angular/forms';
 import { ValidarformloginService } from 'src/app/services/validarformlogin.service';
 import { Router } from '@angular/router';
 import { DataLocalService } from 'src/app/services/data-local.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -15,20 +16,29 @@ export class LoginPage implements OnInit {
   formLogin        : FormGroup;
   token            : string;
   datosLogin       : Array<any>;
+  show             : boolean = false;
 
   constructor(
     private auth             : AuthService,
     private vform            : ValidarformloginService,
     private formBuilder      : FormBuilder,
     private router           : Router,
-    private dataLocalService : DataLocalService
+    private dataLocalService : DataLocalService,
+    private spinner          : NgxSpinnerService 
     
   ) {
     this.CrearFormulario();
    }
 
   ngOnInit() {
-  }
+
+    /* this.dataLocalService.getTokenLogin()
+      .then( ( x ) => { debugger; if(x) { this.navRutePrefs(); } }); */
+
+    const userlogueado = JSON.parse(localStorage.getItem('key'));
+    if( userlogueado !== null && userlogueado.token )this.navRutePrefs();
+
+  } 
 
   CrearFormulario() {
     this.formLogin = this.formBuilder.group({
@@ -44,6 +54,8 @@ export class LoginPage implements OnInit {
       return this.vform.emptyData(this.formLogin);
     }
 
+
+    this.spinner.show();
     const body = {
       ... this.formLogin.value
     };
@@ -63,10 +75,12 @@ export class LoginPage implements OnInit {
           localStorage.setItem('key', JSON.stringify(this.datosLogin))
           this.resetForm();
           this.navigateRute();
+          console.log(this.show);          
+          this.spinner.hide();
           
         }
-      }, () => { 
-
+      }, () => {         
+        this.spinner.hide();
       });
 
   }
@@ -75,6 +89,11 @@ export class LoginPage implements OnInit {
   navigateRute(){
     this.router.navigate(['/inicio'],  { replaceUrl: true });
   }
+
+  navRutePrefs() {
+    this.router.navigate(['/menu-principal/migrador'],  { replaceUrl: true });
+  }
+
   resetForm(){
     this.formLogin.reset();
   }

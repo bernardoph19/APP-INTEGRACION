@@ -12,6 +12,7 @@ import { FunctionsService } from 'src/app/services/functions.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 import { MostrarComprobantesPage } from '../mostrar-comprobantes/mostrar-comprobantes.page';
 import { AlertService } from 'src/app/services/alert.service';
+import { NgZone } from '@angular/core';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class RepAdministrativoPage implements OnInit {
   listcpe : any[] = []
   formAdministrative : FormGroup;
   error              : boolean;
-  message            : string;  
+  message            : string;
+  expiredS           : boolean;
+  s = this;
 
   constructor(
     private modalListadoCliente : ModalController,
@@ -35,16 +38,12 @@ export class RepAdministrativoPage implements OnInit {
     private sreportVenta        : ReporteVentaService,
     private spinner             : NgxSpinnerService,
     private modalEditNombRe     : ModalController,
-    private salert              : AlertService
+    private salert              : AlertService,
+    private zone                : NgZone
   ) {
-
-    this.createFormReport();
-    
-    /* this.dataLocalService.getUserLogin().then((x : any) => {
-      console.log(JSON.stringify(x));
-    }); */
-
-   }
+   
+    this.createFormReport(); 
+  }
 
   async listadoClientes(){
     const modal = await this.modalListadoCliente.create({
@@ -100,15 +99,29 @@ export class RepAdministrativoPage implements OnInit {
       .subscribe( (response : any []) => {
 
         if( response.length === 0 ){
-
           const title = 'Oops!!!';
           const message = 'No se encontro ningún comprobante';
-          this.salert.Alert( title, message );
+          this.salert.Alert( title, message, );
+
         }
-        else{
-          this.Mostrar_cpe( response );
-        }
+
+        else{ this.Mostrar_cpe( response ); }
+
         this.spinner.hide();
+
+      }, (err) => {
+
+        this.error     = true;
+        this.expiredS  = err.error === 'Unauthorized';
+        this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (err.error.menssage)  ?? 'Sin conexion al servidor';
+        
+        this.spinner.hide();
+        const title = 'Oops!!!';
+        this.salert.Alert( title, this.message, this.sExpiredNav(this) );
+        
+        setTimeout(() => {
+          //this.navToLogin();
+        }, 1500);
       });
 
   }
@@ -128,6 +141,14 @@ export class RepAdministrativoPage implements OnInit {
    await modal.present();
    const {data} = await modal.onDidDismiss();
    console.log('retorno con daots',  data);
+  }
+
+
+  sExpiredNav(self) {
+    
+    localStorage.removeItem('key');    
+    self.router.navigate(['/login'],  { replaceUrl: true });
+    
   }
 
 }

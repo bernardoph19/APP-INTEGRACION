@@ -8,16 +8,21 @@ export class AlertService {
 
   constructor( private alert: AlertController, ) { }
 
-  async Alert( title : string, message : string ){
+  async Alert( title : string, message : string, redi : void ){
 
-    const alert = await this.alert.create({
+     const alert = await this.alert.create({
       cssClass : 'alert',
       header   : title,
       message  : message,
-      buttons  : ['OK']
+      buttons  : [
+        {
+          text    : 'OK',
+          handler :  () => redi
+        }
+      ] 
     });
 
-    alert.present();
+    alert.present();    
 
   }
 }

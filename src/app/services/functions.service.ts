@@ -13,6 +13,7 @@ export class FunctionsService {
   _headersApi(): any {
     // const token = this.dataLocalService.getTokenLogin();
     const token = JSON.parse(localStorage.getItem('key')).token;
+    //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJydWMiOiIyMDM1NTE2NjU0NyIsImlhdCI6MTYxODUxODY0OSwiZXhwIjoxNjE4NTYxODQ5fQ.lJjW94usCw9XvsqlnrK8bynmjvuvWHlN23QCxqasdfare';
     return { 'Authorization': `bearer ${token}` }
   }
 
