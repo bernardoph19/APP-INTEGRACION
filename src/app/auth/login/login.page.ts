@@ -60,6 +60,7 @@ export class LoginPage implements OnInit {
           
           this.datosLogin = res.result;           
           this.dataLocalService.setUserLogin( this.datosLogin );          
+          localStorage.setItem('key', JSON.stringify(this.datosLogin))
           this.resetForm();
           this.navigateRute();
           

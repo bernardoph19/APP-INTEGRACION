@@ -11,6 +11,10 @@ import { MostrarComprobantesPage } from './mostrar-comprobantes.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
+  exports : [
+    MostrarComprobantesPage
+  ]
+  ,
   imports: [
     CommonModule,
     FormsModule,

@@ -11,7 +11,8 @@ export class FunctionsService {
   ) { }
 
   _headersApi(): any {
-    const token = this.dataLocalService.getTokenLogin();
+    // const token = this.dataLocalService.getTokenLogin();
+    const token = JSON.parse(localStorage.getItem('key')).token;
     return { 'Authorization': `bearer ${token}` }
   }
 

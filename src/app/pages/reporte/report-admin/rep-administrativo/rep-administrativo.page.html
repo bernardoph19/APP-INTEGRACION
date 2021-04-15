@@ -9,115 +9,118 @@
 </ion-header>
 
 <ion-content>
-  <div>
+  <form [formGroup]="formAdministrative" (ngSubmit)="listarVentasAll()">
     <ion-list>
       <ion-item lines="none">
         <div class="flex-col">
-         <ion-label>Modos de busqueda</ion-label>
-         <ion-label class="datos">Ingresa datos para un mejor resultado</ion-label>
+          <ion-label>Modos de busqueda</ion-label>
+          <ion-label class="datos">Ingresa datos para un mejor resultado</ion-label>
         </div>
-       </ion-item>
+      </ion-item>
       <ion-item lines="none">
-         <ion-icon name="calendar-outline"></ion-icon>
-         <ion-label class="fecha">Fecha</ion-label>
-       </ion-item>
-     </ion-list>
+        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label class="fecha">Fecha</ion-label>
+      </ion-item>
+    </ion-list>
 
-     <!-- (fechas inicio --fin) -->
-     <ion-grid fixed>
-       <ion-row>
-        
-         <!-- (fecha Inicio) -->
-         <ion-col size="6">
-           <ion-label class="inicio">Inicio</ion-label>
-           <ion-item color="light"  lines="none" shape="round">
-              <input placeholder="12/12/2020" class="input-calendar"  [matDatepicker]="fechaInicio">
-              <mat-datepicker #fechaInicio></mat-datepicker>
-              <button  class="datepikerbut"  (click)="fechaInicio.open()">
-                <ion-icon class="icons-calen" name="calendar-outline"></ion-icon>
-              </button>
-           </ion-item>
-          </ion-col>
-          <!-- (Fechas Fin) -->
-          <ion-col size="6">
-            <ion-label class="inicio">Fin</ion-label>
-            <ion-item color="light" lines="none">
-               <input placeholder="12/12/2020" class="input-calendar"  [matDatepicker]="fechaFin">
-               <mat-datepicker #fechaFin></mat-datepicker>
-               <button  class="datepikerbut" clas (click)="fechaFin.open()">
-                 <ion-icon class="icons-calen" name="calendar-outline"></ion-icon>
-               </button>
-            </ion-item>
-           </ion-col>
-       </ion-row>
-     </ion-grid>
-     <ion-list>
+    <!-- (fechas inicio --fin) -->
+    <ion-grid fixed>
+      <ion-row>
+
+        <!-- (fecha Inicio) -->
+        <ion-col size="6">
+          <ion-label class="inicio">Inicio</ion-label>
+          <ion-item color="light" lines="none" shape="round">
+            <input placeholder="12/12/2020" class="input-calendar" [matDatepicker]="fechaInicio" formControlName="fechainicio">
+            <mat-datepicker #fechaInicio></mat-datepicker>
+            <button class="datepikerbut" (click)="fechaInicio.open()" type="button">
+              <ion-icon class="icons-calen" name="calendar-outline"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-col>
+        <!-- (Fechas Fin) -->
+        <ion-col size="6">
+          <ion-label class="inicio">Fin</ion-label>
+          <ion-item color="light" lines="none">
+            <input placeholder="12/12/2020" class="input-calendar" [matDatepicker]="fechaFin" formControlName="fechafin">
+            <mat-datepicker #fechaFin></mat-datepicker>
+            <button class="datepikerbut" clas (click)="fechaFin.open()" type="button">
+              <ion-icon class="icons-calen" name="calendar-outline"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list>
       <ion-item lines="none">
-        <ion-icon  id="ionc-icons" name="document"></ion-icon>
+        <ion-icon id="ionc-icons" name="document"></ion-icon>
         <ion-label class="fecha">Serie y Número </ion-label>
       </ion-item>
-     </ion-list>
-<!-- (serie y numero) -->
-     <ion-grid fixed>
-       <ion-row>
-         <!-- (Serie)  -->
-         <ion-col size="6">
+    </ion-list>
+    <!-- (serie y numero) -->
+    <ion-grid fixed>
+      <ion-row>
+        <!-- (Serie)  -->
+        <ion-col size="6">
           <ion-label class="inicio">Serie</ion-label>
-         <ion-list>
-          <ion-item lines="none" color="light">            
-            <mat-select placeholder="B0012" style="font-size: 14px;">
-              <mat-option value="B003">B011</mat-option>
-              <mat-option value="B004">B024</mat-option>
-              <mat-option value="B005">B024</mat-option>
-              <mat-option value="B006">B024</mat-option>
-            </mat-select>
-          </ion-item>
-         </ion-list>
-         </ion-col>
+          <ion-list>
+            <ion-item lines="none" color="light">
+              <mat-select placeholder="B0012" style="font-size: 14px;" formControlName="serie">
+                <mat-option value="B003">B011</mat-option>
+                <mat-option value="B004">B024</mat-option>
+                <mat-option value="B005">B024</mat-option>
+                <mat-option value="B006">B024</mat-option>
+              </mat-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
 
-         <!-- (numero) -->
-         <ion-col size="6">
+        <!-- (numero) -->
+        <ion-col size="6">
           <ion-label class="inicio"> Número</ion-label>
           <ion-list>
             <ion-item color="light" lines="none">
-            <ion-input type="number"  class="" placeholder="00023"></ion-input>
+              <ion-input type="number" class="" placeholder="00023" formControlName="numero"></ion-input>
             </ion-item>
           </ion-list>
-         </ion-col>
-       </ion-row>
-     </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
 
-     <!-- Cliente(s) -->
-     <ion-list>
-     <ion-item lines="none">
-      <ion-icon name="person"></ion-icon>
-      <ion-label class="fecha">Cliente(s)</ion-label>   
-      <ion-icon button slot="end" (click)="listadoClientes()" name="list"> </ion-icon>
-    </ion-item>
-   </ion-list>
-   <ion-grid fixed>
-     <ion-row>
-       <ion-col size="12">
-        <ion-label class="inicio"> Nombre(s)</ion-label>
-        <ion-list>
-          <ion-item color="light" lines="none">
-          <ion-input type="text"  class="" placeholder="CONCEPTOS & CONSTRUCCIONES V.G EIRL"></ion-input>
-          </ion-item>
-        </ion-list>
-       </ion-col>
-     </ion-row>
-   </ion-grid>
+    <!-- Cliente(s) -->
+    <ion-list>
+      <ion-item lines="none">
+        <ion-icon name="person"></ion-icon>
+        <ion-label class="fecha">Cliente(s)</ion-label>
+        <ion-icon button slot="end" (click)="listadoClientes()" name="list"> </ion-icon>
+      </ion-item>
+    </ion-list>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="inicio"> Nombre(s)</ion-label>
+          <ion-list>
+            <ion-item color="light" lines="none">
+              <ion-input type="text" class="" placeholder="CONCEPTOS & CONSTRUCCIONES V.G EIRL" formControlName="cliente" ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
     <!-- buscar -->
-   <div class="content-center">
-    <button class="btn" (click)="buscar()" color="factedsol" expand="block">
-      Buscar
-    </button>
-   </div>  
-  </div>
 
-<app-loading> </app-loading>
+    <div class="content-center">
+      <button type="submit" class="btn" color="factedsol" expand="block">
+        Buscar
+      </button>
+    </div>
+
+
+  </form>
 
 
 </ion-content>
+
+<app-loading> </app-loading>

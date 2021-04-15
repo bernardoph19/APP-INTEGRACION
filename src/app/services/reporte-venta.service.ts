@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FunctionsService } from './functions.service';
 
 import { environment } from 'src/environments/environment';
+import  { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class ReporteVentaService {
   AdministrativeReport( body:any ){
 
     const headers = this.sfunction._headersApi();
-    return this.http.post(`${environment.urlIntegracionApi}${this.url}listarventaadmin`, body, { headers })
+    return this.http.post(`${environment.urlIntegracionApi}${this.url}listarventaadmin`, body, { headers }).pipe( map( (result : any ) => result.result ) )
     
   }
 }

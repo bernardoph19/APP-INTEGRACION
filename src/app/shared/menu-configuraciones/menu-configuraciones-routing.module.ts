@@ -4,23 +4,21 @@ import { MenuConfiguracionesPage } from './menu-configuraciones.page';
 
 const routes: Routes = [
 
-  { path: '',
-    redirectTo: 'menu-configuraciones/micuenta',
-    pathMatch: 'full'
-  },
+ 
 
-  {
-    path: '',
-    component: MenuConfiguracionesPage,
+//   { path: '',
+//   redirectTo: 'menu-configuraciones/micuenta',
+//   pathMatch: 'full'
+// },
 
-    children:[
-      { path: 'micuenta',          loadChildren: () => import('../../pages/configuraciones/cuenta/micuenta/micuenta.module').then( m => m.MicuentaPageModule) },
-      { path: 'usuarios',          loadChildren: () => import('../../pages/configuraciones/usuarios/usuarios.module').then( m => m.UsuariosPageModule) },
-      { path: 'conexiones',        loadChildren: () => import('../../pages/configuraciones/conexiones/conexiones.module').then( m => m.ConexionesPageModule) },
-      { path: 'facturacion-sunat', loadChildren: () => import('../../pages/configuraciones/facturacion-sunat/facturacion-sunat.module').then( m => m.FacturacionSunatPageModule) },
-      ],    
-  }
+{ path: '',  component: MenuConfiguracionesPage },
+{ path:  'micuenta' ,  loadChildren: () => import('../../pages/configuraciones/cuenta/micuenta/micuenta.module').then( m => m.MicuentaPageModule) },
+{ path:  'usuarios' ,  loadChildren: () => import('../../pages/configuraciones/usuarios/usuarios.module').then( m => m.UsuariosPageModule)},   
+{ path: 'conexion',    loadChildren: () => import('../../pages/configuraciones/conexion/conexion.module').then( m => m.ConexionPageModule)},
+
 ];
+
+ 
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

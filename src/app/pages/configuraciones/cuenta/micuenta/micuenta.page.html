@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button  color="dark" defaultHref="/menu-principal/proceso-migracion"></ion-back-button>
+      <ion-back-button  color="dark" defaultHref="//menu-configuraciones"></ion-back-button>
     </ion-buttons>
     <ion-title> Mi Cuenta </ion-title>
   </ion-toolbar>
@@ -12,7 +12,7 @@
     <ion-item lines="none">
       <ion-avatar>
         <img src="https://cde.canaln.pe/actualidad-cesar-acuna-minsa-analizar-segunda-ola-covid-19-y-dar-opinion-tecnica-sobre-elecciones-n430462-764x480-950476.jpg" />
-        <!-- <input style="display:none;" type="file" accept="image/*, .pdf, .doc, .docx" (change)="fileSelected($event)" #chosenFile />
+      <!--<input style="display:none;" type="file" accept="image/*, .pdf, .doc, .docx" (change)="fileSelected($event)" #chosenFile />
         <button class="btnAttach" (click)="chosenFile.click()"><ion-icon class="attach" name="attach"></ion-icon></button> -->
       </ion-avatar>    
     </ion-item>
@@ -39,7 +39,7 @@
       
   <ion-list>
     <h1 class="info">Información Personal</h1>
-    <ion-item button (click)="editarNombre()" >   
+    <ion-item button (click)="editarNombre()">   
       <ion-icon  slot="end" name="person-outline"></ion-icon>       
       <div class="flex-col">
       <ion-label class="nom">Nombre</ion-label>
@@ -53,7 +53,7 @@
       <ion-label class="nombre">Alexander12@gmail.com</ion-label>
      </div>     
     </ion-item>
-    <ion-item button > 
+    <ion-item button (click)="editarNumero()"> 
       <ion-icon slot="end" name="call-outline"></ion-icon>  
       <div class="flex-col">
       <ion-label class="nom">Número</ion-label>
@@ -72,7 +72,7 @@
       <ion-label class="nombre">Admin</ion-label>
      </div>     
     </ion-item>
-    <ion-item button > 
+    <ion-item button  (click)="cambiarContrasena()"> 
       <ion-icon slot="end" name="lock-closed"></ion-icon>
       <div class="flex-col">
       <ion-label class="nom">Contraseña</ion-label>
@@ -80,7 +80,6 @@
      </div>     
     </ion-item>
   </ion-list>
-
   </div>
 
 

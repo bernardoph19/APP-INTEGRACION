@@ -1,9 +1,32 @@
+
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>usuarios</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button  color="dark" defaultHref="/menu-configuraciones"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Usuarios</ion-title>   
+    <form action=""  slot="end" class="search-bar">
+      <input type="search" name="search" pattern=".*\S.*" required>
+      <button class="search-btn" type="submit">
+        <span>Search</span>
+      </button>
+    </form> 
   </ion-toolbar>
+
+
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item button  (click)="descrip()"  *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1]">
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>       
+      <div class="flex-col">
+        <ion-label class="cabece">Miguel Angel's</ion-label>
+        <ion-label class="sub-title"> Administrador </ion-label>
+      </div>       
+    </ion-item>
+  </ion-list>  
+
 
 </ion-content>

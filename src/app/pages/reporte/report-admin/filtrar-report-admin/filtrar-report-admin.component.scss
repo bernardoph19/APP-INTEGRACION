@@ -1,0 +1,58 @@
+.Filtrar {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  color: #262626;
+}
+
+.justify-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
+}
+
+.condicion {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  border-bottom: 2px solid red;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  color: #302f2f;
+}
+
+.text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.08px;
+  color: #424242;
+}
+
+.mt-5{
+margin-top: 10px;
+}
+
+
+.mt-2{
+     padding-top: 5px;
+     padding-bottom: 5px;
+}
+
+.flexjusctice{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.pl-2{
+     margin-left: 20px;
+}

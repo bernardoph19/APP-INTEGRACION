@@ -2,18 +2,19 @@
   <!-- opcion 01 -->
   <ion-toolbar *ngIf="!app_bar">
     <ion-buttons slot="start">
-      <ion-back-button  color="dark" defaultHref="/menu-principal/rep-administrativo">
-        <ion-icon color="dark" name="funnel"></ion-icon>
-      </ion-back-button>
+      <ion-button (click)="atras()"  color="dark">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title >Reporte Administrativo</ion-title>
     <ion-buttons slot="end">
       <ion-button    (click)="app_bar = !app_bar">
         <ion-icon color="dark" src="assets/img/check.svg"></ion-icon> 
       </ion-button>
-      <ion-button (click)="Filtros()">
+      <ion-button (click)="openDialog()">
         <ion-icon color="dark" name="funnel" ></ion-icon>   
       </ion-button>
+     
     </ion-buttons>
   </ion-toolbar>
 
@@ -29,7 +30,7 @@
 
     <ion-buttons slot="end">
       <!-- selecionar todos los chech -->
-      <ion-button (click)="onClick()">
+      <ion-button (click)="ToselectAll()">
         <ion-icon color="dark"  src="assets/img/selecionartodos.svg"></ion-icon>
       </ion-button>
       <!-- compartirt -->
@@ -46,31 +47,35 @@
 
 
 <ion-content >  
-  <ion-list class="ion-justify-content-between  ion-align-items-center" color="light">
+  <ion-list class="ion-justify-content-between ion-align-items-center" color="light">
     <ion-label class="titles" >
       <p class="valor -colorr">Comprobantes</p>
-      <p class="valor" slot="end">20</p>
-    </ion-label> 
-    
-    <ion-item button  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active"  lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;"  *ngFor="let item of [1,1]">
+      <p class="valor" slot="end">{{ listcpeGeneral.length }}</p>
+
+    </ion-label>     
+    <ion-item *ngFor="let item of listcpe" button  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active"  lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;">
       <ion-grid class="ion-no-margin ion-no-padding py-2">
         <ion-row>
           <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 
-            <ion-checkbox class="checkccc" color="danger" > </ion-checkbox>     
+            <ion-checkbox [(ngModel)]="item.isChecked" class="checkccc" color="danger" > </ion-checkbox>     
           </ion-col>
 
           <ion-col  size="2" class="ion-justify-content-start ion-align-self-center">            
-            <!-- Activo            -->
-              <ion-icon class="error-icons" name="ban-outline"></ion-icon>  
-              <!-- <ion-icon class="enviado-icons" src="assets/img/anuladoe.svg"></ion-icon>            
-              <ion-icon class="enviado" name="checkmark-circle-outline"></ion-icon>             -->
+            
+              <!-- Anulado=true , ante sunat esta anulado -->
+              <ion-icon *ngIf=" item.Cliente === 'ANULADO' && !item.IDAnuladoEnviado && item.IDEnviado " class="enviado-icons" src="assets/img/anuladoe.svg"></ion-icon>
+              <!-- enviado=true, no esta anulado -->
+              <ion-icon *ngIf="item.IDEnviado && item.Cliente !== 'ANULADO' " class="enviado" name="checkmark-circle-outline"></ion-icon>
+
+              <!--Anulado = true - Enviado=false-->
+              <ion-icon *ngIf="!item.IDEnviado " class="error-icons" name="ban-outline"></ion-icon>  
             
           </ion-col>
           <ion-col size="7" >
             <ion-label class="ion-text-wrap">
-							<span class="text">BB01-19</span>
-							<span class="descrip ion-text-wrap">Conceptos & indust Inversiones E.I.R.L.</span>
-							<span class="text ruc">20854585461 </span>
+							<span class="text">{{ item.Serie }}-{{ item.Numero }}</span>
+							<span class="descrip ion-text-wrap">{{ item.Cliente }}</span>
+							<span class="text ruc">{{ item.NumeroIdentificacion }}</span>
 						</ion-label>
           </ion-col>
           
@@ -90,97 +95,23 @@
           </ion-col>
         </ion-row>
          <ion-label class="flex-justb" >
-          <p class="valor ">S/. 85.00</p>
-          <p class="valor -colorr">22/03/2021 - 12:07 pm</p>
+          <p class="valor ">{{ item.Total | currency : 'PEN'}}</p>
+          <p class="valor -colorr">{{ item['Emisión'] }} - {{ item.Hora }} </p>
          </ion-label>      
       </ion-grid>         
-    </ion-item> 
-
-    <ion-item button lines="none"  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active" style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;"  *ngFor="let item of [1,1]">
-      <ion-grid class="ion-no-margin ion-no-padding py-2">
-        <ion-row>
-          <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center" > 
-            <ion-checkbox class="checkccc" color="danger" > </ion-checkbox>     
-          </ion-col>
-
-          <ion-col  size="2" class="ion-justify-content-start ion-align-self-center"> 
-            <!-- Activo            -->
-              <!-- <ion-icon class="error-icons"  name="ban-outline"></ion-icon>   -->
-          <ion-icon class="enviado-icons" src="assets/img/anuladoe.svg"></ion-icon>            
-              <!-- <ion-icon class="enviado" name="checkmark-circle-outline"></ion-icon>   -->
-          </ion-col>
-          <ion-col size="7" >
-            <ion-label class="ion-text-wrap">
-							<span class="text">BB01-19</span>
-							<span class="descrip ion-text-wrap">Conceptos & indust Inversiones E.I.R.L.</span>
-							<span class="text ruc">20854585461 </span>
-						</ion-label>
-          </ion-col>
-          
-
-          <ion-col size="2"  class="ion-justify-content-start ion-align-self-start">
-           <!-- activo -->
-            <!-- <label class="flex-activo">
-              <span class="activo"></span>    
-              Activo
-            </label> -->
-            <!-- ((anulado)) -->
-            <label class="flex-inactivo">
-              <span class="inactivo"></span>    
-              Anulado
-            </label>
-            
-          </ion-col>
-        </ion-row>
-         <ion-label class="flex-justb" >
-          <p class="valor ">S/. 85.00</p>
-          <p class="valor -colorr">22/03/2021 - 12:07 pm</p>
-         </ion-label>      
-      </ion-grid>         
-    </ion-item> 
-
-    
-    <ion-item button lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;" *ngFor="let item of [1,1]"  >     
-      <ion-grid class="ion-no-margin ion-no-padding ion-no-border py-2" >
-        <ion-row>
-          <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 
-            <ion-checkbox class="checkccc" color="danger" > </ion-checkbox>     
-          </ion-col>
-          <ion-col  size="2" class="ion-justify-content-start ion-align-self-center"> 
-            <!-- Activo            -->
-              <!-- <ion-icon class="error-icons"  name="ban-outline"></ion-icon>   -->
-              <!-- <!-- <ion-icon class="enviado-icons" src="assets/img/anuladoe.svg"></ion-icon>             -->
-               <ion-icon class="enviado" name="checkmark-circle-outline"></ion-icon>         
-          </ion-col>
-          <ion-col size="7">
-            <ion-label class="ion-text-wrap">
-							<span class="text">BB01-19</span>
-							<span class="descrip ion-text-wrap">Conceptos & indust Inversiones E.I.R.L.</span>
-							<span class="text ruc">20854585461 </span>
-						</ion-label>
-          </ion-col>
-          
-
-          <ion-col size="2"  class="ion-justify-content-start ion-align-self-start">
-           <!-- activo -->
-            <label class="flex-activo">
-              <span class="activo"></span>    
-              Activo
-            </label>
-            <!-- anulado -->
-            <!-- <label class="flex-inactivo">
-              <span class="inactivo"></span>    
-              Anulado
-            </label>
-             -->
-          </ion-col>
-        </ion-row>
-         <ion-label class="flex-justb" >
-          <p class="valor ">S/. 85.00</p>
-          <p class="valor -colorr">22/03/2021 - 12:07 pm</p>
-         </ion-label>      
-      </ion-grid>         
-    </ion-item>   
+    </ion-item>
   </ion-list> 
 
+
+
+  <ion-infinite-scroll threshold="150px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Cargando..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
+
+<app-loading> </app-loading>
