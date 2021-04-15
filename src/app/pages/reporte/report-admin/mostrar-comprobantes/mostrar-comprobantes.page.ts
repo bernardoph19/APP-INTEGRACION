@@ -1,9 +1,12 @@
 
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Share } from '@capacitor/core';
-import { ActionSheetController, AlertController, IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { ActionSheetController, AlertController, IonInfiniteScroll } from '@ionic/angular';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ICondition, IStatus } from 'src/app/models/report.model';
+import { FiltrarReportAdminComponent } from '../filtrar-report-admin/filtrar-report-admin.component';
+
 
 
 @Component({
@@ -26,9 +29,16 @@ export class MostrarComprobantesPage implements OnInit {
   constructor(
     public Descargar: ActionSheetController,
     public filtrar: AlertController,
-    private modalRepoteAdmin: ModalController,
-    private spinner: NgxSpinnerService
-  ) { }
+  //  private modalRepoteAdmin: ModalController,
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog
+  ) { 
+   }
+
+   openDialog() {
+    this.dialog.open(FiltrarReportAdminComponent);
+  }
+
 
   // filtrar datos 
   async Filtros() {
@@ -203,9 +213,9 @@ export class MostrarComprobantesPage implements OnInit {
     this.spinner.hide();
   }
 
-  atras() {
-    this.modalRepoteAdmin.dismiss();
-  }
+   atras() {
+    //  this.modalRepoteAdmin.dismiss();
+   }
 
   reestablecer() {
 
