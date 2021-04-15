@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
       .then( ( x ) => { debugger; if(x) { this.navRutePrefs(); } }); */
 
     const userlogueado = JSON.parse(localStorage.getItem('key'));
-    if( userlogueado !== null && userlogueado.token )this.navRutePrefs();
+    if( userlogueado !== null && userlogueado.token ) this.navRutePrefs();
 
   } 
 
