@@ -49,7 +49,7 @@
   <ion-list class="ion-justify-content-between ion-align-items-center" color="light">
     <ion-label class="titles" >
       <p class="valor -colorr">Comprobantes</p>
-      <p class="valor" slot="end">{{ listcpe.length }}</p>
+      <p class="valor" slot="end">{{ listcpeGeneral.length }}</p>
 
     </ion-label>     
     <ion-item *ngFor="let item of listcpe" button  [routerLink]="['/menu-principal/detalle-comprobante']" routerLinkActive="router-link-active"  lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;">

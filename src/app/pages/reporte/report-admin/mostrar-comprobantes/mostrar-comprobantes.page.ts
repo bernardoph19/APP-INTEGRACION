@@ -13,6 +13,7 @@ import { ICondition, IStatus } from 'src/app/models/report.model';
 })
 export class MostrarComprobantesPage implements OnInit {
 
+  @ViewChild(IonInfiniteScroll) infinityScroll: IonInfiniteScroll;
   @Input() listcpe: any[] = [];
   @Input() listcpeGeneral : any[] = [];
 
@@ -195,10 +196,10 @@ export class MostrarComprobantesPage implements OnInit {
 
   ToselectAll() {
 
-    this.checkAll = !this.checkAll;
-
     this.spinner.show();
-    this.listcpe.forEach(el => { el.isChecked = this.checkAll })
+    this.checkAll = !this.checkAll;
+    this.listcpeGeneral.forEach(el => { el.isChecked = this.checkAll });
+    this.listcpe = this.listcpeGeneral;
     this.spinner.hide();
   }
 
@@ -216,9 +217,6 @@ export class MostrarComprobantesPage implements OnInit {
     this.istatus.not_enviado = false;
   }
 
-
-
-  @ViewChild(IonInfiniteScroll) infinityScroll: IonInfiniteScroll;
   loadData(event) {
 
     console.log('Cargando ......')
@@ -236,8 +234,6 @@ export class MostrarComprobantesPage implements OnInit {
       this.listcpe = nuevoArr;
       event.target.complete();
     }, 1000);
-
-
   }
 
 }
