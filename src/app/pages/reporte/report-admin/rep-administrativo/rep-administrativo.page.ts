@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ListadoClientePage } from '../listado-cliente/listado-cliente.page';
-import { DataLocalService } from 'src/app/services/data-local.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 
@@ -13,6 +12,8 @@ import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 import { MostrarComprobantesPage } from '../mostrar-comprobantes/mostrar-comprobantes.page';
 import { AlertService } from 'src/app/services/alert.service';
 import { NgZone } from '@angular/core';
+
+import { DataStorageService } from 'src/app/services/data-storage.service';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class RepAdministrativoPage implements OnInit {
     private spinner             : NgxSpinnerService,
     private modalEditNombRe     : ModalController,
     private salert              : AlertService,
-    private zone                : NgZone
+    private zone                : NgZone,
+    private dataStorageService  : DataStorageService,
   ) {
    
     this.createFormReport(); 
@@ -56,7 +58,7 @@ export class RepAdministrativoPage implements OnInit {
   });
    await modal.present();
    const {data} = await modal.onDidDismiss();
-   console.log('retorno con daots',  data);
+   console.log('retorno con datos',  data);
   }
  
   ngOnInit() {
@@ -78,7 +80,7 @@ export class RepAdministrativoPage implements OnInit {
 
   }
 
-  listarVentasAll() {
+  async listarVentasAll() {
     
     if (this.formAdministrative.invalid) {
       return this.sformValidator.Empty_data(this.formAdministrative);
@@ -87,15 +89,14 @@ export class RepAdministrativoPage implements OnInit {
     this.initialize();
     this.spinner.show();
 
-    const body = {
-      ... this.formAdministrative.value
-    };
+    const body = { ... this.formAdministrative.value };
 
     body.fechainicio = this.sfunction.convertFecha(body.fechainicio);
     body.fechafin    = this.sfunction.convertFecha(body.fechafin);
     body.numero      = (String(body.numero) === 'null') ? '0' : String(body.numero);
 
-    this.sreportVenta.AdministrativeReport(body)
+    
+     (await this.sreportVenta.AdministrativeReport(body)) 
       .subscribe( (response : any []) => {
 
         if( response.length === 0 ){
@@ -118,10 +119,7 @@ export class RepAdministrativoPage implements OnInit {
         this.spinner.hide();
         const title = 'Oops!!!';
         this.salert.Alert( title, this.message, this.sExpiredNav(this) );
-        
-        setTimeout(() => {
-          //this.navToLogin();
-        }, 1500);
+
       });
 
   }
@@ -129,25 +127,29 @@ export class RepAdministrativoPage implements OnInit {
   async Mostrar_cpe( list : any [] ){
 
     const listcpeFilter  = list.slice(0, 20);
-    list.forEach( el=>{ el.isChecked = false; })
-    const modal = await this.modalEditNombRe.create({
-      component:MostrarComprobantesPage,
-      componentProps: {
-        listcpe        : listcpeFilter,
-        listcpeGeneral : list
 
-      }
-  });
-   await modal.present();
-   const {data} = await modal.onDidDismiss();
-   console.log('retorno con daots',  data);
+    list.forEach( el => { el.isChecked = false; })
+      const modal = await this.modalEditNombRe.create({
+        component        : MostrarComprobantesPage,
+        componentProps   : {
+          listcpe        : listcpeFilter,
+          listcpeGeneral : list
+        }
+    });
+
+    await modal.present();
+    //const {data} = await modal.onDidDismiss();
+    //console.log('retorno con daots',  data);
+  }
+
+  closeModal() {
+    this.modalEditNombRe.dismiss(MostrarComprobantesPage);
   }
 
 
   sExpiredNav(self) {
-    
-    localStorage.removeItem('key');    
-    self.router.navigate(['/login'],  { replaceUrl: true });
+    self.dataStorageService.clearAllStorage();
+    self.router.navigate(['/login'],  { replaceUrl: true });    
     
   }
 

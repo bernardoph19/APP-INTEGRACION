@@ -1,12 +1,12 @@
 
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Share } from '@capacitor/core';
-import { ActionSheetController, AlertController, IonInfiniteScroll } from '@ionic/angular';
+import { ActionSheetController, AlertController, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ICondition, IStatus } from 'src/app/models/report.model';
 import { FiltrarReportAdminComponent } from '../filtrar-report-admin/filtrar-report-admin.component';
-
 
 
 @Component({
@@ -17,28 +17,26 @@ import { FiltrarReportAdminComponent } from '../filtrar-report-admin/filtrar-rep
 export class MostrarComprobantesPage implements OnInit {
 
   @ViewChild(IonInfiniteScroll) infinityScroll: IonInfiniteScroll;
-  @Input() listcpe: any[] = [];
-  @Input() listcpeGeneral : any[] = [];
+  @Input() listcpe                            : any[] = [];
+  @Input() listcpeGeneral                     : any[] = [];
 
-  icondition: ICondition = new ICondition();
-  istatus: IStatus = new IStatus();
+  icondition      : ICondition = new ICondition();
+  istatus         : IStatus = new IStatus();
 
-  checkAll : boolean;
-  app_bar: boolean;
+  checkAll        : boolean;
+  app_bar         : boolean;
 
   constructor(
-    public Descargar: ActionSheetController,
-    public filtrar: AlertController,
-  //  private modalRepoteAdmin: ModalController,
-    private spinner: NgxSpinnerService,
-    public dialog: MatDialog
-  ) { 
-   }
+    public  Descargar         : ActionSheetController,
+    public  filtrar           : AlertController,
+    private spinner           : NgxSpinnerService,
+    public  dialog            : MatDialog,
+    private modalEditNombRe   : ModalController,
+  ) {   }
 
-   openDialog() {
+  openDialog() {
     this.dialog.open(FiltrarReportAdminComponent);
   }
-
 
   // filtrar datos 
   async Filtros() {
@@ -168,7 +166,6 @@ export class MostrarComprobantesPage implements OnInit {
     });
   }
 
-
   // descargar Comprobante   
   async descargar() {
     const actionSheet = await this.Descargar.create({
@@ -202,6 +199,7 @@ export class MostrarComprobantesPage implements OnInit {
     });
     await actionSheet.present();
   }
+
   ngOnInit() { }
 
   ToselectAll() {
@@ -213,9 +211,9 @@ export class MostrarComprobantesPage implements OnInit {
     this.spinner.hide();
   }
 
-   atras() {
-    //  this.modalRepoteAdmin.dismiss();
-   }
+  closeModal() {    
+    this.modalEditNombRe.dismiss(MostrarComprobantesPage);
+  }
 
   reestablecer() {
 

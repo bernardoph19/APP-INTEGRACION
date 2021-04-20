@@ -23,10 +23,15 @@ export class ReporteVentaService {
   }
 
 
-  AdministrativeReport( body:any ){
+  async AdministrativeReport( body:any ){
 
-    const headers = this.sfunction._headersApi();
-    return this.http.post(`${environment.urlIntegracionApi}${this.url}listarventaadmin`, body, { headers }).pipe( map( (result : any ) => result.result ) )
+    const headers = await this.sfunction._headersApi();
+    const res = this.http.post(  `${environment.urlIntegracionApi}${this.url}listarventaadmin`, 
+                            body, 
+                            { headers }
+                         )
+                    .pipe( map( (result : any ) => result.result ) )
     
+    return res;
   }
 }

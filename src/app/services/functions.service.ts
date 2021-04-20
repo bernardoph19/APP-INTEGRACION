@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataLocalService } from './data-local.service';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +7,13 @@ import { DataLocalService } from './data-local.service';
 export class FunctionsService {
 
   constructor(
-    private dataLocalService : DataLocalService
+    private dataStorage : DataStorageService,
   ) { }
 
-  _headersApi(): any {
-    // const token = this.dataLocalService.getTokenLogin();
-    const token = JSON.parse(localStorage.getItem('key')).token;
+  async _headersApi(): Promise<any> {
+    
+    const token = await this.dataStorage.getToken('login');
+    console.log(token);
     //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJydWMiOiIyMDM1NTE2NjU0NyIsImlhdCI6MTYxODUxODY0OSwiZXhwIjoxNjE4NTYxODQ5fQ.lJjW94usCw9XvsqlnrK8bynmjvuvWHlN23QCxqasdfare';
     return { 'Authorization': `bearer ${token}` }
   }

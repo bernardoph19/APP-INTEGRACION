@@ -2,10 +2,13 @@
   <!-- opcion 01 -->
   <ion-toolbar *ngIf="!app_bar">
     <ion-buttons slot="start">
-      <ion-button (click)="atras()"  color="dark">
+      
+      <ion-button (click)="closeModal()"  color="dark">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
+      
     </ion-buttons>
+
     <ion-title >Reporte Administrativo</ion-title>
     <ion-buttons slot="end">
       <ion-button    (click)="app_bar = !app_bar">

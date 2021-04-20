@@ -30,25 +30,45 @@
         <!-- (fecha Inicio) -->
         <ion-col size="6">
           <ion-label class="inicio">Inicio</ion-label>
+          
           <ion-item color="light" lines="none" shape="round">
-            <input placeholder="12/12/2020" class="input-calendar" [matDatepicker]="fechaInicio" formControlName="fechainicio">
+            <input 
+                    placeholder="12/12/2020" 
+                    class="input-calendar" 
+                    [matDatepicker]="fechaInicio" 
+                    formControlName="fechainicio"
+                    readonly
+            >
+            
             <mat-datepicker #fechaInicio></mat-datepicker>
+            
             <button class="datepikerbut" (click)="fechaInicio.open()" type="button">
               <ion-icon class="icons-calen" name="calendar-outline"></ion-icon>
             </button>
           </ion-item>
         </ion-col>
+
         <!-- (Fechas Fin) -->
         <ion-col size="6">
           <ion-label class="inicio">Fin</ion-label>
+          
           <ion-item color="light" lines="none">
-            <input placeholder="12/12/2020" class="input-calendar" [matDatepicker]="fechaFin" formControlName="fechafin">
+            <input 
+                    placeholder="12/12/2020" 
+                    class="input-calendar" 
+                    [matDatepicker]="fechaFin" 
+                    formControlName="fechafin"
+                    readonly
+            >
+            
             <mat-datepicker #fechaFin></mat-datepicker>
+            
             <button class="datepikerbut" clas (click)="fechaFin.open()" type="button">
               <ion-icon class="icons-calen" name="calendar-outline"></ion-icon>
             </button>
           </ion-item>
         </ion-col>
+
       </ion-row>
     </ion-grid>
     <ion-list>
@@ -93,7 +113,7 @@
       <ion-item lines="none">
         <ion-icon name="person"></ion-icon>
         <ion-label class="fecha">Cliente(s)</ion-label>
-        <ion-icon button slot="end" (click)="listadoClientes()" name="list"> </ion-icon>
+        <!-- <ion-icon button slot="end" (click)="listadoClientes()" name="list"> </ion-icon> -->
       </ion-item>
     </ion-list>
     <ion-grid fixed>
