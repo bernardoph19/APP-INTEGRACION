@@ -82,6 +82,19 @@ export class DetalleComprobantePage implements OnInit {
 
 
 
+ 
+// Cerrar modal si datos
+  cancelar() {
+    this.modal.dismiss();
+  }
+
+  
+  // Cerrar modal con datos
+  guardar() {
+    this.modal.dismiss({  
+    });
+  }
+
 
 
 
