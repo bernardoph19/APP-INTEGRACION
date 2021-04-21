@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button color="dark" (click)="cancelar">
-        <ion-icon color="dark" name="funnel"></ion-icon>
-      </ion-back-button>
+      <ion-button (click)="cancelar()"  color="dark">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Detalle</ion-title>
     <ion-buttons slot="end">     
@@ -56,9 +56,9 @@
     <ion-item lines="none">
       <ion-icon id="ionc-icons" name="document-text"></ion-icon>
       <div class="p-b-1">
-        <label class="empresa">BB01-19</label>
-        <label class="ruc">Conceptos Constru Inversion E.I.R.L.</label>
-        <label class="ruc">20854585461</label>
+        <label class="empresa">{{itemCPE.Serie +' - '+ itemCPE.Numero }}</label>
+        <label class="ruc">{{itemCPE.Cliente}}</label>
+        <label class="ruc">{{itemCPE.NumeroIdentificacion}}</label>
       </div>
     </ion-item>
   </ion-list>

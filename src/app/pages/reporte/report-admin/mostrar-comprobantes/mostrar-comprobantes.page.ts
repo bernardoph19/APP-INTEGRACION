@@ -7,7 +7,6 @@ import { ActionSheetController, AlertController, IonInfiniteScroll, ModalControl
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ICondition, IStatus } from 'src/app/models/report.model';
 import { DataStorageService } from 'src/app/services/data-storage.service';
-import { DetalleComprobantePageModule } from '../detalle-comprobante/detalle-comprobante.module';
 import { DetalleComprobantePage } from '../detalle-comprobante/detalle-comprobante.page';
 import { FiltrarReportAdminComponent } from '../filtrar-report-admin/filtrar-report-admin.component';
 
@@ -38,7 +37,7 @@ export class MostrarComprobantesPage implements OnInit {
     private modalEditNombRe     : ModalController,
     private router              : Router,
     private dataStorageService  : DataStorageService,
-    private modal               : ModalController
+    
   ) {   }
 
   ngOnInit() { }
@@ -136,6 +135,7 @@ export class MostrarComprobantesPage implements OnInit {
 
   async listarDetalle(cpe : any) {
     await this.dataStorageService.set('detalleCPE', cpe);
+    debugger
     this.router.navigate(['/menu-principal/detalle-comprobante']);
     //this.router.navigate(['/menu-principal/rep-administrativo/detalle-comprobante']);
 
@@ -144,12 +144,11 @@ export class MostrarComprobantesPage implements OnInit {
 
  
 // mostar Detalle Cliente
-  async detalleComprobante(){
-    const modal = await this.modal.create({
-      component:DetalleComprobantePageModule,
+  async detalleComprobante(item : any){
+    const modal = await this.modalEditNombRe.create({
+      component     : DetalleComprobantePage,
       componentProps: {
-        nombre :  'Bernardo ',
-        pais   :  'Peru'
+        itemCPE : item
          
       }
   });

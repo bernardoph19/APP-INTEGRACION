@@ -17,7 +17,7 @@ export class AuthLoginGuard implements CanLoad {
 
       const res = await this.dataStorageService.getToken('login');
       console.log(res);
-      debugger;
+      
       if (res !== null ) {
         this.router.navigate(['/menu-principal/migrador'], { replaceUrl : true});
           return true;

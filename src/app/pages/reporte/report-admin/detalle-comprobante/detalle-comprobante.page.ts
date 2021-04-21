@@ -14,7 +14,8 @@ import { DataStorageService } from 'src/app/services/data-storage.service';
 export class DetalleComprobantePage implements OnInit {
 
   estadocompro                : boolean;
-  @Input() itemCPE            : any;
+  @Input() itemCPE            : any;  
+
 
   constructor( 
     public Descargar            : ActionSheetController,
@@ -72,16 +73,9 @@ export class DetalleComprobantePage implements OnInit {
   }
 
   async ngOnInit() {
-    await this.getDetalleStorage();
+    console.log(this.itemCPE);
   }
-
-  async getDetalleStorage() {
-    const res = await this.dataStorageService.get('detalleCPE');
-    console.log(res);
-  }
-
-
-
+  
  
 // Cerrar modal si datos
   cancelar() {
