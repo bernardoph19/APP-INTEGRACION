@@ -3,7 +3,7 @@
     <span class="Filtrar">Filtros</span>
   </div>
   <div>
-    <button  mat-button class="pl-2">
+    <button  mat-button class="pl-2"  (click)="restablecer()">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2857 7.0004C12.2861 8.20315 11.882 9.36958 11.1409 10.3046C10.3998 11.2396 9.36663 11.8865 8.21429 12.1371C7.06195 12.3876 5.86027 12.2267 4.81023 11.6812C3.7602 11.1356 2.92549 10.2386 2.44571 9.14009L0.856 9.79927C1.4862 11.2733 2.59432 12.4809 3.99408 13.2191C5.39383 13.9572 6.99986 14.1809 8.54215 13.8525C10.0844 13.5241 11.4689 12.6636 12.4629 11.4157C13.4568 10.1679 13.9996 8.60873 14 7.0004C14.0001 5.53941 13.5523 4.11501 12.7196 2.92682C11.8868 1.73864 10.7107 0.84623 9.35614 0.374664C8.00158 -0.0969024 6.53643 -0.12399 5.16603 0.297197C3.79562 0.718384 2.58866 1.56674 1.71429 2.72336V0.583667H0V5.25038L0.857143 6.12539H4.85714V4.37537H2.688C3.25384 3.37398 4.12762 2.59124 5.17377 2.14861C6.21992 1.70599 7.37993 1.62823 8.4738 1.92741C9.56766 2.22659 10.5342 2.88597 11.2235 3.80323C11.9127 4.7205 12.2861 5.84435 12.2857 7.0004Z" fill="#424242"/>
         </svg>         
@@ -11,41 +11,77 @@
   </div>
 </div>
 
-<section class="example-section mt-2">
-  <span class="condicion ">CONDICIÓN</span>
 
-  <mat-checkbox class="example-margin text mt-2">Activo
-    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6.55371 8.38575H8.41146L7.49496 5.53125L6.55371 8.38575Z" fill="#424242"/>
-      <path d="M7.5 0C3.358 0 0 3.35775 0 7.5C0 11.6423 3.358 15 7.5 15C11.642 15 15 11.642 15 7.5C15 3.35775 11.642 0 7.5 0ZM9.29175 11.127L8.81325 9.63575H6.14175L5.65 11.127H4.0645L6.654 3.873H8.36875L10.9353 11.127H9.29175Z" fill="#424242"/>
+<form [formGroup]="formFiltros" (ngSubmit)="aplicarFlitros()"> 
+  <section class="example-section mt-2">
+    <span class="condicion ">CONDICIÓN</span>
+  
+    <mat-checkbox 
+                  class="example-margin text mt-2" 
+                  formControlName="activo"
+                  [checked]="activo"                  
+                  (change)="updateValue($event.checked, 'activo')" 
+    >
+                  
+                  Activo
+
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.55371 8.38575H8.41146L7.49496 5.53125L6.55371 8.38575Z" fill="#424242"/>
+        <path d="M7.5 0C3.358 0 0 3.35775 0 7.5C0 11.6423 3.358 15 7.5 15C11.642 15 15 11.642 15 7.5C15 3.35775 11.642 0 7.5 0ZM9.29175 11.127L8.81325 9.63575H6.14175L5.65 11.127H4.0645L6.654 3.873H8.36875L10.9353 11.127H9.29175Z" fill="#424242"/>
       </svg>   
-  </mat-checkbox>
-
-  <mat-checkbox class="example-margin text">Anulado
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 0C3.13438 0 0 3.13438 0 7C0 10.8656 3.13438 14 7 14C10.8656 14 14 10.8656 14 7C14 3.13438 10.8656 0 7 0ZM6.5 3.625C6.5 3.55625 6.55625 3.5 6.625 3.5H7.375C7.44375 3.5 7.5 3.55625 7.5 3.625V7.875C7.5 7.94375 7.44375 8 7.375 8H6.625C6.55625 8 6.5 7.94375 6.5 7.875V3.625ZM7 10.5C6.80374 10.496 6.61687 10.4152 6.47948 10.275C6.3421 10.1348 6.26515 9.9463 6.26515 9.75C6.26515 9.5537 6.3421 9.36522 6.47948 9.225C6.61687 9.08478 6.80374 9.00401 7 9C7.19626 9.00401 7.38313 9.08478 7.52052 9.225C7.6579 9.36522 7.73485 9.5537 7.73485 9.75C7.73485 9.9463 7.6579 10.1348 7.52052 10.275C7.38313 10.4152 7.19626 10.496 7 10.5Z" fill="#424242"/>
-</svg>
-
-  </mat-checkbox>
-</section>
-
-<section class="example-section mt-2">
-  <span class="condicion ">ESTADO</span>
-  <mat-checkbox class="example-margin text mt-2">Enviado 
-    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8.5 16C12.6421 16 16 12.6421 16 8.5C16 4.35786 12.6421 1 8.5 1C4.35786 1 1 4.35786 1 8.5C1 12.6421 4.35786 16 8.5 16Z" fill="#424242" stroke="#424242" stroke-width="2"/>
-      <path d="M5.5 8.875L7.75 11.125L11.5 6.625" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      
     </mat-checkbox>
+  
+    <mat-checkbox 
+                  class="example-margin text" 
+                  formControlName="anulado" 
+                  [checked]="anulado"
+                  (change)="updateValue($event.checked, 'anulado')"
+    > 
+                  
+                  Anulado
 
-  <mat-checkbox class="example-margin text">No Enviado
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM8 1.77778C9.37778 1.77778 10.6667 2.26667 11.7333 3.02222L3.02222 11.7333C2.26667 10.6667 1.77778 9.37778 1.77778 8C1.77778 4.57778 4.57778 1.77778 8 1.77778ZM8 14.2222C6.62222 14.2222 5.33333 13.7333 4.26667 12.9778L12.9778 4.26667C13.7333 5.33333 14.2222 6.62222 14.2222 8C14.2222 11.4222 11.4222 14.2222 8 14.2222Z" fill="#424242"/>
-      </svg>      
-  </mat-checkbox>
-</section>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 0C3.13438 0 0 3.13438 0 7C0 10.8656 3.13438 14 7 14C10.8656 14 14 10.8656 14 7C14 3.13438 10.8656 0 7 0ZM6.5 3.625C6.5 3.55625 6.55625 3.5 6.625 3.5H7.375C7.44375 3.5 7.5 3.55625 7.5 3.625V7.875C7.5 7.94375 7.44375 8 7.375 8H6.625C6.55625 8 6.5 7.94375 6.5 7.875V3.625ZM7 10.5C6.80374 10.496 6.61687 10.4152 6.47948 10.275C6.3421 10.1348 6.26515 9.9463 6.26515 9.75C6.26515 9.5537 6.3421 9.36522 6.47948 9.225C6.61687 9.08478 6.80374 9.00401 7 9C7.19626 9.00401 7.38313 9.08478 7.52052 9.225C7.6579 9.36522 7.73485 9.5537 7.73485 9.75C7.73485 9.9463 7.6579 10.1348 7.52052 10.275C7.38313 10.4152 7.19626 10.496 7 10.5Z" fill="#424242"/>
+      </svg>
+    </mat-checkbox>
+  </section>
+  
+  <section class="example-section mt-2">
 
-<div class="flexjusctice">
-  <button mat-raised-button mat-dialog-close   color="warn" class="mt-5">HECHO</button>
-</div>
+    <span class="condicion ">ESTADO</span>
+
+    <mat-checkbox 
+                  class="example-margin text mt-2" 
+                  formControlName="enviado" 
+                  [checked]="enviado" 
+                  (change)="updateValue($event.checked, 'enviado')"
+    > 
+                  
+                  Enviado 
+
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.5 16C12.6421 16 16 12.6421 16 8.5C16 4.35786 12.6421 1 8.5 1C4.35786 1 1 4.35786 1 8.5C1 12.6421 4.35786 16 8.5 16Z" fill="#424242" stroke="#424242" stroke-width="2"/>
+          <path d="M5.5 8.875L7.75 11.125L11.5 6.625" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>        
+      </mat-checkbox>
+  
+    <mat-checkbox 
+                  class="example-margin text" 
+                  formControlName="noenviado" 
+                  [checked]="noenviado" 
+                  (change)="updateValue($event.checked, 'noenviado')"
+    > 
+                  
+                  No Enviado
+
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM8 1.77778C9.37778 1.77778 10.6667 2.26667 11.7333 3.02222L3.02222 11.7333C2.26667 10.6667 1.77778 9.37778 1.77778 8C1.77778 4.57778 4.57778 1.77778 8 1.77778ZM8 14.2222C6.62222 14.2222 5.33333 13.7333 4.26667 12.9778L12.9778 4.26667C13.7333 5.33333 14.2222 6.62222 14.2222 8C14.2222 11.4222 11.4222 14.2222 8 14.2222Z" fill="#424242"/>
+        </svg>      
+    </mat-checkbox>    
+  </section>
+  
+  <div class="flexjusctice">
+    <button mat-raised-button mat-dialog-close   color="warn" class="mt-5" type="submit">HECHO</button>
+  </div>
+</form>
+

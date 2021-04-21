@@ -99,7 +99,7 @@ export class RepAdministrativoPage implements OnInit {
      (await this.sreportVenta.AdministrativeReport(body)) 
       .subscribe( (response : any []) => {
 
-        if( response.length === 0 ){
+        if( response.length === 0 ){          
           const title = 'Oops!!!';
           const message = 'No se encontro ningún comprobante';
           this.salert.Alert( title, message, );
@@ -112,6 +112,7 @@ export class RepAdministrativoPage implements OnInit {
 
       }, (err) => {
 
+        debugger
         this.error     = true;
         this.expiredS  = err.error === 'Unauthorized';
         this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (err.error.menssage)  ?? 'Sin conexion al servidor';
@@ -128,23 +129,24 @@ export class RepAdministrativoPage implements OnInit {
 
     const listcpeFilter  = list.slice(0, 20);
 
-    list.forEach( el => { el.isChecked = false; })
+    list.forEach( el => { el.isChecked = false; });
+    
       const modal = await this.modalEditNombRe.create({
         component        : MostrarComprobantesPage,
         componentProps   : {
           listcpe        : listcpeFilter,
           listcpeGeneral : list
         }
-    });
+      });
 
     await modal.present();
     //const {data} = await modal.onDidDismiss();
     //console.log('retorno con daots',  data);
   }
 
-  closeModal() {
+  /* closeModal() {
     this.modalEditNombRe.dismiss(MostrarComprobantesPage);
-  }
+  } */
 
 
   sExpiredNav(self) {

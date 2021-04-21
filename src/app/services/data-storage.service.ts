@@ -5,57 +5,67 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root'
 })
 export class DataStorageService {
-  private _storage: Storage | null = null;
+  
+  //private _storage: Storage | null = null;
+  public _storage : Storage;
 
-
-  constructor(private storage: Storage) {
+  constructor(
+    private storage: Storage
+  ) {
     this.init();
+
   }
 
-  async init() {
-    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+/*   async getStorage() : Promise<Storage> {
+    if (this._storage != null)  return this._storage;
+    this._storage = await this.init();
+    return this._storage;
+  } */
+
+  async init() {    
     const storage = await this.storage.create();
     this._storage = storage;
+    return storage;
   }
   
-  public set(key: string, value: any) {
-    this._storage?.set(key, value);
+  public async set(key: string, value: any) {
+    await this._storage?.set(key, value);
   }
 
-  async get(key: string): Promise<any> {
-    try {
+  async get(key: string)  {
 
+    const r = await this.init();
+
+    if (r != null){
+      
       const result = await this._storage?.get(key);
       console.log('storageGET: ' + key + ': ' + result);
 
-      if (result != null) {
+      if (result !== null || result !== undefined) {
         return result;
       }
       
       return null;
-
-    } catch (reason) {
-      console.log(reason);
-      return null;
     }
+    
   }
 
   async getToken( key : string) {
-    try {
+ 
+    const r = await this.init();
+
+    if (r != null){
 
       const result = await this._storage?.get(key);
       console.log('storage GET TOKEN : ' + key + ': ' + result);
 
-      if (result != null) {
+      if (result != null || result != undefined) {
         return result.token;
       }
-      
-      return null;
-
-    } catch (reason) {
-      console.log(reason);
-      return null;
+    
+      return null;      
     }
+
   }
 
   async clearAllStorage() {

@@ -1,11 +1,12 @@
 
-import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Share } from '@capacitor/core';
 import { ActionSheetController, AlertController, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ICondition, IStatus } from 'src/app/models/report.model';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FiltrarReportAdminComponent } from '../filtrar-report-admin/filtrar-report-admin.component';
 
 
@@ -25,131 +26,29 @@ export class MostrarComprobantesPage implements OnInit {
 
   checkAll        : boolean;
   app_bar         : boolean;
+  filtros         : any [];
 
   constructor(
-    public  Descargar         : ActionSheetController,
-    public  filtrar           : AlertController,
-    private spinner           : NgxSpinnerService,
-    public  dialog            : MatDialog,
-    private modalEditNombRe   : ModalController,
+    public  Descargar           : ActionSheetController,
+    public  filtrar             : AlertController,
+    private spinner             : NgxSpinnerService,
+    public  dialog              : MatDialog,
+    private modalEditNombRe     : ModalController,
+    private router              : Router,
+    private dataStorageService  : DataStorageService,
   ) {   }
 
+  ngOnInit() { }
+
+
   openDialog() {
-    this.dialog.open(FiltrarReportAdminComponent);
-  }
-
-  // filtrar datos 
-  async Filtros() {
-
-    const alert = await this.filtrar.create({
-      cssClass: 'my-custom-class',
-      header: 'Filtros',
-
-      inputs: [
-        {
-          name: 'activo',
-          type: 'checkbox',
-          label: 'activo',
-          value: this.icondition.activo,
-          checked: this.icondition.activo,
-          handler: () => {
-            console.log(alert.inputs);
-          }
-        },
-        {
-          name: 'anulado',
-          type: 'checkbox',
-          label: 'anulado',
-          value: this.icondition.anulado,
-          checked: this.icondition.anulado,
-          handler: () => {
-            // console.log(alert.inputs);
-          }
-
-        },
-
-        {
-          name: 'enviado',
-          type: 'checkbox',
-          label: 'enviado',
-          value: this.istatus.enviado,
-          checked: this.istatus.enviado,
-          handler: () => {
-            // console.log(alert.inputs);
-          }
-        },
-
-        {
-          name: 'No Enviado',
-          type: 'checkbox',
-          label: 'No Enviado',
-          value: this.istatus.not_enviado,
-          checked: this.istatus.not_enviado,
-          handler: () => {
-            // console.log(alert.inputs);
-          }
-        },
-        {
-          name: 'f',
-          type: 'checkbox',
-          label: 'fdffff',
-          value: this.istatus.not_enviado,
-          checked: this.istatus.not_enviado,
-          handler: () => {
-            this.reestablecer();
-          }
-
-        }
-      ],
-
-      buttons: [
-        {
-          text: 'Restablecer',
-          cssClass: 'secondary',
-          handler: () => {
-            this.reestablecer();
-
-            // console.log('alert: ', alert)
-            // // alert.inputs
-
-            // const keys1 = Object.keys( this.icondition );
-            // const keys2 = Object.keys( this.istatus );
-            // const keys = keys1.concat(keys2);
-
-            // keys.forEach( elm =>{
-
-            //   alert.inputs.forEach( el =>{
-
-            //     if( el.name === elm ){
-
-
-            //       // debugger
-            //       const value = this.icondition[elm] ?? this.istatus[elm]
-            //       el.checked = value
-            //       el.value = value
-            //       console.log(alert.inputs);
-            //     }
-            //   })
-
-            // })
-
-            return false;
-          },
-        },
-        {
-          text: 'Hecho',
-          handler: () => {
-            console.log('Confirm Ok');
-          }
-        }
-      ],
-      backdropDismiss: false
-    });
-
-    await alert.present();
-
-
-  }
+    this.dialog.open(FiltrarReportAdminComponent)
+        .afterClosed()
+        .subscribe( res => {
+          this.filtros = res;
+          console.log(this.filtros);
+        })
+  }  
 
   // Compartir comprobante
   async shared() {
@@ -199,9 +98,7 @@ export class MostrarComprobantesPage implements OnInit {
     });
     await actionSheet.present();
   }
-
-  ngOnInit() { }
-
+  
   ToselectAll() {
 
     this.spinner.show();
@@ -213,16 +110,6 @@ export class MostrarComprobantesPage implements OnInit {
 
   closeModal() {    
     this.modalEditNombRe.dismiss(MostrarComprobantesPage);
-  }
-
-  reestablecer() {
-
-    debugger
-    this.icondition.activo = false;
-    this.icondition.anulado = false;
-
-    this.istatus.enviado = false;
-    this.istatus.not_enviado = false;
   }
 
   loadData(event) {
@@ -244,5 +131,11 @@ export class MostrarComprobantesPage implements OnInit {
     }, 1000);
   }
 
+  async listarDetalle(cpe : any) {
+    await this.dataStorageService.set('detalleCPE', cpe);
+    this.router.navigate(['/menu-principal/detalle-comprobante']);
+    //this.router.navigate(['/menu-principal/rep-administrativo/detalle-comprobante']);
+
+  }
 }
 

@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Share } from '@capacitor/core';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 
 
 @Component({
@@ -11,8 +13,19 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class DetalleComprobantePage implements OnInit {
 
-  estadocompro: boolean;
-  constructor(public Descargar: ActionSheetController , private http:HttpClient) { }
+  estadocompro                : boolean;
+  @Input() itemCPE            : any;
+
+  constructor( 
+    public Descargar            : ActionSheetController,
+    private http                : HttpClient,
+    private route               : ActivatedRoute,
+    private dataStorageService  : DataStorageService,
+    private modal                : ModalController
+
+  ) { 
+
+  }
   
  async shared(){
 
@@ -58,7 +71,18 @@ export class DetalleComprobantePage implements OnInit {
     await actionSheet.present();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.getDetalleStorage();
   }
+
+  async getDetalleStorage() {
+    const res = await this.dataStorageService.get('detalleCPE');
+    console.log(res);
+  }
+
+
+
+
+
 
 }
