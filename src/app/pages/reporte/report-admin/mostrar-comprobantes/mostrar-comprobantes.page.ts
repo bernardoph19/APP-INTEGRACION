@@ -141,15 +141,14 @@ export class MostrarComprobantesPage implements OnInit {
   async detalleComprobante(item: any) {
 
     this.spinner.show();
-    
-    (await this.getDetails(item).then(r => r)).subscribe( async (dt) =>{
 
-      debugger
+    (await this.getDetails(item).then(r => r)).subscribe( async (dt) =>{
+      
       if (dt !== null) {
 
         if (dt['exito'] == true) {
 
-          console.log(dt)
+          console.log(dt['result'][0])
           const modal = await this.modalEditNombRe.create({
             component: DetalleComprobantePage,
             componentProps: { itemCPE: dt['result'][0] }
@@ -171,18 +170,9 @@ export class MostrarComprobantesPage implements OnInit {
         this.message = 'Revise su conexión a internet, vuelva a intentarlo.';
         this.salert.Alert(this.title, this.message);
       }
-    } )
+      
+    })
 
-
-
-
-
-
-
-
-
-    /* const {data} = await modal.onDidDismiss();
-    console.log('retorno con daots',  data); */
   }
 
 
@@ -196,15 +186,6 @@ export class MostrarComprobantesPage implements OnInit {
       codigoComprobante: item.Tipo,
       ruc: res.ruc
     };
-
-    /* {
-      "serie": "FS01",
-      "numero": "00001505",
-      "codigoComprobante": "01",
-      "ruc": "10194195295"
-    } */
-
-
 
     return this.sreportVenta.AdministrativeReportDetalle(bdetr);
 

@@ -15,7 +15,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class DetalleComprobantePage implements OnInit {
 
-  estadocompro                : boolean;
+  estadocompro                   : boolean;
   @Input() itemCPE               : any;  
   //itemCPE                     : any;
 
@@ -80,9 +80,8 @@ export class DetalleComprobantePage implements OnInit {
   async ngOnInit() {    
     
   }
-  
- 
-  // Cerrar modal si datos
+   
+  // Cerrar modal sin datos
   cancelar() {
     this.modal.dismiss();
   }

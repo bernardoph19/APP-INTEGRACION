@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -9,9 +9,12 @@ import { DemoMaterialModule } from './module.material';
 import { SharedModule } from './shared/shared.module';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HttpClientModule } from '@angular/common/http';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import {  registerLocaleData } from '@angular/common';
+import LocaleEsPe from '@angular/common/locales/es-PE.js';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+registerLocaleData(LocaleEsPe);
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,8 +32,10 @@ import { IonicStorageModule } from '@ionic/storage-angular';
   ],
   providers: [
     StatusBar,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    NativeStorage
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },    
+    { provide: MAT_DATE_LOCALE, useValue: 'es-PE' },
+    { provide: LOCALE_ID,  useValue: 'es-PE' },
+    {provide: DEFAULT_CURRENCY_CODE, useValue: 'PEN'}
   ],
   bootstrap: [AppComponent],
 })

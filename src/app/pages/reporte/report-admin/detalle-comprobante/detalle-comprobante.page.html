@@ -36,9 +36,9 @@
 
   <ion-item>
     <ion-label>Condición</ion-label>
-    <ion-select color="danger">
-      <ion-select-option color="danger" value="A">Activo</ion-select-option>
-      <ion-select-option color="danger" value="ANU">Anulado</ion-select-option>
+    <ion-select color="danger" okText="Aceptar" cancelText="Cancelar" >
+      <ion-select-option color="danger" value="activo"  [disabled]="!itemCPE.Anulado" [s] >Activo</ion-select-option>
+      <ion-select-option color="danger" value="anulado" [disabled]="itemCPE.Anulado"  [s]>Anulado</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -58,9 +58,9 @@
     <ion-item lines="none">
       <ion-icon id="ionc-icons" name="document-text"></ion-icon>
       <div class="p-b-1">
-        <label class="empresa">{{(itemCPE == undefined) ? 'NOMBRE DE EMPRESA' : itemCPE.IDComprobante}}</label>
-        <label class="ruc">    {{(itemCPE == undefined) ? 'NOMBRE DE CLIENTE' : itemCPE.ClienteDenominacion}}</label>
-        <label class="ruc">    {{(itemCPE == undefined) ? 'RUC DE EMPRESA'    : itemCPE.ClienteNumeroDocumento}}</label>
+        <label class="empresa">{{itemCPE.IDComprobante}}          </label>
+        <label class="ruc">    {{itemCPE.ClienteDenominacion}}    </label>
+        <label class="ruc">    {{itemCPE.ClienteNumeroDocumento}} </label>
       </div>
     </ion-item>
   </ion-list>
@@ -86,8 +86,13 @@
 
   <!-- Correos -->
   <ion-list> 
+    
     <label class="text-t">Correo</label> 
-    <ion-item>        
+    <ion-item *ngIf="(itemCPE.Correo == '')"> 
+      <span  class="text-t font"> No tienes correo para enviar </span> 
+    </ion-item>
+
+    <ion-item *ngIf="(itemCPE.Correo !== '')">        
       <ion-select multiple="true" color="danger" class="ion-no-padding ion-no-margin" placeholder="Selecionar correo para Enviar"  okText="Enviar">
         <ion-select-option id="text-" value="bacon">esteban.mendoza@example.com</ion-select-option>
         <ion-select-option value="olives">debbie.baker@example.com</ion-select-option>
@@ -95,60 +100,70 @@
         <ion-select-option value="peppers">michelle.rivera@example.com</ion-select-option>     
       </ion-select>
     </ion-item>     
+
   </ion-list>
 
-  <ion-label class="mt-2">
+  <!-- <ion-label class="mt-2">
     <span class="text-t font">observación</span>
     <span class="text-t bg-gray-500">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, sunt? Numquam nobis ducimus, qui delectus ut.
     </span>
-  </ion-label>
+  </ion-label> -->
 
  
 
  <!-- Datos de  Venta -->
   <div class="bg-white mt-2">
     <span class="text-t font">Datos de Venta</span>   
-    <ion-label class="flex-jus padi">
+    
+    <!-- <ion-label class="flex-jus padi">
       <span class="text-t">Anticipo</span>
       <span class="text-t">si</span>
-    </ion-label>
-    <ion-label class="flex-jus padi">
+    </ion-label> -->
+
+    <!-- <ion-label class="flex-jus padi">
       <span class="text-t">Anti. Monto:</span>
       <span class="text-t">22.00</span>
-    </ion-label>
+    </ion-label> -->
+
     <ion-label class="flex-jus padi">
       <span class="text-t">Detración:</span>
-      <span class="text-t">si</span>
+      <span class="text-t">{{itemCPE.Detraccion ? 'SI' : 'NO'}}</span>
     </ion-label>
+
     <ion-label class="flex-jus padi">
-      <span class="text-t">Detración%:</span>
-      <span class="text-t">0-50%</span>
+      <span class="text-t">Detración %:</span>
+      <span class="text-t">{{itemCPE.DetraccionPorcentaje}} %</span>
     </ion-label>
+
     <ion-label class="flex-jus padi">
       <span class="text-t">Detración Monto:</span>
-      <span class="text-t">0-50%</span>
+      <span class="text-t"> {{ itemCPE.DetraccionMonto | currency : 'PEN' }} </span>
     </ion-label>
+
     <ion-label class="flex-jus padi">
       <span class="text-t">G.Remitente:</span>
-      <span class="text-t">0.0083</span>
-    </ion-label>
-   
+      <span class="text-t">{{itemCPE.GuiaRemision}}</span>
+    </ion-label>   
+
     <ion-label class="flex-jus padi">
       <span class="text-t">G.Transportista:</span>
-      <span class="text-t">0.0083</span>
+      <span class="text-t">{{itemCPE.GuiaTrasportista}}</span>
     </ion-label>
+
     <ion-label class="flex-jus padi">
       <span class="text-t">placa:</span>
-      <span class="text-t">BN043</span>
+      <span class="text-t">{{itemCPE.Placa}}</span>
     </ion-label>
+
     <ion-label class="flex-jus padi">
       <span class="text-t">Orden de Compra:</span>
-      <span class="text-t">0029D</span>
+      <span class="text-t">{{itemCPE.OrdenCompra}}</span>
     </ion-label>
+
     <ion-label class="flex-jus padi">
       <span class="text-t">Orden de Pago:</span>
-      <span class="text-t">200029D</span>
+      <span class="text-t"></span>
     </ion-label>
   </div>
 
@@ -157,36 +172,36 @@
     <span class="text-t font">Otros Datos</span>   
     <ion-label class="flex-jus padi">
       <span class="text-t">ICBPER:</span>
-      <span class="text-t">123</span>
+      <span class="text-t">{{ itemCPE.TotalOtrosTributos | currency:'PEN' }}</span>
     </ion-label>
     <ion-label class="flex-jus padi">
       <span class="text-t">Desc:</span>
-      <span class="text-t">22.00</span>
+      <span class="text-t">{{ itemCPE.DescuentoGlobal | currency:'PEN' }}</span>
     </ion-label>
     <ion-label class="flex-jus padi">
       <span class="text-t">Exonerado</span>
-      <span class="text-t">343</span>
+      <span class="text-t">{{  itemCPE.Exonerada | currency:'PEN' }}</span>
     </ion-label>
     <ion-label class="flex-jus padi">
       <span class="text-t">Gravado:</span>
-      <span class="text-t">0-50%</span>
+      <span class="text-t">{{ itemCPE.Afecto | currency:'PEN' }}</span>
     </ion-label>
-    <ion-label class="flex-jus padi">
+    <!-- <ion-label class="flex-jus padi">
       <span class="text-t">Afecto:</span>
-      <span class="text-t">876</span>
-    </ion-label>
+      <span class="text-t">{{itemCPE.Afecto}}</span>
+    </ion-label> -->
     <ion-label class="flex-jus padi">
       <span class="text-t">Inafecto:</span>
-      <span class="text-t">0.0083</span>
+      <span class="text-t">{{ itemCPE.Inafecto | currency:'PEN' }}</span>
     </ion-label>
    
     <ion-label class="flex-jus padi">
       <span class="text-t">IGV:</span>
-      <span class="text-t">0.0083</span>
+      <span class="text-t">{{ itemCPE.Igv | currency:'PEN' }}</span>
     </ion-label>
     <ion-label class="flex-jus padi">
       <span class="text-t">TOTAL:</span>
-      <span class="text-t">233.00</span>
+      <span class="text-t">{{ itemCPE.Total  | currency: itemCPE.MonedaCodigo }}</span>
     </ion-label>   
   </div>
 
