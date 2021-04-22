@@ -103,16 +103,13 @@ export class RepAdministrativoPage implements OnInit {
           const title = 'Oops!!!';
           const message = 'No se encontro ningún comprobante';
           this.salert.Alert( title, message, );
-
-        }
-
-        else{ this.Mostrar_cpe( response ); }
+          
+        } else{ this.Mostrar_cpe( response ); }
 
         this.spinner.hide();
 
       }, (err) => {
 
-        debugger
         this.error     = true;
         this.expiredS  = err.error === 'Unauthorized';
         this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (err.error.menssage)  ?? 'Sin conexion al servidor';

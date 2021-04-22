@@ -1,3 +1,5 @@
+<app-loading> </app-loading>
+
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -56,9 +58,9 @@
     <ion-item lines="none">
       <ion-icon id="ionc-icons" name="document-text"></ion-icon>
       <div class="p-b-1">
-        <label class="empresa">{{itemCPE.Serie +' - '+ itemCPE.Numero }}</label>
-        <label class="ruc">{{itemCPE.Cliente}}</label>
-        <label class="ruc">{{itemCPE.NumeroIdentificacion}}</label>
+        <label class="empresa">{{(itemCPE == undefined) ? 'NOMBRE DE EMPRESA' : itemCPE.IDComprobante}}</label>
+        <label class="ruc">    {{(itemCPE == undefined) ? 'NOMBRE DE CLIENTE' : itemCPE.ClienteDenominacion}}</label>
+        <label class="ruc">    {{(itemCPE == undefined) ? 'RUC DE EMPRESA'    : itemCPE.ClienteNumeroDocumento}}</label>
       </div>
     </ion-item>
   </ion-list>
@@ -66,18 +68,18 @@
   <!-- DIRECCION -->
   <ion-label class="mt-2">
     <span class="text-t">Dirección:</span>
-    <span class="text-t color--">JR. ABAD PUELL NRO. 791 (LADO HOTEL COSTA DEL SOL) TUMBES - TUMBES - TUMBES</span>
+    <span class="text-t color--">{{itemCPE.ClienteDireccion}}</span>
   </ion-label>
 
   <!-- tipo Pago vendedor -->
   <div class="pt-2 mt-2">
     <ion-label class="flex-jus">
       <span class="text-t">Tipo de Pago:</span>
-      <span class="text-t">Contado</span>
+      <span class="text-t">{{itemCPE.Condicion}}</span>
     </ion-label>
     <ion-label class="flex-jus">
-      <span class="text-as">Vendedor</span>
-      <span class="text-as">Esteban Sanchez Mendoza</span>
+      <span class="text-as">Vendedor (a)</span>
+      <span class="text-as">{{itemCPE.UsuarioDenominacion}}</span>
     </ion-label>
   </div>
 
@@ -190,3 +192,4 @@
 
 
 </ion-content>
+

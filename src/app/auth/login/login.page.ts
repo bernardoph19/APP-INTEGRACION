@@ -47,20 +47,15 @@ export class LoginPage implements OnInit {
       return this.vform.emptyData(this.formLogin);
     }
 
-
     this.spinner.show();
     const body = {
       ... this.formLogin.value
     };
 
-    /* const body = {
-      "ruc": "20355166547",
-      "usuario": "ingenieria",
-      "password": "123."
-    } */
     this.auth.login(body)
       .subscribe( (res : any) => {
 
+        this.dataStorageService.set('credenciales', body);
         if( res.message === "exito" ){
           
           this.datosLogin = res.result;

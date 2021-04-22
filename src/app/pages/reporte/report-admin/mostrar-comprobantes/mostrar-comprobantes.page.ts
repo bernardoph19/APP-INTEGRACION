@@ -1,12 +1,14 @@
 
+
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Share } from '@capacitor/core';
 import { ActionSheetController, AlertController, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ICondition, IStatus } from 'src/app/models/report.model';
+import { AlertService } from 'src/app/services/alert.service';
 import { DataStorageService } from 'src/app/services/data-storage.service';
+import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 import { DetalleComprobantePage } from '../detalle-comprobante/detalle-comprobante.page';
 import { FiltrarReportAdminComponent } from '../filtrar-report-admin/filtrar-report-admin.component';
 
@@ -19,45 +21,47 @@ import { FiltrarReportAdminComponent } from '../filtrar-report-admin/filtrar-rep
 export class MostrarComprobantesPage implements OnInit {
 
   @ViewChild(IonInfiniteScroll) infinityScroll: IonInfiniteScroll;
-  @Input() listcpe                            : any[] = [];
-  @Input() listcpeGeneral                     : any[] = [];
+  @Input() listcpe: any[] = [];
+  @Input() listcpeGeneral: any[] = [];
 
-  icondition      : ICondition = new ICondition();
-  istatus         : IStatus = new IStatus();
+  icondition: ICondition = new ICondition();
+  istatus: IStatus = new IStatus();
 
-  checkAll        : boolean;
-  app_bar         : boolean;
-  filtros         : any [];
+  checkAll: boolean;
+  app_bar: boolean;
+  filtros: any[];
+
+  title: string;
+  message: string;
 
   constructor(
-    public  Descargar           : ActionSheetController,
-    public  filtrar             : AlertController,
-    private spinner             : NgxSpinnerService,
-    public  dialog              : MatDialog,
-    private modalEditNombRe     : ModalController,
-    private router              : Router,
-    private dataStorageService  : DataStorageService,
-    
-  ) {   }
+    public Descargar: ActionSheetController,
+    public filtrar: AlertController,
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog,
+    private modalEditNombRe: ModalController,
+    private dataStorageService: DataStorageService,
+    private sreportVenta: ReporteVentaService,
+    private salert: AlertService,
+
+  ) { }
 
   ngOnInit() { }
 
-
   openDialog() {
     this.dialog.open(FiltrarReportAdminComponent)
-        .afterClosed()
-        .subscribe( res => {
-          this.filtros = res;
-          console.log(this.filtros);
-        })
-  }  
+      .afterClosed()
+      .subscribe(res => {
+        this.filtros = res;
+        console.log(this.filtros);
+      })
+  }
 
   // Compartir comprobante
   async shared() {
 
     const listShared = this.listcpe.filter(x => x.isChecked === true)
     console.log(listShared);
-
 
     await Share.share({
       title: 'See cool stuff',
@@ -100,9 +104,9 @@ export class MostrarComprobantesPage implements OnInit {
     });
     await actionSheet.present();
   }
-  
-  ToselectAll() {
 
+  // seleccionar todos los checks box xd
+  ToselectAll() {
     this.spinner.show();
     this.checkAll = !this.checkAll;
     this.listcpeGeneral.forEach(el => { el.isChecked = this.checkAll });
@@ -110,7 +114,7 @@ export class MostrarComprobantesPage implements OnInit {
     this.spinner.hide();
   }
 
-  closeModal() {    
+  closeModal() {
     this.modalEditNombRe.dismiss(MostrarComprobantesPage);
   }
 
@@ -119,8 +123,8 @@ export class MostrarComprobantesPage implements OnInit {
     console.log('Cargando ......')
 
     setTimeout(() => {
-      
-      if( this.listcpe.length === this.listcpeGeneral.length ){
+
+      if (this.listcpe.length === this.listcpeGeneral.length) {
         event.target.complete();
         this.infinityScroll.disabled = true;
         return;
@@ -133,29 +137,78 @@ export class MostrarComprobantesPage implements OnInit {
     }, 1000);
   }
 
-  async listarDetalle(cpe : any) {
-    await this.dataStorageService.set('detalleCPE', cpe);
-    debugger
-    this.router.navigate(['/menu-principal/detalle-comprobante']);
-    //this.router.navigate(['/menu-principal/rep-administrativo/detalle-comprobante']);
+  // mostar Detalle Comprobante
+  async detalleComprobante(item: any) {
 
-  }
+    this.spinner.show();
+    
+    (await this.getDetails(item).then(r => r)).subscribe( async (dt) =>{
 
+      debugger
+      if (dt !== null) {
 
- 
-// mostar Detalle Cliente
-  async detalleComprobante(item : any){
-    const modal = await this.modalEditNombRe.create({
-      component     : DetalleComprobantePage,
-      componentProps: {
-        itemCPE : item
-         
+        if (dt['exito'] == true) {
+
+          console.log(dt)
+          const modal = await this.modalEditNombRe.create({
+            component: DetalleComprobantePage,
+            componentProps: { itemCPE: dt['result'][0] }
+          });
+
+          this.spinner.hide();
+          await modal.present();
+
+        } else {
+          this.spinner.hide();
+          this.title = 'Oops :c !';
+          this.message = dt['message'];
+          this.salert.Alert(this.title, this.message);
+        }
+
+      } else {
+        this.spinner.hide();
+        this.title = 'Ocurrio algo inesperado :c !';
+        this.message = 'Revise su conexión a internet, vuelva a intentarlo.';
+        this.salert.Alert(this.title, this.message);
       }
-  });
-  
-   await modal.present();
-   const {data} = await modal.onDidDismiss();
-   console.log('retorno con daots',  data);
+    } )
+
+
+
+
+
+
+
+
+
+    /* const {data} = await modal.onDidDismiss();
+    console.log('retorno con daots',  data); */
   }
+
+
+  async getDetails(item: any) {
+
+    const res = await (this.dataStorageService.get('credenciales'));
+
+    const bdetr = {
+      serie: item.Serie,
+      numero: item.Numero,
+      codigoComprobante: item.Tipo,
+      ruc: res.ruc
+    };
+
+    /* {
+      "serie": "FS01",
+      "numero": "00001505",
+      "codigoComprobante": "01",
+      "ruc": "10194195295"
+    } */
+
+
+
+    return this.sreportVenta.AdministrativeReportDetalle(bdetr);
+
+  }
+
 }
 

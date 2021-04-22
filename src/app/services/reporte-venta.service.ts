@@ -34,4 +34,14 @@ export class ReporteVentaService {
     
     return res;
   }
+  
+  AdministrativeReportDetalle( body:any ) {
+
+    const headers = { 'content-type' : 'application/json'};
+
+    const res = this.http.post(  `${environment.urlInteApiDetalle}`,  body,  { headers } )
+                .pipe( map( (result : any ) => result ) )
+    
+    return res;
+  }
 }

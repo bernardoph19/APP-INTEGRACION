@@ -5,6 +5,9 @@
 export const environment = {
   production: false,
   urlIntegracionApi: 'https://factedsol-integ.innovated.xyz/',  
+  urlInteApiDetalle: 'https://innovated.xyz/seeted/api/cpefilterManual',  
+
+
   urlApiFile: 'https://innovated.xyz/seeted/api/',
   urlImageInvalid : 'assets/img/default/fotouser.svg',
   urlApiRecursos : 'https://innovated-recursos.innovated.xyz/api/'

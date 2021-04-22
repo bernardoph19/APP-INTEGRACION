@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Share } from '@capacitor/core';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { DataStorageService } from 'src/app/services/data-storage.service';
+import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -14,7 +16,8 @@ import { DataStorageService } from 'src/app/services/data-storage.service';
 export class DetalleComprobantePage implements OnInit {
 
   estadocompro                : boolean;
-  @Input() itemCPE            : any;  
+  @Input() itemCPE               : any;  
+  //itemCPE                     : any;
 
 
   constructor( 
@@ -22,13 +25,15 @@ export class DetalleComprobantePage implements OnInit {
     private http                : HttpClient,
     private route               : ActivatedRoute,
     private dataStorageService  : DataStorageService,
-    private modal                : ModalController
+    private modal               : ModalController,
+    private sreportVenta        : ReporteVentaService,
+    private spinner             : NgxSpinnerService,
 
   ) { 
 
   }
   
- async shared(){
+  async shared(){
 
    await Share.share({
     title: 'See cool stuff',
@@ -72,12 +77,12 @@ export class DetalleComprobantePage implements OnInit {
     await actionSheet.present();
   }
 
-  async ngOnInit() {
-    console.log(this.itemCPE);
+  async ngOnInit() {    
+    
   }
   
  
-// Cerrar modal si datos
+  // Cerrar modal si datos
   cancelar() {
     this.modal.dismiss();
   }
