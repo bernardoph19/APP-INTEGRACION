@@ -22,34 +22,35 @@
 
 <ion-content class="ion-padding">
   <!-- No enviado -->
-  <div class="flex" *ngIf="!estadocompro">
+  <div class="flex" *ngIf="!mostrarDatos">
     <span class="noenviado"></span>
     <span class="text-">No Enviado</span>
     <button class="enviar focus" (click)="estadocompro = !estadocompro">Enviar</button>
   </div>
+
   <!-- enviado -->
-  <div class="flex border-b" *ngIf="estadocompro">
+  <div class="flex border-b" *ngIf="mostrarDatos">
     <span class="enviado"></span>
     <span class="text-">Enviado</span>
-    <button class="enviar focus coprobanteenviado" (click)="estadocompro = !estadocompro">Enviar</button>
+    <button class="enviar focus coprobanteenviado" [class.showingData]="mostrarDatos === true" >Enviar</button>
   </div>
 
   <ion-item>
     <ion-label>Condición</ion-label>
-    <ion-select color="danger" okText="Aceptar" cancelText="Cancelar" >
+    <ion-select color="danger" okText="Aceptar" cancelText="Cancelar"  [value]="itemCPE.Anulado ? 'anulado' : 'activo'"  (ionChange)="cambiarEstado()">
       <ion-select-option color="danger" value="activo"  [disabled]="!itemCPE.Anulado"  >Activo</ion-select-option>
       <ion-select-option color="danger" value="anulado" [disabled]="itemCPE.Anulado"  >Anulado</ion-select-option>
     </ion-select>
   </ion-item>
 
-  <div *ngIf="estadocompro">
+  <div *ngIf="mostrarDatos">
     <ion-label class="flex-jus">
       <span class="text-t">Rpta.Envio:</span>
       <span class="text-t">Rpta.Validación:</span>
     </ion-label>
     <ion-label class="flex-jus">
-      <span class="text-as text-t">BB4 7PF EXAMPLE</span>
-      <span class="text-as text-t">BB4 7PF EXAMPLE</span>
+      <span class="text-as text-t">{{itemCPE.respuestaenvio}}</span>
+      <span class="text-as text-t">{{itemCPE.Resultado}}</span>
     </ion-label>
   </div>
 
@@ -88,13 +89,13 @@
   <ion-list> 
     
     <label class="text-t">Correo</label> 
-    <ion-item *ngIf="(itemCPE.Correo == '')"> 
+    <!-- <ion-item *ngIf="(itemCPE.Correo == '')"> 
       <span  class="text-t font"> No tienes correo para enviar </span> 
-    </ion-item>
+    </ion-item> -->
 
-    <ion-item *ngIf="(itemCPE.Correo !== '')">        
-      <ion-select multiple="true" color="danger" class="ion-no-padding ion-no-margin" placeholder="Selecionar correo para Enviar"  okText="Enviar">
-        <ion-select-option id="text-" value="bacon">esteban.mendoza@example.com</ion-select-option>
+    <ion-item *ngIf="(itemCPE.Correo == '')">        
+      <ion-select multiple="true" color="danger" class="ion-no-padding ion-no-margin" placeholder="Selecionar correo para Enviar"  okText="Enviar" >
+        <!-- <ion-select-option id="text-" [value]="correoElec" *ngFor="let correoElec of correoElec">{{correoElec}}</ion-select-option> -->
         <ion-select-option value="olives">debbie.baker@example.com</ion-select-option>
         <ion-select-option value="xcheese">felicia.reid@example.com</ion-select-option>
         <ion-select-option value="peppers">michelle.rivera@example.com</ion-select-option>     

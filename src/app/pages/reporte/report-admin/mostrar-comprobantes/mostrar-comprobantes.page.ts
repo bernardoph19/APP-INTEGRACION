@@ -147,8 +147,7 @@ export class MostrarComprobantesPage implements OnInit {
       if (dt !== null) {
 
         if (dt['exito'] == true) {
-
-          console.log(dt['result'][0])
+          
           const modal = await this.modalEditNombRe.create({
             component: DetalleComprobantePage,
             componentProps: { itemCPE: dt['result'][0] }

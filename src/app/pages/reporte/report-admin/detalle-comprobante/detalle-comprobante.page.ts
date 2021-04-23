@@ -16,9 +16,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class DetalleComprobantePage implements OnInit {
 
   estadocompro                   : boolean;
-  @Input() itemCPE               : any;  
+  @Input() itemCPE               : any      = [];  
+  mostrarDatos                   : boolean;
+  enviar                         : boolean = false;
+  correoElec                     : string[] = [];
+  condicionCPE                   : string;
   //itemCPE                     : any;
-
+  
 
   constructor( 
     public Descargar            : ActionSheetController,
@@ -30,7 +34,10 @@ export class DetalleComprobantePage implements OnInit {
     private spinner             : NgxSpinnerService,
 
   ) { 
-
+    
+    
+    
+    
   }
   
   async shared(){
@@ -78,7 +85,7 @@ export class DetalleComprobantePage implements OnInit {
   }
 
   async ngOnInit() {    
-    
+    this.evaludarDatos();
   }
    
   // Cerrar modal sin datos
@@ -93,7 +100,26 @@ export class DetalleComprobantePage implements OnInit {
     });
   }
 
+  evaludarDatos() {
+    this.enviar = (!this.itemCPE.Anulado && this.itemCPE.Enviado) || (this.itemCPE.Anulado && this.itemCPE.Enviado && this.itemCPE.AnuladoEnviado);
+    this.mostrarDatos = this.enviar;
 
+    if(this.itemCPE.Correo != null && this.itemCPE.Correo.toString().trim() != '') {
 
+      if(this.itemCPE.Correo.toString().trim() != '')
+      {
+        const caadenaCorreo = this.itemCPE.Correo.toString().trim();
+        const correos = caadenaCorreo.split(',');
+        for (let i = 0; i < correos.length; i++) this.correoElec.push(correos[i]);
+      }
+    }
+
+  }
+
+  cambiarEstado() {
+
+  }
+
+ 
 
 }
