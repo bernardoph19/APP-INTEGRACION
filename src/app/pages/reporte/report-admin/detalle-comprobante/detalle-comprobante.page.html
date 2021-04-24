@@ -37,9 +37,9 @@
 
   <ion-item>
     <ion-label>Condición</ion-label>
-    <ion-select color="danger" okText="Aceptar" cancelText="Cancelar"  [value]="itemCPE.Anulado ? 'anulado' : 'activo'"  (ionChange)="cambiarEstado()">
-      <ion-select-option color="danger" value="activo"  [disabled]="!itemCPE.Anulado"  >Activo</ion-select-option>
-      <ion-select-option color="danger" value="anulado" [disabled]="itemCPE.Anulado"  >Anulado</ion-select-option>
+    <ion-select color="danger" okText="Aceptar" cancelText="Cancelar"  [value]="seleccionado"  (ionChange)="cambiarEstado($event)">
+      <ion-select-option color="danger" value="activo"  [disabled]="itemCPE.Anulado"  >Activo</ion-select-option>
+      <ion-select-option color="danger" value="anulado" >Anulado</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -94,11 +94,11 @@
     </ion-item> -->
 
     <ion-item *ngIf="(itemCPE.Correo == '')">        
-      <ion-select multiple="true" color="danger" class="ion-no-padding ion-no-margin" placeholder="Selecionar correo para Enviar"  okText="Enviar" >
+      <ion-select multiple="true" okText="Aceptar" cancelText="Cancelar" color="danger" class="ion-no-padding ion-no-margin" placeholder="Selecionar correo para Enviar"  (ionChange)="obtenerCorreos($event)" >
         <!-- <ion-select-option id="text-" [value]="correoElec" *ngFor="let correoElec of correoElec">{{correoElec}}</ion-select-option> -->
-        <ion-select-option value="olives">debbie.baker@example.com</ion-select-option>
-        <ion-select-option value="xcheese">felicia.reid@example.com</ion-select-option>
-        <ion-select-option value="peppers">michelle.rivera@example.com</ion-select-option>     
+        <ion-select-option value="debbie.baker@example.com">debbie.baker@example.com</ion-select-option>
+        <ion-select-option value="felicia.reid@example.com">felicia.reid@example.com</ion-select-option>
+        <ion-select-option value="michelle.rivera@example.com">michelle.rivera@example.com</ion-select-option>     
       </ion-select>
     </ion-item>     
 

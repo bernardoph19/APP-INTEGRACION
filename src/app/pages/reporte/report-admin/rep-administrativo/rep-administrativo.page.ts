@@ -102,7 +102,7 @@ export class RepAdministrativoPage implements OnInit {
         if( response.length === 0 ){          
           const title = 'Oops!!!';
           const message = 'No se encontro ningún comprobante';
-          this.salert.Alert( title, message, );
+          this.salert.Alert( title, message, '');
           
         } else{ this.Mostrar_cpe( response ); }
 
@@ -149,7 +149,6 @@ export class RepAdministrativoPage implements OnInit {
   sExpiredNav(self) {
     self.dataStorageService.clearAllStorage();
     self.router.navigate(['/login'],  { replaceUrl: true });    
-    
   }
 
 }

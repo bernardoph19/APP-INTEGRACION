@@ -35,14 +35,14 @@ export class MostrarComprobantesPage implements OnInit {
   message: string;
 
   constructor(
-    public Descargar: ActionSheetController,
-    public filtrar: AlertController,
-    private spinner: NgxSpinnerService,
-    public dialog: MatDialog,
-    private modalEditNombRe: ModalController,
+    public  Descargar         : ActionSheetController,
+    public  filtrar           : AlertController,
+    private spinner           : NgxSpinnerService,
+    public  dialog            : MatDialog,
+    private modalEditNombRe   : ModalController,
     private dataStorageService: DataStorageService,
-    private sreportVenta: ReporteVentaService,
-    private salert: AlertService,
+    private sreportVenta      : ReporteVentaService,
+    private salert            : AlertService,
 
   ) { }
 
@@ -160,14 +160,14 @@ export class MostrarComprobantesPage implements OnInit {
           this.spinner.hide();
           this.title = 'Oops :c !';
           this.message = dt['message'];
-          this.salert.Alert(this.title, this.message);
+          this.salert.Alert(this.title, this.message, '');
         }
 
       } else {
         this.spinner.hide();
         this.title = 'Ocurrio algo inesperado :c !';
         this.message = 'Revise su conexión a internet, vuelva a intentarlo.';
-        this.salert.Alert(this.title, this.message);
+        this.salert.Alert(this.title, this.message, '');
       }
       
     })
