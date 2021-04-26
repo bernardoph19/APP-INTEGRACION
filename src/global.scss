@@ -82,6 +82,19 @@ body {
   overflow: hidden;
 }
 
+
+.alert-button.sc-ion-alert-md {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+  border: 0;
+  font-size: 13px;
+  line-height: 20px;
+  z-index: 0;
+}
+
 .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
@@ -112,9 +125,10 @@ body {
 
 .alert-title.sc-ion-alert-md {
   color: #e21313;
-  font-size: 25px;
+  font-size: 15px;
   font-weight: 500;
 }
+
 
 
 .alert-button.sc-ion-alert-md {

@@ -6,16 +6,19 @@ import { FiltrarReportAdminComponent } from '../pages/reporte/report-admin/filtr
 import { DemoMaterialModule } from '../module.material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 
 @NgModule({
   declarations: [
     LoadingComponent,
-    FiltrarReportAdminComponent
+    FiltrarReportAdminComponent, 
+    SpinnerComponent
   ],
   exports:[
-    LoadingComponent
+    LoadingComponent,
+    SpinnerComponent
   ],
   imports: [
     ReactiveFormsModule,
