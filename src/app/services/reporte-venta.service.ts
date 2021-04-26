@@ -44,4 +44,9 @@ export class ReporteVentaService {
     
     return res;
   }
+
+  send_email( body:any ){
+    return this.http.post(`${environment.urlApiFile}EnviarCorreo`, body);
+  }
+
 }

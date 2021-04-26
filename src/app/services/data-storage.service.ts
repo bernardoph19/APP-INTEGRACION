@@ -39,7 +39,6 @@ export class DataStorageService {
     if (r != null){
       
       const result = await this._storage?.get(key);
-      console.log('storageGET: ' + key + ': ' + result);
 
       if (result !== null || result !== undefined) {
         return result;
@@ -56,8 +55,7 @@ export class DataStorageService {
 
     if (r != null){
 
-      const result = await this._storage?.get(key);
-      console.log('storage GET TOKEN : ' + key + ': ' + result);
+      const result = await this._storage?.get(key);      
 
       if (result != null || result != undefined) {
         return result.token;

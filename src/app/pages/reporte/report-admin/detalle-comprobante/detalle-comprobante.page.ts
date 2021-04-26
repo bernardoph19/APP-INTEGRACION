@@ -106,6 +106,7 @@ export class DetalleComprobantePage implements OnInit {
   }
 
   evaludarDatos() {
+    console.log(this.itemCPE);
     //select
     this.seleccionado = this.itemCPE.Anulado ? 'anulado' : 'activo'
     this.disabled =  this.itemCPE.Anulado;
@@ -142,45 +143,58 @@ export class DetalleComprobantePage implements OnInit {
   async obtenerCorreos($event) {
 
     const email = $event.detail.value;
-    let emails = email.join(',');    
     
-    const parametro = {
-      codigocomprobante : this.itemCPE.CodigoComprobante,
-      serie             : this.itemCPE.Serie,
-      numero            : this.itemCPE.Numero,
-      correos           : emails
+    if (email.length > 0) {
+      
+      let emails = email.join(',');    
+    
+      const parametro = {
+        codigocomprobante : this.itemCPE.CodigoComprobante,
+        serie             : this.itemCPE.Serie,
+        numero            : this.itemCPE.Numero,
+        correos           : emails
+      }
+
+      console.log(parametro);
+
+      const alert = await this.alert.create({
+        cssClass : 'alert',
+        header   : 'Envio Correos',
+        message  : '¿ Desea enviar este comprobante ?',
+        backdropDismiss : false,
+        buttons  : [
+          {
+            text    : 'OK',
+            handler : () => { 
+              console.log('OK')
+              this.spinner.show();
+
+              
+              
+              
+              /* setTimeout(() => {
+                this.spinner.hide();
+              }, 2000); */
+
+            }
+          },
+          {
+            role: 'cancel',
+            cssClass: 'secondary',
+            text    : 'Cancelar',
+            handler : () => {
+              console.log('Cancelar')
+            }
+          }
+        ] 
+      });
+
+      alert.present(); 
+
+    } else {
+      console.log('estoy vacio');
+      
     }
-
-    const alert = await this.alert.create({
-      cssClass : 'alert',
-      header   : 'Envio Correos',
-      message  : '¿ Desea enviar este comprobante ?',
-      backdropDismiss : false,
-      buttons  : [
-        {
-          text    : 'OK',
-          handler : () => { 
-            console.log('OK')
-            this.spinner.show();
-            
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 2000);
-
-          }
-        },
-        {
-          role: 'cancel',
-          cssClass: 'secondary',
-          text    : 'Cancelar',
-          handler : () => {
-            console.log('Cancelar')
-          }
-        }
-      ] 
-    });
-
-    alert.present();  
         
   }
 
