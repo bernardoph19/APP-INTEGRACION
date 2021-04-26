@@ -24,7 +24,10 @@ export class DetalleComprobantePage implements OnInit {
   correoElec                     : string[] = [];
   condicionCPE                   : string;
   seleccionado                   : string;
+  message                        : string;
   disabled                       : boolean;   
+  error                          : boolean;
+  success                        : boolean;
   
 
   constructor( 
@@ -144,7 +147,9 @@ export class DetalleComprobantePage implements OnInit {
 
     const email = $event.detail.value;
     
-    if (email.length > 0) {
+    debugger
+    if (email.length == 0) {
+      
       
       let emails = email.join(',');    
     
@@ -152,7 +157,7 @@ export class DetalleComprobantePage implements OnInit {
         codigocomprobante : this.itemCPE.CodigoComprobante,
         serie             : this.itemCPE.Serie,
         numero            : this.itemCPE.Numero,
-        correos           : emails
+        correos           : 'libregra@gmail.com'
       }
 
       console.log(parametro);
@@ -166,15 +171,9 @@ export class DetalleComprobantePage implements OnInit {
           {
             text    : 'OK',
             handler : () => { 
-              console.log('OK')
-              this.spinner.show();
 
-              
-              
-              
-              /* setTimeout(() => {
-                this.spinner.hide();
-              }, 2000); */
+              this.spinner.show();
+              this.resSendEmail(parametro);
 
             }
           },
@@ -231,4 +230,29 @@ export class DetalleComprobantePage implements OnInit {
   }
  
 
+  resSendEmail(parametro) {
+
+    this.sreportVenta.send_email( parametro ).subscribe( (response : any ) =>{
+
+      if( response.exito ){
+       this.success = true;
+       this.message = 'el correo se envio Exitosamente';
+       this.salert.Alert('Exito', this.message, '');
+      }
+      else {
+        this.error = true;
+        this.message = 'Operacion incorrecta';
+        this.salert.Alert('Ops ..!', this.message, '');
+      }
+              
+      this.spinner.hide();
+    }, (error)=>{
+
+      this.message = error.error.message ?? "Sin conexion al servidor";
+      this.salert.Alert('Aviso!', this.message, '');
+      this.error = true;
+      this.spinner.hide();
+
+    });
+  }
 }
