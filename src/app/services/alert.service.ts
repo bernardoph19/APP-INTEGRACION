@@ -8,7 +8,7 @@ export class AlertService {
 
   constructor( private alert: AlertController, ) { }
 
-  async Alert( title : string, message : string, redi ) {
+  async Alert( title : string, message : string, redi : any) {
 
      const alert = await this.alert.create({
       cssClass : 'alert',

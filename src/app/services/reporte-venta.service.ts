@@ -49,4 +49,16 @@ export class ReporteVentaService {
     return this.http.post(`${environment.urlApiFile}EnviarCorreo`, body);
   }
 
+  pdf( body:any ){
+    return this.http.post( `${environment.urlApiFile}pdf`, body)
+  }
+
+  xml( body:any ){
+    return this.http.post(`${environment.urlApiFile}ListarXmlCdr?tipoArchivo=xml`, body)
+  }
+
+  cdr( body:any ){
+    return this.http.post(`${environment.urlApiFile}ListarXmlCdr?tipoArchivo=cdr`, body);
+  }
+
 }

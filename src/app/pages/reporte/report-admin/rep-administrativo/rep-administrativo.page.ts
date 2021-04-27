@@ -91,6 +91,9 @@ export class RepAdministrativoPage implements OnInit {
 
     const body = { ... this.formAdministrative.value };
 
+    console.log(body)
+    debugger
+
     body.fechainicio = this.sfunction.convertFecha(body.fechainicio);
     body.fechafin    = this.sfunction.convertFecha(body.fechafin);
     body.numero      = (String(body.numero) === 'null') ? '0' : String(body.numero);

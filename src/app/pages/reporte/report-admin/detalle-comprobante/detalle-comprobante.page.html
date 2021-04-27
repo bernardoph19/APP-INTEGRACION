@@ -1,4 +1,5 @@
-<app-loading> </app-loading>
+<!-- <app-loading> </app-loading> -->
+<app-spinner></app-spinner>
 
 <ion-header>
   <ion-toolbar>
@@ -12,7 +13,7 @@
       <ion-button (click)="shared()" >
         <ion-icon name="share-social"></ion-icon>
       </ion-button>
-      <ion-button (click)="descargar()" >
+      <ion-button (click)="descargar(itemCPE.Enviado)" >
         <ion-icon name="cloud-download"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -25,7 +26,7 @@
   <div class="flex" *ngIf="!mostrarDatos">
     <span class="noenviado"></span>
     <span class="text-">No Enviado</span>
-    <button class="enviar focus" (click)="estadocompro = !estadocompro">Enviar</button>
+    <button class="enviar focus" (click)="enviarComprobante()">Enviar</button>
   </div>
 
   <!-- enviado -->
@@ -34,23 +35,21 @@
     <span class="text-">Enviado</span>
     <button class="enviar focus coprobanteenviado" [class.showingData]="mostrarDatos === true" >Enviar</button>
   </div>
-
-  <ion-item>
-    <ion-label>Condición</ion-label>
-    <ion-select color="danger" okText="Aceptar" cancelText="Cancelar"  [value]="seleccionado"  (ionChange)="cambiarEstado($event)">
-      <ion-select-option color="danger" value="activo"  [disabled]="itemCPE.Anulado"  >Activo</ion-select-option>
-      <ion-select-option color="danger" value="anulado" >Anulado</ion-select-option>
-    </ion-select>
+  
+  <ion-item>    
+    <ion-label class="flex-jus"> Condición
+      <span  class="text-t font">{{seleccionado}}</span>      
+    </ion-label>
   </ion-item>
 
   <div *ngIf="mostrarDatos">
     <ion-label class="flex-jus">
       <span class="text-t">Rpta.Envio:</span>
-      <span class="text-t">Rpta.Validación:</span>
+      <span class="text-as text-t font">{{itemCPE.respuestaenvio}}</span>
     </ion-label>
     <ion-label class="flex-jus">
-      <span class="text-as text-t">{{itemCPE.respuestaenvio}}</span>
-      <span class="text-as text-t">{{itemCPE.Resultado}}</span>
+      <span class="text-t">Rpta.Validación:</span>
+      <span class="text-as text-t font">{{itemCPE.Resultado}}</span>
     </ion-label>
   </div>
 
@@ -89,43 +88,21 @@
   <ion-list> 
     
     <label class="text-t">Correo</label> 
-    <!-- <ion-item *ngIf="(itemCPE.Correo == '')"> 
+    <ion-item *ngIf="(itemCPE.Correo == '')"> 
       <span  class="text-t font"> No tienes correo para enviar </span> 
-    </ion-item> -->
+    </ion-item>
 
-    <ion-item *ngIf="(itemCPE.Correo == '')">        
+    <ion-item *ngIf="(itemCPE.Correo !== '')">        
       <ion-select multiple="true" okText="Aceptar" cancelText="Cancelar" color="danger" class="ion-no-padding ion-no-margin" placeholder="Selecionar correo para Enviar"  (ionChange)="obtenerCorreos($event)" >
-        <!-- <ion-select-option id="text-" [value]="correoElec" *ngFor="let correoElec of correoElec">{{correoElec}}</ion-select-option> -->
-        <ion-select-option value="debbie.baker@example.com">debbie.baker@example.com</ion-select-option>
-        <ion-select-option value="felicia.reid@example.com">felicia.reid@example.com</ion-select-option>
-        <ion-select-option value="michelle.rivera@example.com">michelle.rivera@example.com</ion-select-option>     
+        <ion-select-option id="text-" [value]="correoElec" *ngFor="let correoElec of correoElec">{{correoElec}}</ion-select-option>        
       </ion-select>
     </ion-item>     
 
   </ion-list>
 
-  <!-- <ion-label class="mt-2">
-    <span class="text-t font">observación</span>
-    <span class="text-t bg-gray-500">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, sunt? Numquam nobis ducimus, qui delectus ut.
-    </span>
-  </ion-label> -->
-
- 
-
  <!-- Datos de  Venta -->
   <div class="bg-white mt-2">
-    <span class="text-t font">Datos de Venta</span>   
-    
-    <!-- <ion-label class="flex-jus padi">
-      <span class="text-t">Anticipo</span>
-      <span class="text-t">si</span>
-    </ion-label> -->
-
-    <!-- <ion-label class="flex-jus padi">
-      <span class="text-t">Anti. Monto:</span>
-      <span class="text-t">22.00</span>
-    </ion-label> -->
+    <span class="text-t font">Datos de Venta</span>     
 
     <ion-label class="flex-jus padi">
       <span class="text-t">Detración:</span>
@@ -170,27 +147,28 @@
 
   <!-- Otros datos -->
   <div class="bg-white mt-2">
-    <span class="text-t font">Otros Datos</span>   
+    <span class="text-t font">Otros Datos</span>  
+
     <ion-label class="flex-jus padi">
       <span class="text-t">ICBPER:</span>
       <span class="text-t">{{ itemCPE.TotalOtrosTributos | currency:'PEN' }}</span>
     </ion-label>
+
     <ion-label class="flex-jus padi">
       <span class="text-t">Desc:</span>
       <span class="text-t">{{ itemCPE.DescuentoGlobal | currency:'PEN' }}</span>
     </ion-label>
+
     <ion-label class="flex-jus padi">
       <span class="text-t">Exonerado</span>
       <span class="text-t">{{  itemCPE.Exonerada | currency:'PEN' }}</span>
     </ion-label>
+
     <ion-label class="flex-jus padi">
       <span class="text-t">Gravado:</span>
       <span class="text-t">{{ itemCPE.Afecto | currency:'PEN' }}</span>
     </ion-label>
-    <!-- <ion-label class="flex-jus padi">
-      <span class="text-t">Afecto:</span>
-      <span class="text-t">{{itemCPE.Afecto}}</span>
-    </ion-label> -->
+
     <ion-label class="flex-jus padi">
       <span class="text-t">Inafecto:</span>
       <span class="text-t">{{ itemCPE.Inafecto | currency:'PEN' }}</span>
@@ -205,7 +183,6 @@
       <span class="text-t">{{ itemCPE.Total  | currency: itemCPE.MonedaCodigo }}</span>
     </ion-label>   
   </div>
-
 
 </ion-content>
 

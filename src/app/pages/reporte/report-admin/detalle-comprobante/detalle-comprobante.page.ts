@@ -5,9 +5,10 @@ import { Share } from '@capacitor/core';
 import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService, Spinner } from 'ngx-spinner';
 import { AlertService } from 'src/app/services/alert.service';
-import { DetalleComprobantePageModule } from './detalle-comprobante.module';
+import { IComprobante } from 'src/app/interfaces/cpe';
+import { FunctionsService } from 'src/app/services/functions.service';
 
 
 @Component({
@@ -17,17 +18,21 @@ import { DetalleComprobantePageModule } from './detalle-comprobante.module';
 })
 export class DetalleComprobantePage implements OnInit {
 
-  estadocompro                   : boolean;
   @Input() itemCPE               : any      = [];  
+  
+  FileAsBody                     = {} as IComprobante;
   mostrarDatos                   : boolean;
   enviar                         : boolean = false;
   correoElec                     : string[] = [];
-  condicionCPE                   : string;
-  seleccionado                   : string;
+  
+  seleccionado                   : string;    
+  tittle                         : string;
   message                        : string;
   disabled                       : boolean;   
   error                          : boolean;
   success                        : boolean;
+
+  credenciales                   : any;  
   
 
   constructor( 
@@ -40,12 +45,26 @@ export class DetalleComprobantePage implements OnInit {
     private spinner             : NgxSpinnerService,
     private salert              : AlertService,
     private alert               : AlertController,
+    private sfunction           : FunctionsService,
 
-  ) { 
-    
-    
-    
-    
+  ) {        
+   }
+
+  initialize() {
+    this.spinner.show();
+    this.error = false;
+    this.success = false;
+    this.message = null;
+  }
+  
+  private downloadFile( response : any, typeFile:string ){
+
+    const extension = typeFile === 'cdr' ? 'zip' : typeFile;
+    const bs64 = response.result;
+    const blob = this.sfunction.base64toBlob(bs64, { type: `application/${typeFile}` });
+    const name_Archivo = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.${extension}`;
+    this.sfunction.downloadFile(blob, name_Archivo);
+    this.spinner.hide();
   }
   
   async shared(){
@@ -58,49 +77,52 @@ export class DetalleComprobantePage implements OnInit {
   });
   }
 
-  async descargar() {
+  async descargar(Enviado : any) {
+    
+
     const actionSheet = await this.Descargar.create({
       header: 'Descargar como',
       cssClass: 'my-custom-class',
 
-      buttons: [{
-        text: 'PDF',
-        role: 'destructive',
-        cssClass: 'pdf',
-        icon: 'download',
-        handler: () => {
-          console.log('Delete clicked');
-        }
+      buttons: [
+        {
+          text: 'PDF',
+          role: 'destructive',
+          cssClass: 'pdf',
+          icon: 'download',
+          handler: () => {  this.dowloadFilepdf() ; }
 
-      }, {
-        text: 'XLM',
-        icon: 'download',
-        handler: () => {
-          console.log('Share clicked');
-        }
+        }, 
+        {
+          text: 'XLM',
+          icon: 'download',
+          handler: () => {  /* (Enviado) ?  this.dowloadFilepdf() :  this.salert.Alert('Ops ...', 'Operación no permitida', ''); */
+            this.downloadFilexml();
+          }
 
-      },
-      {
-        text: 'CDR',
-        icon: 'download',
-        handler: () => {
-          console.log('Play clicked');
-        }
-      },
+        },
+        {
+          text: 'CDR',
+          icon: 'download',
+          handler: () => {
+            this.downloadFilecdr();
+          }
+        },
       ]
     });
+
     await actionSheet.present();
+
   }
 
-  async ngOnInit() {    
-    this.evaludarDatos();
+  ngOnInit() {    
+    this.leerDatos();
   }
    
   // Cerrar modal sin datos
   cancelar() {
     this.modal.dismiss();
   }
-
   
   // Cerrar modal con datos
   guardar() {
@@ -108,14 +130,14 @@ export class DetalleComprobantePage implements OnInit {
     });
   }
 
-  evaludarDatos() {
+  async leerDatos() {
     console.log(this.itemCPE);
-    //select
-    this.seleccionado = this.itemCPE.Anulado ? 'anulado' : 'activo'
-    this.disabled =  this.itemCPE.Anulado;
 
-    this.enviar = (!this.itemCPE.Anulado && this.itemCPE.Enviado) || (this.itemCPE.Anulado && this.itemCPE.Enviado && this.itemCPE.AnuladoEnviado);
-    this.mostrarDatos = this.enviar;
+    this.credenciales   = await this.dataStorageService.get('credenciales');    
+    this.seleccionado = this.itemCPE.Anulado ? 'Anulado' : 'Activo'
+    this.disabled     =  this.itemCPE.Anulado;
+    this.enviar       = (!this.itemCPE.Anulado && this.itemCPE.Enviado) || (this.itemCPE.Anulado && this.itemCPE.Enviado && this.itemCPE.AnuladoEnviado);
+    this.mostrarDatos = this.enviar;    
 
     if(this.itemCPE.Correo != null && this.itemCPE.Correo.toString().trim() != '') {
 
@@ -127,28 +149,21 @@ export class DetalleComprobantePage implements OnInit {
       }
     }
 
-  }
-
-  cambiarEstado($event : any) {
-    const val = $event.detail.value;
-    if (val == 'anulado') {
-      this.seleccionado = 'anulado';
-      
-    } else {
-      this.seleccionado = 'activo';
-    }
+    this.FileAsBody.serie             = this.itemCPE.Serie;
+    this.FileAsBody.numero            = this.itemCPE.Numero;
+    this.FileAsBody.codigoComprobante = this.itemCPE.CodigoComprobante;
+    this.FileAsBody.client            = this.itemCPE.ClienteDenominacion;
+    this.FileAsBody.ruc               = this.credenciales.ruc;
     
-    this.anularComprobante();
+
   }
-
-
-
+ 
   async obtenerCorreos($event) {
 
     const email = $event.detail.value;
     
     debugger
-    if (email.length == 0) {
+    if (email.length > 0) {
       
       
       let emails = email.join(',');    
@@ -157,7 +172,7 @@ export class DetalleComprobantePage implements OnInit {
         codigocomprobante : this.itemCPE.CodigoComprobante,
         serie             : this.itemCPE.Serie,
         numero            : this.itemCPE.Numero,
-        correos           : 'libregra@gmail.com'
+        correos           : emails
       }
 
       console.log(parametro);
@@ -169,20 +184,20 @@ export class DetalleComprobantePage implements OnInit {
         backdropDismiss : false,
         buttons  : [
           {
-            text    : 'OK',
-            handler : () => { 
-
-              this.spinner.show();
-              this.resSendEmail(parametro);
-
+            role: 'cancel',
+            cssClass: 'secondary',
+            text    : 'NO',
+            handler : () => {
+              console.log('Cancelar')
             }
           },
           {
-            role: 'cancel',
-            cssClass: 'secondary',
-            text    : 'Cancelar',
-            handler : () => {
-              console.log('Cancelar')
+            text    : 'SI',
+            handler : () => { 
+              
+              this.spinner.show();
+              this.resSendEmail(parametro);
+
             }
           }
         ] 
@@ -197,40 +212,7 @@ export class DetalleComprobantePage implements OnInit {
         
   }
 
-  async anularComprobante() {
-
-    const alert = await this.alert.create({
-      cssClass : 'alert',
-      header   : 'Aviso',
-      message  : '¿ Desea Anular el comprobante ?',
-      backdropDismiss : false,
-      buttons  : [
-        {
-          text    : 'OK',
-          handler : () => { 
-            console.log('OK')
-          }
-        },
-        {
-          role: 'cancel',
-          cssClass: 'secondary',
-          text    : 'Cancelar',
-          handler : () => {
-            console.log('Cancelar')
-          }
-        }
-      ] 
-    });
-
-    alert.present();  
-    
-    /* this.spinner.show();
-    this.evaludarDatos();
-    this.spinner.hide(); */
-  }
- 
-
-  resSendEmail(parametro) {
+  resSendEmail(parametro : any) {
 
     this.sreportVenta.send_email( parametro ).subscribe( (response : any ) =>{
 
@@ -255,4 +237,105 @@ export class DetalleComprobantePage implements OnInit {
 
     });
   }
+
+  enviarComprobante() {
+    //estadocompro = !estadocompro
+
+  }
+
+
+  dowloadFilepdf() {
+
+    this.initialize();
+    const body = { ... this.FileAsBody };
+
+    this.sreportVenta.pdf(body).subscribe((response: any) => {
+      if (response.exito) this.downloadFile( response, 'pdf' );
+      else {
+
+        this.tittle = ' Ocurrió algo :c '
+        this.message = response.message ?? "Sin conexion al servidor";
+        this.error = true;
+        this.spinner.hide();
+      }
+      
+    }, (error) => {
+
+      this.tittle = ' Ocurrió algo :c '
+      this.message = error.error.message ?? "Sin conexion al servidor";
+      this.error = true;
+      this.spinner.hide();
+
+    })
+  }
+
+  downloadFilexml() {
+
+    if(!this.enviar){
+      this.salert.Alert('Ops ...', 'Operación no permitida', '');
+      return;
+    }
+
+    this.initialize();
+    const body = {
+      ... this.FileAsBody
+    };
+
+    this.sreportVenta.xml(body).subscribe((response: any) => {
+
+      if (response.exito) this.downloadFile( response, 'xml' );
+      else {
+
+        this.message = response.message ?? "Sin conexion al servidor";
+        this.error = true;
+
+      }
+
+      this.spinner.hide();
+
+    }, (error) => {
+
+      this.message = error.error.message ?? "Sin conexion al servidor";
+      this.error = true;
+      this.spinner.hide();
+
+    });
+
+  }
+
+  downloadFilecdr() {
+
+    if(!this.enviar){
+      this.salert.Alert('Ops ...', 'Operación no permitida', '');
+      return;
+    }
+
+    this.initialize();
+    const body = {
+      ... this.FileAsBody
+    };
+
+    this.sreportVenta.cdr(body).subscribe((response: any) => {
+
+      if (response.exito) this.downloadFile( response, 'cdr' );
+      else {
+
+        this.message = response.message ?? "Sin conexion al servidor";
+        this.error = true;
+
+      }
+
+      this.spinner.hide();
+
+    }, (error) => {
+
+      this.message = error.error.message ?? "Sin conexion al servidor";
+      this.error = true;
+      this.spinner.hide();
+
+    })
+
+  }
+  
+
 }
