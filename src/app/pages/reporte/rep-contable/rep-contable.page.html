@@ -29,44 +29,58 @@
   </ion-list>
 
   <!-- Mes y Fecha -->
-  <ion-grid fixed>
-    <ion-row>
-      <!-- (fecha Inicio) -->
-      <ion-col size="6">
-        <ion-label class="inicio">Mes</ion-label>
-        <ion-item color="light" lines="none" shape="round">
-          <mat-select placeholder="Seleccionar" style="font-size: 14px">
-            <mat-option value="01">Enero</mat-option>
-            <mat-option value="02">Febrero</mat-option>
-            <mat-option value="03">Marzo</mat-option>
-            <mat-option value="04">Abril</mat-option>
-            <mat-option value="05">Mayo</mat-option>
-            <mat-option value="06">Junio</mat-option>
-            <mat-option value="07">Julio</mat-option>
-            <mat-option value="08">Agosto</mat-option>
-            <mat-option value="09">Septiembre</mat-option>
-            <mat-option value="10">Octubre</mat-option>
-            <mat-option value="11">Noviembre</mat-option>
-            <mat-option value="12">Diciembre</mat-option>
-          </mat-select>
-        </ion-item>
-      </ion-col>
-      <!-- (Fechas Fin) -->
-      <ion-col size="6">
-        <ion-label class="inicio">Año</ion-label>
-        <ion-item color="light" lines="none">
-          <ion-datetime
-            placeholder="YYYY"
-            display-format="YYYY"
-            min="2019"
-            max="2025"
-            value="2020"
-          >
-          </ion-datetime>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <form [formGroup]="form" (ngSubmit)="listReporteContable()">
+    <ion-grid fixed>
+      <ion-row>
+        <!-- (fecha Inicio) -->
+        <ion-col size="6">
+          <ion-label class="inicio">Mes</ion-label>
+          <ion-item color="light" lines="none" shape="round">
+            <mat-select placeholder="Seleccionar" style="font-size: 14px" formControlName="mes">
+              <mat-option value="01">Enero</mat-option>
+              <mat-option value="02">Febrero</mat-option>
+              <mat-option value="03">Marzo</mat-option>
+              <mat-option value="04">Abril</mat-option>
+              <mat-option value="05">Mayo</mat-option>
+              <mat-option value="06">Junio</mat-option>
+              <mat-option value="07">Julio</mat-option>
+              <mat-option value="08">Agosto</mat-option>
+              <mat-option value="09">Septiembre</mat-option>
+              <mat-option value="10">Octubre</mat-option>
+              <mat-option value="11">Noviembre</mat-option>
+              <mat-option value="12">Diciembre</mat-option>
+            </mat-select>
+          </ion-item>
+        </ion-col>
+        <!-- (Fechas Fin) -->
+        <ion-col size="6">
+          <ion-label class="inicio">Año</ion-label>
+          <ion-item color="light" lines="none">
+            <ion-datetime doneText="Hecho" cancelText="No"
+              placeholder="YYYY"
+              display-format="YYYY"
+              formControlName="anio"
+              min="2021"
+              max="2030"
+              value="2021"
+            >
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+      <!-- buscar= !buscar -->
+        <button        
+          [ngClass]="{'hidden': buscar}"
+          class="btn focus hover"
+          color="factedsol"
+          expand="block"
+          type="submit"
+        >
+          Buscar
+        </button>
+  </form>
   <hr />
 
   <!-- descargar pdf y EXCEL -->
@@ -104,19 +118,14 @@
     </div>
   </div>
 </ion-content>
+
 <!-- buscar -->
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar>
     <div class="content-center">
-      <button
-        (click)="buscar= !buscar"
-        [ngClass]="{'hidden': buscar}"
-        class="btn focus hover"
-        color="factedsol"
-        expand="block"
-      >
-        Buscar
-      </button>
+      
     </div>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
+
+<app-spinner></app-spinner>

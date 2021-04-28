@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { ListadoClientePage } from '../listado-cliente/listado-cliente.page';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
+import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-
-import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { FunctionsService } from 'src/app/services/functions.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 import { MostrarComprobantesPage } from '../mostrar-comprobantes/mostrar-comprobantes.page';
 import { AlertService } from 'src/app/services/alert.service';
-import { NgZone } from '@angular/core';
 
 import { DataStorageService } from 'src/app/services/data-storage.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,38 +24,21 @@ export class RepAdministrativoPage implements OnInit {
   formAdministrative : FormGroup;
   error              : boolean;
   message            : string;
-  expiredS           : boolean;
-  s = this;
+  expiredS           : boolean;  
 
   constructor(
-    private modalListadoCliente : ModalController,
     private sformValidator      : FormValidatorService,
-    private router              : Router,
     private sfunction           : FunctionsService,
     private fb                  : FormBuilder,
     private sreportVenta        : ReporteVentaService,
     private spinner             : NgxSpinnerService,
     private modalEditNombRe     : ModalController,
     private salert              : AlertService,
-    private zone                : NgZone,
     private dataStorageService  : DataStorageService,
+    private router             : Router,  
   ) {
    
     this.createFormReport(); 
-  }
-
-  async listadoClientes(){
-    const modal = await this.modalListadoCliente.create({
-      component:ListadoClientePage,
-      componentProps: {
-        nombre :  'Bernardo ',
-        pais   :  'Peru'
-         
-      }
-  });
-   await modal.present();
-   const {data} = await modal.onDidDismiss();
-   console.log('retorno con datos',  data);
   }
  
   ngOnInit() {
@@ -91,9 +71,6 @@ export class RepAdministrativoPage implements OnInit {
 
     const body = { ... this.formAdministrative.value };
 
-    console.log(body)
-    debugger
-
     body.fechainicio = this.sfunction.convertFecha(body.fechainicio);
     body.fechafin    = this.sfunction.convertFecha(body.fechafin);
     body.numero      = (String(body.numero) === 'null') ? '0' : String(body.numero);
@@ -112,6 +89,7 @@ export class RepAdministrativoPage implements OnInit {
         this.spinner.hide();
 
       }, (err) => {
+        debugger;
 
         this.error     = true;
         this.expiredS  = err.error === 'Unauthorized';
@@ -144,14 +122,11 @@ export class RepAdministrativoPage implements OnInit {
     //console.log('retorno con daots',  data);
   }
 
-  /* closeModal() {
-    this.modalEditNombRe.dismiss(MostrarComprobantesPage);
-  } */
 
-
-  sExpiredNav(self) {
-    self.dataStorageService.clearAllStorage();
-    self.router.navigate(['/login'],  { replaceUrl: true });    
+  sExpiredNav(self : any) {
+    debugger;
+    this.dataStorageService.clearAllStorage();
+    this.router.navigate(['/login'],  { replaceUrl: true });    
   }
 
 }

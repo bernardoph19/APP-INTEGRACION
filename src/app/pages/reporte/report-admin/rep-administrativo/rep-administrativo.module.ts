@@ -16,7 +16,7 @@ import { MostrarComprobantesPageModule } from '../mostrar-comprobantes/mostrar-c
     CommonModule,
     FormsModule,
     IonicModule,
-     DemoMaterialModule,
+    DemoMaterialModule,
     RepAdministrativoPageRoutingModule,
     ComponentsModule,
     ReactiveFormsModule,

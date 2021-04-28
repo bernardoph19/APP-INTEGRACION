@@ -5,7 +5,7 @@ import { Share } from '@capacitor/core';
 import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
-import { NgxSpinnerService, Spinner } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'src/app/services/alert.service';
 import { IComprobante } from 'src/app/interfaces/cpe';
 import { FunctionsService } from 'src/app/services/functions.service';
@@ -77,7 +77,7 @@ export class DetalleComprobantePage implements OnInit {
   });
   }
 
-  async descargar(Enviado : any) {
+  async descargar() {
     
 
     const actionSheet = await this.Descargar.create({
@@ -238,9 +238,41 @@ export class DetalleComprobantePage implements OnInit {
     });
   }
 
-  enviarComprobante() {
+  async enviarComprobanteSunat() {    
     //estadocompro = !estadocompro
 
+    this.initialize();
+    const body = {
+      ... this.FileAsBody
+    }
+
+    body.produccion = true;
+
+    this.sreportVenta.send_sunat(body).subscribe((response: any) => {
+
+      if (response.exito) {
+        this.getDetailAPI();
+      }
+      else {
+
+        this.message  = response.message ?? "Sin conexion al servidor";
+        this.tittle   = 'Aviso :c';
+        this.error    = true;
+        this.spinner.hide();
+        this.salert.Alert(this.tittle, this.message, '');
+
+      }
+
+    }, (error) => {
+
+      this.tittle  = 'Aviso :c';
+      this.message = error.error.message ?? "Sin conexion al servidor";
+      this.error = true;
+      this.spinner.hide();
+      this.salert.Alert(this.tittle, this.message, '');
+      
+    })
+    
   }
 
 
@@ -335,7 +367,28 @@ export class DetalleComprobantePage implements OnInit {
 
     })
 
+  }  
+
+  async getDetails(item: any) {
+
+    const res = await (this.dataStorageService.get('credenciales'));
+    
+    const bdetr = {
+      serie: item.Serie,
+      numero: item.Numero,
+      codigoComprobante: item.CodigoComprobante,
+      ruc: res.ruc
+    };
+
+    return this.sreportVenta.AdministrativeReportDetalle(bdetr);
+
   }
-  
+
+  async getDetailAPI() {
+    (await this.getDetails(this.itemCPE)).subscribe((r:any) => { 
+      this.itemCPE = r.result[0]; 
+      this.spinner.hide();
+    })
+  }
 
 }

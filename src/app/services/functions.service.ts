@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { DataStorageService } from 'src/app/services/data-storage.service';
+import * as XLSX from 'xlsx';
+import *  as FileSaver from 'file-saver';
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
+const EXCEL_EXT = '.xlsx';
 
 @Injectable({
   providedIn: 'root'
@@ -67,5 +72,18 @@ export class FunctionsService {
     linkElement.dispatchEvent(clickEvent);
   }
 
+  exportToExcel(json: any, excelFileName: string): void {
+
+    const workSheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workBook: XLSX.WorkBook = { Sheets: { 'data': workSheet }, SheetNames: ['data'] };
+    const excelbuffer: any = XLSX.write(workBook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcel(excelbuffer, excelFileName);
+
+  }
+
+  private saveAsExcel(buffer: any, FileName: string): void {
+    const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
+    FileSaver.saveAs(data, FileName + EXCEL_EXT);
+  }
 
 }

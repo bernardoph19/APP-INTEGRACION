@@ -118,9 +118,7 @@ export class MostrarComprobantesPage implements OnInit {
     this.modalEditNombRe.dismiss(MostrarComprobantesPage);
   }
 
-  loadData(event) {
-
-    console.log('Cargando ......')
+  loadData(event : any) {
 
     setTimeout(() => {
 

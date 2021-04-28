@@ -61,4 +61,14 @@ export class ReporteVentaService {
     return this.http.post(`${environment.urlApiFile}ListarXmlCdr?tipoArchivo=cdr`, body);
   }
 
+  send_sunat( body:any ){
+    return this.http.post( `${environment.urlApiFile}ProcesoCompleto`, body )
+  }
+
+  async ContableReport( body:any ){
+    const headers = await this.sfunction._headersApi();    
+    return this.http.post(`${environment.urlIntegracionApi}${this.url}listarventacontable`, body, {headers});
+
+  }
+
 }
