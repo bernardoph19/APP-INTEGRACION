@@ -17,9 +17,8 @@
     <ion-item lines="none">
       <div class="flex-col">
         <ion-label>Modos de busqueda</ion-label>
-        <ion-label class="datos"
-          >Ingresa datos para un mejor resultado</ion-label
-        >
+        <ion-label class="datos">Ingresa datos para un mejor resultado</ion-label>
+
       </div>
     </ion-item>
     <ion-item lines="none">
@@ -36,7 +35,7 @@
         <ion-col size="6">
           <ion-label class="inicio">Mes</ion-label>
           <ion-item color="light" lines="none" shape="round">
-            <mat-select placeholder="Seleccionar" style="font-size: 14px" formControlName="mes">
+            <mat-select (selectionChange)="nombreMes($event)" placeholder="Seleccionar" style="font-size: 14px" formControlName="mes" >
               <mat-option value="01">Enero</mat-option>
               <mat-option value="02">Febrero</mat-option>
               <mat-option value="03">Marzo</mat-option>
@@ -51,6 +50,15 @@
               <mat-option value="12">Diciembre</mat-option>
             </mat-select>
           </ion-item>
+
+          <div *ngIf="monthInvalid">
+            <ng-container>
+              <div class="error_message">
+              campo requerido
+              </div>
+            </ng-container>
+          </div>
+
         </ion-col>
         <!-- (Fechas Fin) -->
         <ion-col size="6">
@@ -66,13 +74,32 @@
             >
             </ion-datetime>
           </ion-item>
+
+          <div *ngIf="yearInvalid">
+            <ng-container>
+              <div class="error_message">
+              campo requerido
+              </div>
+            </ng-container>
+          </div>
+
         </ion-col>
+
+        <ion-col>
+          <div *ngIf="sinDatos">
+            <ng-container>
+              <div class="error_message">
+                No se encontraron datos
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+
       </ion-row>
     </ion-grid>
 
       <!-- buscar= !buscar -->
-        <button        
-          [ngClass]="{'hidden': buscar}"
+        <button 
           class="btn focus hover"
           color="factedsol"
           expand="block"
@@ -85,7 +112,7 @@
 
   <!-- descargar pdf y EXCEL -->
   <div class="mt-5" *ngIf="buscar">
-    <ion-label class="mt-5 pl-5">REPORTE - ABRIL / 2020</ion-label>
+    <ion-label class="mt-5 pl-5">REPORTE - {{mes}} / {{anio}}</ion-label>
     <ion-grid fixed>
       <ion-row>
         <!-- PDF -->

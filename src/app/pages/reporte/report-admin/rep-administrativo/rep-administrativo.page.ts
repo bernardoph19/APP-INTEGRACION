@@ -89,15 +89,16 @@ export class RepAdministrativoPage implements OnInit {
         this.spinner.hide();
 
       }, (err) => {
-        debugger;
 
         this.error     = true;
         this.expiredS  = err.error === 'Unauthorized';
+        
+        const title = 'Oops!!!';
         this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (err.error.menssage)  ?? 'Sin conexion al servidor';
         
         this.spinner.hide();
-        const title = 'Oops!!!';
-        this.salert.Alert( title, this.message, this.sExpiredNav(this) );
+        (this.expiredS) ? this.salert.Alert( title, this.message, this.sExpiredNav(this) )
+                        : this.salert.Alert( title, this.message, '' );
 
       });
 

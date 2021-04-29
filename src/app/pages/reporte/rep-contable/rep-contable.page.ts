@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AlertService } from 'src/app/services/alert.service';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { FunctionsService } from 'src/app/services/functions.service';
@@ -13,15 +15,22 @@ import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 })
 export class RepContablePage implements OnInit {
   
-  buscar   : boolean;
+  buscar   : boolean = false;
   form     : FormGroup;
   message  : string;
   error    : boolean;
   cnn_expi : boolean;
+  expiredS : boolean;
+  sinDatos : boolean = false;
 
   columns                           = [];
   displayedColumns       : string[] = [];
-  data             : any;  
+  data                   : any; 
+  
+  anio     : string;  
+  mes      : string;
+
+  prueba : string = 'HOALA';
 
   constructor(
     private sformValidator      : FormValidatorService,
@@ -30,6 +39,8 @@ export class RepContablePage implements OnInit {
     private sreportVenta        : ReporteVentaService,
     private sfunction           : FunctionsService,
     private dataStorageService  : DataStorageService,
+    private router              : Router,
+    private salert              : AlertService,
 
 
   ) {
@@ -84,9 +95,9 @@ export class RepContablePage implements OnInit {
       }
 
       const ruc = await this.dataStorageService.get('credenciales');
-      const anio = this.form.value.anio;
-      const mes = this.form.value.mes;
-      const name_file = `${ruc.ruc}-${anio}-${mes}`;
+      this.anio = this.form.value.anio;
+      this.mes = this.form.value.mes;
+      const name_file = `${ruc.ruc}-${this.anio}-${this.mes}`;
 
       const Noenviados = this.data.filter((e:any)=>
       { 
@@ -115,7 +126,6 @@ export class RepContablePage implements OnInit {
 
 
   async listReporteContable() {
-    debugger
 
     if (this.form.invalid) {
       return this.sformValidator.Empty_data(this.form);
@@ -128,37 +138,58 @@ export class RepContablePage implements OnInit {
 
     
     (await this.sreportVenta.ContableReport(body)).subscribe((response: any) => {
-      this.buscar = !this.buscar;
+      
 
       if(response.message == 'exito')
       {
         const result = response.result;
         if (result.length > 0) {
-          console.log(result);
+          this.anio = this.form.value.anio;
+          this.mes = this.form.value.mes;       
   
-          const columns = result[0];    
-          console.log(columns);                               
+          const columns = result[0];                                            
           const keys = Object.keys(columns);
+
           for (let i of keys) {
             this.columns.push({ titulo: i });
             this.displayedColumns.push(i);
           }
   
           this.data = result;
+          this.buscar = true;
+          this.sinDatos = false;
   
+        } else {
+          this.sinDatos = true;
+
+
         }
       }
       this.spinner.hide();
 
     }, (error : any) => {
 
-      this.error = true;
-      const cnn_expi = error.error === 'Unauthorized';
-      this.cnn_expi = cnn_expi;
-      this.message = cnn_expi ? 'conexion expirada, vuelva a iniciar sesion' : error.error.message ?? 'Sin conexion al servidor';
+      this.error     = true;
+      this.expiredS  = error.error === 'Unauthorized';
+      this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (error.error.menssage)  ?? 'Sin conexion al servidor';
+       
       this.spinner.hide();
+      const title = 'Oops!!!';
+      (this.expiredS) ? this.salert.Alert( title, this.message, this.sExpiredNav(this) )
+                      : this.salert.Alert( title, this.message, '' );
 
     });
+
+  }
+
+  sExpiredNav(self : any) {
+    debugger;
+    this.dataStorageService.clearAllStorage();
+    this.router.navigate(['/login'],  { replaceUrl: true });    
+  }
+
+  nombreMes($event) {
+    
 
   }
 
