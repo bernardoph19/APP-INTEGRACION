@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Reporte Contable</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="shared()">
+      <ion-button (click)="shared()" [disabled]="!buscar">
         <ion-icon name="share-social"></ion-icon>
       </ion-button>
     </ion-buttons>

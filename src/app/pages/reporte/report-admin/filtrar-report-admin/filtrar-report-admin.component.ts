@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+
 import { MostrarComprobantesPage } from '../mostrar-comprobantes/mostrar-comprobantes.page';
+
+import { ThemePalette } from '@angular/material/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-filtrar-report-admin',
@@ -9,9 +12,11 @@ import { MostrarComprobantesPage } from '../mostrar-comprobantes/mostrar-comprob
   styleUrls: ['./filtrar-report-admin.component.scss'],
 })
 export class FiltrarReportAdminComponent implements OnInit {
-
-  formFiltros          : FormGroup;
+  
   itemsFiltros         : any[];
+
+  filtro               : any     = {};
+  allComplete          : boolean = false;
   
   activo               : boolean = true; 
   anulado              : boolean = true; 
@@ -19,71 +24,79 @@ export class FiltrarReportAdminComponent implements OnInit {
   noenviado            : boolean = true;   
 
   constructor(
-    private fb               : FormBuilder,
-    public  dialogRef        : MatDialogRef<MostrarComprobantesPage>,
-  ) { 
-    this.createForm();
+    @Inject( MAT_DIALOG_DATA ) public data : any,   
+    public  dialogRef                      : MatDialogRef<MostrarComprobantesPage>,
+    private spinner                        : NgxSpinnerService
+
+  ) {
+    dialogRef.disableClose = true;
+    this.filtro            = data;
   }
 
+  task: Task = {
+    name: 'Indeterminate',
+    completed: false,
+    color: 'warn',
+    subtasks: [
+      {name: 'Primary', completed: false, color: 'primary'},
+      {name: 'Accent',  completed: false, color: 'accent'},
+      {name: 'Warn',    completed: false, color: 'warn'}
+    ]
+  };
+  
   ngOnInit() {}
 
-  createForm(){
-    this.formFiltros = this.fb.group({
-      activo    : [ true ,],
-      anulado   : [ true ,],
-      enviado   : [ true ,],
-      noenviado : [ true ,],
-
-    });
-  }
 
   aplicarFlitros() {
-
-    /* this.activo    = this.formFiltros.controls.activo.value
-    this.anulado   = this.formFiltros.controls.anulado.value
-    this.enviado   = this.formFiltros.controls.enviado.value
-    this.noenviado = this.formFiltros.controls.noenviado.value */
-
-    this.itemsFiltros =  [
-       (this.activo    == true) ? 'activo'    : '', 
-       (this.anulado   == true) ? 'anulado'   : '', 
-       (this.enviado   == true) ? 'enviado'   : '', 
-       (this.noenviado == true) ? 'noenviado' : ''
-    ];
-
-    this.dialogRef.close( this.itemsFiltros );
+    this.spinner.show();
+    this.dialogRef.close(this.filtro);
 
   }
-  
-  updateValue(val : boolean, name : string) {
 
-    switch (name) {
-      case 'activo':
-        this.activo = val;        
-        break;
+  restablecer() {    
+    this.filtro.activo = true;
+    this.filtro.anulado = true;
+    this.filtro.enviado = true;
+    this.filtro.noenviado = true;
 
-      case 'anulado':
-        this.anulado = val;
-        break;
+  }
 
-      case 'enviado':
-        this.enviado = val;        
-        break;
+  Marcado(texto:string) {
 
-      case 'noenviado':
-        this.noenviado = val;
-        break;
+    if(texto=='activo') {
+      if(this.filtro.activo == false ) {
+        this.filtro.anulado = true;
 
+      }
+
+    } if(texto=='anulado') {
+      if(this.filtro.anulado == false ) {
+        this.filtro.activo = true;
+
+      }
+
+    } if(texto=='enviado') {
+      if(this.filtro.enviado == false ) {
+        this.filtro.noenviado = true;
+
+      }
+
+    } if(texto=='noenviado') {
+      if(this.filtro.noenviado == false ) {
+        this.filtro.enviado = true;
+
+      }
     }
-
   }
 
-  restablecer() {
-    this.activo    = true;
-    this.anulado   = true;
-    this.enviado   = true;
-    this.noenviado = true;
-
-  }
+  
 }
+
+export interface Task {
+  name: string;
+  completed: boolean;
+  color: ThemePalette;
+  subtasks?: Task[];
+}
+
 

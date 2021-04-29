@@ -31,6 +31,7 @@ export class RepContablePage implements OnInit {
   
   anio     : number;  
   mes      : string;
+  noShare  : boolean = true;
 
   constructor(
     private sformValidator      : FormValidatorService,
@@ -97,13 +98,13 @@ export class RepContablePage implements OnInit {
         const result = response.result;
         
         if (result.length > 0) {
-          this.anio = this.form.value.anio;
-          this.mes = this.form.value.mes;       
+          
+          
+          this.anio     = this.form.value.anio;
+          this.mes      = this.form.value.mes;       
   
           const columns = result[0];                                            
           const keys = Object.keys(columns);
-
-          console.log(columns)
 
           for (let i of keys) {
             this.columns.push({ titulo: i });
@@ -112,6 +113,7 @@ export class RepContablePage implements OnInit {
   
           this.data = result;
           this.buscar = true;
+          this.noShare  = false;
   
         } else {
           
@@ -147,16 +149,17 @@ export class RepContablePage implements OnInit {
 
       }
       
-      this.anio       = this.form.value.anio;
-      this.mes        = this.form.value.mes;
-      const ruc       = await this.dataStorageService.get('credenciales');
-      const name_file = `${ruc.ruc}-${this.anio}-${this.mes}`;
+      this.anio        = this.form.value.anio;
+      this.mes         = this.form.value.mes;
+      const ruc        = await this.dataStorageService.get('credenciales');
+      const name_file  = `${ruc.ruc}-${this.anio}-${this.mes}`;
 
       const Noenviados = this.data.filter( ( cpe : any ) => { 
 
         if( cpe['RAZÓN SOCIAL & NOMBRE'] == 'ANULADO' ) { 
           if(cpe.IDAnuladoEnviado == false ) return cpe; 
         } else if(cpe.IDEnviado == false ) return cpe;
+        
       });
 
       if( Noenviados.length == 0 ) this.sfunction.exportToExcel(this.data, name_file)
@@ -180,6 +183,7 @@ export class RepContablePage implements OnInit {
 
   nombreMes($event) {
     this.buscar = false;
+    this.noShare  = true;
     
     
   }
@@ -188,6 +192,7 @@ export class RepContablePage implements OnInit {
     const anio = parseInt($event.detail.value.substr(0 , [4]));
     this.anio = anio;
     this.buscar = false;
+    this.noShare  = true;
     
   }
 

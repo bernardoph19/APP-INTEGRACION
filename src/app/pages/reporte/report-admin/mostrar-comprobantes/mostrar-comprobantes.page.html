@@ -16,7 +16,7 @@
         <ion-icon color="dark" src="assets/img/check.svg"></ion-icon> 
       </ion-button> -->
       
-      <ion-button (click)="openDialog()">
+      <ion-button (click)="onFiltrar()">
         <ion-icon color="dark" name="funnel" ></ion-icon>   
       </ion-button>
      
@@ -54,18 +54,23 @@
 
 <ion-content >  
   <ion-list class="ion-justify-content-between ion-align-items-center" color="light">
+    
     <ion-label class="titles" >
-      <p class="valor -colorr">Comprobantes</p>
-      <p class="valor" slot="end">{{ listcpeGeneral.length }}</p>
+      <p class="valor -colorr">Cant. Comp.</p>
+      <p class="valor text" slot="end">{{ (filtroActivo) ? listaFiltrada.length : listcpeGeneral.length }}</p>
+      
+      <p class="valor -colorr">Total</p>
+      <p class="valor text" slot="end">{{ total | currency : 'PEN'}}</p>
 
-    </ion-label>     
+    </ion-label>
+
     <ion-item *ngFor="let item of listcpe"  button  (click)="detalleComprobante(item)" lines="none"  style="border-radius: 12px !important; padding: 14px 0px 10px 0px !important;">
       <ion-grid class="ion-no-margin ion-no-padding py-2" >
         <!-- (click)="listarDetalle(item)" -->
         <ion-row>
-          <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 
+          <!-- <ion-col *ngIf="app_bar" size="1" class="ion-justify-content-start ion-align-self-center"> 
             <ion-checkbox [(ngModel)]="item.isChecked" class="checkccc" color="danger" > </ion-checkbox>     
-          </ion-col>
+          </ion-col> -->
 
           <ion-col  size="2" class="ion-justify-content-start ion-align-self-center">            
             

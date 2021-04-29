@@ -20,19 +20,28 @@ import { FiltrarReportAdminComponent } from '../filtrar-report-admin/filtrar-rep
 })
 export class MostrarComprobantesPage implements OnInit {
 
-  @ViewChild(IonInfiniteScroll) infinityScroll: IonInfiniteScroll;
-  @Input() listcpe: any[] = [];
-  @Input() listcpeGeneral: any[] = [];
+  @ViewChild(IonInfiniteScroll) infinityScroll : IonInfiniteScroll;
+  @Input() listcpe                             : any[] = [];
+  @Input() listcpeGeneral                      : any[] = [];
+  listaFiltrada                                : any[] = [];
 
-  icondition: ICondition = new ICondition();
-  istatus: IStatus = new IStatus();
+  ArrayFiltro:any = {
+    activo: true,
+    anulado: true,
+    enviado: true,
+    noenviado: true
+  };
 
-  checkAll: boolean;
-  app_bar: boolean;
-  filtros: any[];
+  icondition              : ICondition = new ICondition();
+  istatus                 : IStatus    = new IStatus();
+  filtroActivo            : boolean    = false;
 
-  title: string;
-  message: string;
+  checkAll                : boolean;
+  app_bar                 : boolean;  
+
+  title                   : string;
+  message                 : string;
+  total                   : number;
 
   constructor(
     public  Descargar         : ActionSheetController,
@@ -46,14 +55,80 @@ export class MostrarComprobantesPage implements OnInit {
 
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.total = this.listcpeGeneral.map( x => x.Total ).reduce( ( t, a ) => t + a );
+  }
 
-  openDialog() {
-    this.dialog.open(FiltrarReportAdminComponent)
+  onFiltrar() {
+    
+    this.dialog.open(FiltrarReportAdminComponent, { data: this.ArrayFiltro })
       .afterClosed()
-      .subscribe(res => {
-        this.filtros = res;
-        console.log(this.filtros);
+      .subscribe(dato => {
+
+        this.ArrayFiltro = dato;
+        
+        const activo = dato.activo;
+        const anulado = dato.anulado;
+        const enviado = dato.enviado;
+        const noenviado = dato.noenviado;
+
+        if(activo & anulado & enviado & noenviado) {
+          
+          this.filtroActivo = false; // igualar al json de antes
+          this.listcpe      = this.listcpeGeneral;
+
+          if(this.listcpe.length != 0) { 
+            this.total = this.listcpe.map( x => x.Total ).reduce( ( t, a ) => t + a );
+          } else {
+            this.total =  0.00;
+          }
+
+          this.spinner.hide();
+
+        } else {
+
+          this.filtroActivo   = true;
+          this.listaFiltrada  = this.listcpeGeneral.filter( (e : any) => {
+
+            if(activo & anulado)  {              
+              if(e.IDEnviado == enviado) return e;
+
+            } else if( enviado & noenviado ) {
+              if((e.Cliente == 'ANULADO') == anulado)return e;
+
+            } else {
+              if((e.Cliente == "ANULADO") == anulado && e.IDEnviado == enviado)
+                return e;
+              }
+          });
+          
+          this.listcpe = this.listaFiltrada.slice(0, 20);
+
+          const a = this.listcpeGeneral.filter((e:any)=>{
+
+            if(activo & anulado) {
+              if(e.IDEnviado == enviado) return e;
+
+            } else if( enviado & noenviado ) {
+              if((e.Cliente == 'ANULADO') == anulado)return e;
+
+            } else {
+              if((e.Cliente == "ANULADO") == anulado && e.IDEnviado == enviado)
+                return e;
+            }
+          })
+
+          if(a.length!=0) {
+            this.total = a.map( x=>x.Total ).reduce( ( t, a ) => t + a );
+          } else {
+            this.total = 0.00;
+            
+          }
+
+        }
+
+        this.spinner.hide();
+
       })
   }
 
@@ -120,19 +195,42 @@ export class MostrarComprobantesPage implements OnInit {
 
   loadData(event : any) {
 
+    let cant     = 0;
+    let nuevoArr : any;
+
     setTimeout(() => {
 
-      if (this.listcpe.length === this.listcpeGeneral.length) {
-        event.target.complete();
-        this.infinityScroll.disabled = true;
-        return;
-      }
+      if (this.filtroActivo) {
 
-      const cant = this.listcpe.length + 20;
-      const nuevoArr = this.listcpeGeneral.slice(0, cant);
-      this.listcpe = nuevoArr;
-      event.target.complete();
-    }, 1000);
+        if (this.listcpe.length === this.listaFiltrada.length) {
+          event.target.complete();
+          this.infinityScroll.disabled = true;
+          return;
+  
+        }
+
+        cant      = this.listcpe.length + 20;
+        nuevoArr  = this.listaFiltrada.slice(0, cant);      
+        this.listcpe    = nuevoArr;
+        debugger
+        event.target.complete();
+        
+      } else {
+
+        if (this.listcpe.length === this.listcpeGeneral.length) {
+          event.target.complete();
+          this.infinityScroll.disabled = true;
+          return;
+  
+        }
+        cant      = this.listcpe.length + 20;
+        nuevoArr  = this.listcpeGeneral.slice(0, cant);      
+        this.listcpe    = nuevoArr;
+        event.target.complete();
+
+      }
+      
+    }, 2000);
   }
 
   // mostar Detalle Comprobante

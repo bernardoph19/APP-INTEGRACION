@@ -12,18 +12,13 @@
 </div>
 
 
-<form [formGroup]="formFiltros" (ngSubmit)="aplicarFlitros()"> 
   <section class="example-section mt-2">
     <span class="condicion ">CONDICIÓN</span>
-  
+
     <mat-checkbox 
-                  class="example-margin text mt-2" 
-                  formControlName="activo"
-                  [checked]="activo"                  
-                  (change)="updateValue($event.checked, 'activo')" 
-    >
-                  
-                  Activo
+                  [(ngModel)]='filtro.activo' (change)='Marcado("activo")'
+                  class="example-margin text mt-2"                    
+    >             Activo
 
       <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M6.55371 8.38575H8.41146L7.49496 5.53125L6.55371 8.38575Z" fill="#424242"/>
@@ -33,12 +28,8 @@
   
     <mat-checkbox 
                   class="example-margin text" 
-                  formControlName="anulado" 
-                  [checked]="anulado"
-                  (change)="updateValue($event.checked, 'anulado')"
-    > 
-                  
-                  Anulado
+                  [(ngModel)]='filtro.anulado' (change)='Marcado("anulado")'
+    >             Anulado
 
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M7 0C3.13438 0 0 3.13438 0 7C0 10.8656 3.13438 14 7 14C10.8656 14 14 10.8656 14 7C14 3.13438 10.8656 0 7 0ZM6.5 3.625C6.5 3.55625 6.55625 3.5 6.625 3.5H7.375C7.44375 3.5 7.5 3.55625 7.5 3.625V7.875C7.5 7.94375 7.44375 8 7.375 8H6.625C6.55625 8 6.5 7.94375 6.5 7.875V3.625ZM7 10.5C6.80374 10.496 6.61687 10.4152 6.47948 10.275C6.3421 10.1348 6.26515 9.9463 6.26515 9.75C6.26515 9.5537 6.3421 9.36522 6.47948 9.225C6.61687 9.08478 6.80374 9.00401 7 9C7.19626 9.00401 7.38313 9.08478 7.52052 9.225C7.6579 9.36522 7.73485 9.5537 7.73485 9.75C7.73485 9.9463 7.6579 10.1348 7.52052 10.275C7.38313 10.4152 7.19626 10.496 7 10.5Z" fill="#424242"/>
@@ -52,12 +43,8 @@
 
     <mat-checkbox 
                   class="example-margin text mt-2" 
-                  formControlName="enviado" 
-                  [checked]="enviado" 
-                  (change)="updateValue($event.checked, 'enviado')"
-    > 
-                  
-                  Enviado 
+                  [(ngModel)]='filtro.enviado' (change)='Marcado("enviado")'
+    >             Enviado 
 
         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M8.5 16C12.6421 16 16 12.6421 16 8.5C16 4.35786 12.6421 1 8.5 1C4.35786 1 1 4.35786 1 8.5C1 12.6421 4.35786 16 8.5 16Z" fill="#424242" stroke="#424242" stroke-width="2"/>
@@ -67,12 +54,8 @@
   
     <mat-checkbox 
                   class="example-margin text" 
-                  formControlName="noenviado" 
-                  [checked]="noenviado" 
-                  (change)="updateValue($event.checked, 'noenviado')"
-    > 
-                  
-                  No Enviado
+                  [(ngModel)]='filtro.noenviado' (change)='Marcado("noenviado")'
+    >             No Enviado
 
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM8 1.77778C9.37778 1.77778 10.6667 2.26667 11.7333 3.02222L3.02222 11.7333C2.26667 10.6667 1.77778 9.37778 1.77778 8C1.77778 4.57778 4.57778 1.77778 8 1.77778ZM8 14.2222C6.62222 14.2222 5.33333 13.7333 4.26667 12.9778L12.9778 4.26667C13.7333 5.33333 14.2222 6.62222 14.2222 8C14.2222 11.4222 11.4222 14.2222 8 14.2222Z" fill="#424242"/>
@@ -81,7 +64,7 @@
   </section>
   
   <div class="flexjusctice">
-    <button mat-raised-button mat-dialog-close   color="warn" class="mt-5" type="submit">HECHO</button>
+    <button mat-raised-button color="warn" class="mt-5" (click)="aplicarFlitros()">HECHO</button>
   </div>
-</form>
+
 
