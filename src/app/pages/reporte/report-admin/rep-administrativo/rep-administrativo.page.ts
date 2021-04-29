@@ -94,7 +94,7 @@ export class RepAdministrativoPage implements OnInit {
         this.expiredS  = err.error === 'Unauthorized';
         
         const title = 'Oops!!!';
-        this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (err.error.menssage)  ?? 'Sin conexion al servidor';
+        this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (err.error.message)  ?? 'Sin conexion al servidor';
         
         this.spinner.hide();
         (this.expiredS) ? this.salert.Alert( title, this.message, this.sExpiredNav(this) )
@@ -125,7 +125,6 @@ export class RepAdministrativoPage implements OnInit {
 
 
   sExpiredNav(self : any) {
-    debugger;
     this.dataStorageService.clearAllStorage();
     this.router.navigate(['/login'],  { replaceUrl: true });    
   }

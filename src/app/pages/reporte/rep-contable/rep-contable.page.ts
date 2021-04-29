@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { AlertService } from 'src/app/services/alert.service';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
+
+import { AlertService } from 'src/app/services/alert.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastController } from '@ionic/angular';
+import { Share } from '@capacitor/core';
 
 @Component({
   selector: 'app-rep-contable',
@@ -18,7 +21,6 @@ export class RepContablePage implements OnInit {
   buscar   : boolean = false;
   form     : FormGroup;
   message  : string;
-  error    : boolean;
   cnn_expi : boolean;
   expiredS : boolean;
   sinDatos : boolean = false;
@@ -27,10 +29,8 @@ export class RepContablePage implements OnInit {
   displayedColumns       : string[] = [];
   data                   : any; 
   
-  anio     : string;  
+  anio     : number;  
   mes      : string;
-
-  prueba : string = 'HOALA';
 
   constructor(
     private sformValidator      : FormValidatorService,
@@ -41,10 +41,12 @@ export class RepContablePage implements OnInit {
     private dataStorageService  : DataStorageService,
     private router              : Router,
     private salert              : AlertService,
+    public  toastController     : ToastController,
 
 
   ) {
     this.createForm();
+    this.anio = this.form.value.anio
 
    }
 
@@ -59,16 +61,12 @@ export class RepContablePage implements OnInit {
   }
 
   initialize() {
-    this.spinner.show();
-    
-    this.error = false;
-    this.message = null;
-    /* 
+    this.spinner.show();        
+    this.message = null;    
     this.cnn_expi = false;
-    this.dataSource = null;
+    this.data = null;
     this.columns = [];
-    this.displayedColumns = []; 
-    */
+    this.displayedColumns = [];    
   }
 
   get yearInvalid() {
@@ -79,52 +77,6 @@ export class RepContablePage implements OnInit {
     return this.sformValidator.control_invalid('mes', this.form);
   }
 
-  shared(){
-    
-  }
-
-  async descargarExcel() {
-    
-    try 
-    {
-      if(this.data.length < 1)
-      {
-        this.error = true;
-        this.message = 'No se encontraron datos'
-        return;
-      }
-
-      const ruc = await this.dataStorageService.get('credenciales');
-      this.anio = this.form.value.anio;
-      this.mes = this.form.value.mes;
-      const name_file = `${ruc.ruc}-${this.anio}-${this.mes}`;
-
-      const Noenviados = this.data.filter((e:any)=>
-      { 
-        if(e['RAZÓN SOCIAL & NOMBRE'] == 'ANULADO' ) { if(e.IDAnuladoEnviado == false ) return e; }
-        else if(e.IDEnviado == false ) return e;
-      });
-
-      if(Noenviados.length == 0) this.sfunction.exportToExcel(this.data, name_file)
-      else
-      {
-        this.error = true;
-        this.message = 'Algunos comprobantes aun no han sido enviados, envie todos los comprobantes de el mes seleccinado para poder exportar a excel'
-      }
-    } 
-    catch (error) 
-    {
-      this.error = true;
-      this.message = 'No se encontraron datos'
-    }
-
-  }
-
-  descargarPDF() {
-
-  }
-
-
   async listReporteContable() {
 
     if (this.form.invalid) {
@@ -133,22 +85,25 @@ export class RepContablePage implements OnInit {
 
     this.initialize();
     const body = {
-      ... this.form.value
+      //... this.form.value
+      anio : this.anio,
+      mes  : this.form.value.mes
     };
 
-    
     (await this.sreportVenta.ContableReport(body)).subscribe((response: any) => {
       
-
-      if(response.message == 'exito')
-      {
+      if(response.message == 'exito') {
+        
         const result = response.result;
+        
         if (result.length > 0) {
           this.anio = this.form.value.anio;
           this.mes = this.form.value.mes;       
   
           const columns = result[0];                                            
           const keys = Object.keys(columns);
+
+          console.log(columns)
 
           for (let i of keys) {
             this.columns.push({ titulo: i });
@@ -157,21 +112,19 @@ export class RepContablePage implements OnInit {
   
           this.data = result;
           this.buscar = true;
-          this.sinDatos = false;
   
         } else {
-          this.sinDatos = true;
-
-
+          
+          this.message = 'No se encontraron datos';
+          this.presentToast(this.message);
         }
       }
       this.spinner.hide();
 
     }, (error : any) => {
-
-      this.error     = true;
+            
       this.expiredS  = error.error === 'Unauthorized';
-      this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (error.error.menssage)  ?? 'Sin conexion al servidor';
+      this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (error.error.message)  ?? 'Sin conexion al servidor';
        
       this.spinner.hide();
       const title = 'Oops!!!';
@@ -182,19 +135,91 @@ export class RepContablePage implements OnInit {
 
   }
 
-  sExpiredNav(self : any) {
-    debugger;
+  async descargarExcel() {
+    
+    try 
+    {
+      if(this.data.length < 1) {     
+
+        this.message = 'No se encontraron datos';
+        this.presentToast(this.message);
+        return;
+
+      }
+      
+      this.anio       = this.form.value.anio;
+      this.mes        = this.form.value.mes;
+      const ruc       = await this.dataStorageService.get('credenciales');
+      const name_file = `${ruc.ruc}-${this.anio}-${this.mes}`;
+
+      const Noenviados = this.data.filter( ( cpe : any ) => { 
+
+        if( cpe['RAZÓN SOCIAL & NOMBRE'] == 'ANULADO' ) { 
+          if(cpe.IDAnuladoEnviado == false ) return cpe; 
+        } else if(cpe.IDEnviado == false ) return cpe;
+      });
+
+      if( Noenviados.length == 0 ) this.sfunction.exportToExcel(this.data, name_file)
+      else {        
+        this.message = 'Algunos comprobantes aun no han sido enviados, envie todos los comprobantes de el mes seleccinado para poder exportar a excel'
+        this.presentToast(this.message);
+      }
+    } 
+    catch (error) 
+    {      
+      this.message = 'No se encontraron datos'
+      this.presentToast(this.message);
+    }
+
+  }
+
+  descargarPDF() {
+
+  }
+  
+
+  nombreMes($event) {
+    this.buscar = false;
+    
+    
+  }
+  
+  changeAnio($event) {
+    const anio = parseInt($event.detail.value.substr(0 , [4]));
+    this.anio = anio;
+    this.buscar = false;
+    
+  }
+
+  sExpiredNav(self : any) {    
     this.dataStorageService.clearAllStorage();
     this.router.navigate(['/login'],  { replaceUrl: true });    
   }
 
-  nombreMes($event) {
-    
+  // Compartir comprobante
+  async shared() {
+
+    await Share.share({
+      title: 'See cool stuff',
+      text: 'Really awesome thing you need to see right meow',
+      url: 'http://ionicframework.com/',
+      dialogTitle: 'Share with buddies'
+    });
 
   }
 
-  buscarContable() {
+  async presentToast(ms: string) {
+    let seg = 3000;
 
+    if(ms !== 'No se encontraron datos') {  seg = 7000; }
+
+    const toast = await this.toastController.create({
+      message: ms,
+      duration: seg,
+      cssClass:"background"
+    });
+
+    toast.present();
   }
 
 }

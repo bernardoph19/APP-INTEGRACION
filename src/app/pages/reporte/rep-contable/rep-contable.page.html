@@ -64,10 +64,10 @@
         <ion-col size="6">
           <ion-label class="inicio">Año</ion-label>
           <ion-item color="light" lines="none">
-            <ion-datetime doneText="Hecho" cancelText="No"
+            <ion-datetime doneText="Hecho" cancelText="No" (ionChange)="changeAnio($event)"
               placeholder="YYYY"
               display-format="YYYY"
-              formControlName="anio"
+              formControlName="anio"              
               min="2021"
               max="2030"
               value="2021"
@@ -85,22 +85,12 @@
 
         </ion-col>
 
-        <ion-col>
-          <div *ngIf="sinDatos">
-            <ng-container>
-              <div class="error_message">
-                No se encontraron datos
-              </div>
-            </ng-container>
-          </div>
-        </ion-col>
-
       </ion-row>
     </ion-grid>
 
       <!-- buscar= !buscar -->
         <button 
-          class="btn focus hover"
+          class="btn focus hover  content-center"
           color="factedsol"
           expand="block"
           type="submit"
@@ -110,13 +100,14 @@
   </form>
   <hr />
 
+
   <!-- descargar pdf y EXCEL -->
   <div class="mt-5" *ngIf="buscar">
-    <ion-label class="mt-5 pl-5">REPORTE - {{mes}} / {{anio}}</ion-label>
+    <ion-label class="mt-5 pl-5 content-center">REPORTE - {{mes}} / {{anio}}</ion-label>
     <ion-grid fixed>
-      <ion-row>
+      <ion-row class="content-center"> 
         <!-- PDF -->
-        <ion-col size="6" class="content-center">
+        <!-- <ion-col size="6" class="content-center">
           <ion-button
             class="descargarpdf"
             (click)="descargarPDF()"
@@ -125,9 +116,9 @@
           >
             PDF
           </ion-button>
-        </ion-col>
+        </ion-col> -->
         <!-- EXCEL -->
-        <ion-col size="6" class="content-center">
+        <!-- <ion-col size="12" class="content-center"> -->
           <ion-button
             class="descargarpdf"
             (click)="descargarExcel()"
@@ -136,7 +127,7 @@
           >
             EXCEL
           </ion-button>
-        </ion-col>
+        <!-- </ion-col> -->
       </ion-row>
     </ion-grid>
 

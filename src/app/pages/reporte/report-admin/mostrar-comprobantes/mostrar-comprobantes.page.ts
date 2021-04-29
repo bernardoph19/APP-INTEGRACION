@@ -58,7 +58,7 @@ export class MostrarComprobantesPage implements OnInit {
   }
 
   // Compartir comprobante
-  async shared() {
+  /* async shared() {
 
     const listShared = this.listcpe.filter(x => x.isChecked === true)
     console.log(listShared);
@@ -69,10 +69,10 @@ export class MostrarComprobantesPage implements OnInit {
       url: 'http://ionicframework.com/',
       dialogTitle: 'Share with buddies'
     });
-  }
+  } */
 
   // descargar Comprobante   
-  async descargar() {
+  /* async descargar() {
     const actionSheet = await this.Descargar.create({
       header: 'Descargar como',
       cssClass: 'my-custom-class',
@@ -103,16 +103,16 @@ export class MostrarComprobantesPage implements OnInit {
       ]
     });
     await actionSheet.present();
-  }
+  } */
 
   // seleccionar todos los checks box xd
-  ToselectAll() {
+  /* ToselectAll() {
     this.spinner.show();
     this.checkAll = !this.checkAll;
     this.listcpeGeneral.forEach(el => { el.isChecked = this.checkAll });
     this.listcpe = this.listcpeGeneral;
     this.spinner.hide();
-  }
+  } */
 
   closeModal() {
     this.modalEditNombRe.dismiss(MostrarComprobantesPage);

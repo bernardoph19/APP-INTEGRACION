@@ -17,8 +17,7 @@ export class FunctionsService {
 
   async _headersApi(): Promise<any> {
     
-    const token = await this.dataStorage.getToken('login');
-    console.log(token);
+    const token = await this.dataStorage.getToken('login');    
     //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJydWMiOiIyMDM1NTE2NjU0NyIsImlhdCI6MTYxODUxODY0OSwiZXhwIjoxNjE4NTYxODQ5fQ.lJjW94usCw9XvsqlnrK8bynmjvuvWHlN23QCxqasdfare';
     return { 'Authorization': `bearer ${token}` }
   }

@@ -5,6 +5,7 @@ import { ValidarformloginService } from 'src/app/services/validarformlogin.servi
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DataStorageService } from 'src/app/services/data-storage.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -16,20 +17,20 @@ export class LoginPage implements OnInit {
   formLogin        : FormGroup;
   token            : string;
   datosLogin       : Array<any>;
-  show             : boolean = false;
+  
+  show             : boolean = false;  
+  message          : string;
 
   constructor(
     private auth               : AuthService,
     private vform              : ValidarformloginService,
     private formBuilder        : FormBuilder,
-    private router             : Router,    
+    private router             : Router,
     private dataStorageService : DataStorageService,
-    private spinner            : NgxSpinnerService 
+    private spinner            : NgxSpinnerService,
+    public  toastController    : ToastController,
     
-  ) {
-    //this.recordarLogin();
-    this.CrearFormulario();
-   }
+  ) { this.CrearFormulario(); }
 
   ngOnInit() { } 
 
@@ -53,20 +54,29 @@ export class LoginPage implements OnInit {
     };
 
     this.auth.login(body)
-      .subscribe( (res : any) => {
+      .subscribe( (res : any) => {        
 
         this.dataStorageService.set('credenciales', body);
         if( res.message === "exito" ){
           
           this.datosLogin = res.result;
+          
           this.dataStorageService.set('login', this.datosLogin);
+          
           this.resetForm();
           this.spinner.hide();
           this.navigateRute();
           
         }
-      }, () => {         
+
+      }, (err) => {
+                
+        this.message   = (err.error.message)  ?? 'Sin conexion al servidor';
+
         this.spinner.hide();
+        
+        this.presentToast(this.message);
+        
       });
 
   }
@@ -97,11 +107,19 @@ export class LoginPage implements OnInit {
     return this.vform.controlInvalid("password", this.formLogin);
   }
 
-  recordarLogin() {
-
-    /* const userlogueado = JSON.parse(localStorage.getItem('key'));
-    if( userlogueado !== null && userlogueado.token ) this.navRutePrefs(); */
+  recordarLogin() {    
     const userlogueado = this.dataStorageService.get('login');
-    if( userlogueado !== null ) this.navRutePrefs();
+    if( userlogueado !== null ) this.navRutePrefs();    
   }
+
+  async presentToast(ms: string) {
+    const toast = await this.toastController.create({
+      message: ms,
+      duration: 3000,
+      cssClass:"background"
+    });
+
+    toast.present();
+  }
+
 }

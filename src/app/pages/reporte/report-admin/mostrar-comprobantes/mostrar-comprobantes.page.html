@@ -11,9 +11,11 @@
 
     <ion-title >Reporte Administrativo</ion-title>
     <ion-buttons slot="end">
-      <ion-button    (click)="app_bar = !app_bar">
+
+      <!-- <ion-button    (click)="app_bar = !app_bar">
         <ion-icon color="dark" src="assets/img/check.svg"></ion-icon> 
-      </ion-button>
+      </ion-button> -->
+      
       <ion-button (click)="openDialog()">
         <ion-icon color="dark" name="funnel" ></ion-icon>   
       </ion-button>
@@ -28,23 +30,23 @@
         <ion-icon color="dark"  name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
+    
 
-    <ion-title >0 Elementos</ion-title>
-
-    <ion-buttons slot="end">
-      <!-- selecionar todos los chech -->
+    <!-- <ion-buttons slot="end">
+ 
       <ion-button (click)="ToselectAll()">
         <ion-icon color="dark"  src="assets/img/selecionartodos.svg"></ion-icon>
       </ion-button>
-      <!-- compartirt -->
+
       <ion-button (click)="shared()">
         <ion-icon color="dark"  name="share-social"></ion-icon>
       </ion-button>
-      <!-- descargar -->
+      
       <ion-button (click)="descargar()">
         <ion-icon color="dark"  name="cloud-download"></ion-icon> 
       </ion-button>
-    </ion-buttons>
+
+    </ion-buttons> -->
     
   </ion-toolbar>
 </ion-header>
@@ -117,6 +119,7 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
+  
 </ion-content>
 
 <app-loading> </app-loading>
