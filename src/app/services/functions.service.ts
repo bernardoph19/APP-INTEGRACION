@@ -3,6 +3,7 @@ import { DataStorageService } from 'src/app/services/data-storage.service';
 import * as XLSX from 'xlsx';
 import *  as FileSaver from 'file-saver';
 
+
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
 const EXCEL_EXT = '.xlsx';
 
@@ -84,5 +85,7 @@ export class FunctionsService {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     FileSaver.saveAs(data, FileName + EXCEL_EXT);
   }
+
+
 
 }

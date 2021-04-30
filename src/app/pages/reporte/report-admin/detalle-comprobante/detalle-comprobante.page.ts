@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Share } from '@capacitor/core';
-import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ModalController, ToastController } from '@ionic/angular';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'src/app/services/alert.service';
 import { IComprobante } from 'src/app/interfaces/cpe';
 import { FunctionsService } from 'src/app/services/functions.service';
+
+import { Share, Plugins, FilesystemDirectory } from '@capacitor/core';
+import { File as ionFile} from '@ionic-native/file/ngx';
 
 
 @Component({
@@ -15,7 +17,7 @@ import { FunctionsService } from 'src/app/services/functions.service';
   styleUrls: ['./detalle-comprobante.page.scss'],
 })
 export class DetalleComprobantePage implements OnInit {
-
+  
   @Input() itemCPE               : any      = [];  
   
   FileAsBody                     = {} as IComprobante;
@@ -42,10 +44,12 @@ export class DetalleComprobantePage implements OnInit {
     private salert              : AlertService,
     private alert               : AlertController,
     private sfunction           : FunctionsService,
+    public  toastController     : ToastController,
+    private file                : ionFile,
 
   ) {        
    }
-
+  
   initialize() {
     this.spinner.show();
     this.error = false;
@@ -86,7 +90,9 @@ export class DetalleComprobantePage implements OnInit {
           role: 'destructive',
           cssClass: 'pdf',
           icon: 'download',
-          handler: () => {  this.dowloadFilepdf() ; }
+          handler: () => {  /* this.dowloadFilepdf() ; */ 
+            this.getBase64PDF();
+          }
 
         }, 
         {
@@ -386,6 +392,106 @@ export class DetalleComprobantePage implements OnInit {
       this.itemCPE = r.result[0]; 
       this.spinner.hide();
     })
+  }
+
+
+  getBase64PDF() {
+    this.initialize();
+    const body = { ... this.FileAsBody };
+
+    this.sreportVenta.pdf(body).subscribe((response: any) => {
+      
+      if (response.exito){
+
+        const fileName = 'FC Inte CPE.pdf';
+        const { Filesystem } = Plugins;
+        const bs64 = response.result;
+
+
+        console.log('siguiente linea directory');
+        console.log(JSON.stringify(FilesystemDirectory.Documents));
+
+
+       /*  this.file.checkFile( this.file.dataDirectory, 'registros.csv' )
+            .then( existe => {
+              console.log('Existe archivo?', existe );
+              return this.escribirEnArchivo( text );
+            })
+            .catch( err => {
+
+              return this.file.createFile( this.file.dataDirectory, 'registros.csv', false )
+                      .then( creado => this.escribirEnArchivo( text ) )
+                      .catch( err2 => console.log( 'No se pudo crear el archivo', err2 ));
+
+            }); */
+
+
+        Filesystem.writeFile({
+          path: fileName,
+          data: bs64,
+          directory: FilesystemDirectory.Documents,
+        }).then(writeFileResponse => {
+            console.log('writeFile success => ' );
+            console.log(JSON.stringify(writeFileResponse));
+
+            this.message = 'El comprobante se descargó correctamente.';
+            this.spinner.hide();
+            this.presentToast(this.message);
+            console.log('okay despues del toast');
+            
+        }, error => {
+            console.log('writeFile error => ', error);
+            this.message = 'No se pudo descargar el documento.';
+            this.spinner.hide();
+            this.presentToast(this.message);
+        });
+
+        console.log('siguiendo documento de codigo');
+        this.spinner.hide();
+
+      } else {
+
+        this.tittle = ' Ocurrió algo :c '
+        this.message = response.message ?? "Sin conexion al servidor";
+        this.error = true;
+        this.spinner.hide();
+        this.presentToast(this.message);
+      }
+      
+    }, (error) => {
+
+      this.tittle = ' Ocurrió algo :c '
+      this.message = error.error.message ?? "Sin conexion al servidor";
+      this.error = true;
+      this.spinner.hide();
+      this.presentToast(this.message);
+
+    })
+
+  }
+
+  getPDFFile() {
+    
+
+  }
+
+  async escribirEnArchivo( base64 :  any ) {
+
+    await this.file.writeExistingFile( this.file.dataDirectory, 'registros.csv', base64 );
+
+    const archivo = `${this.file.dataDirectory}/FC Inte PDF.pdf`;    
+        
+  }
+
+
+  async presentToast(ms: string) {
+    const toast = await this.toastController.create({
+      message: ms,
+      duration: 3000,
+      cssClass:"background"
+    });
+
+    toast.present();
   }
 
 }

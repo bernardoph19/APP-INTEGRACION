@@ -11,6 +11,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { File } from '@ionic-native/file/ngx';
+
 import {  registerLocaleData } from '@angular/common';
 import LocaleEsPe from '@angular/common/locales/es-PE.js';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
@@ -32,6 +34,7 @@ registerLocaleData(LocaleEsPe);
   ],
   providers: [
     StatusBar,
+    File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },    
     { provide: MAT_DATE_LOCALE, useValue: 'es-PE' },
     { provide: LOCALE_ID,  useValue: 'es-PE' },

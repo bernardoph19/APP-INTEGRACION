@@ -5,7 +5,7 @@
         <ion-row>
           <ion-col size="2">
             <ion-menu-toggle>
-              <ion-button shape="round" routerLink="/splash" (click)="dataStorage.clearAllStorage()" color="factedsol">
+              <ion-button shape="round" (click)="cerraSession()" color="factedsol">
                 <ion-icon name="power-outline"></ion-icon>
               </ion-button>
             </ion-menu-toggle>
@@ -14,9 +14,9 @@
           <ion-col size="8" class="ion-justify-content-center ion-align-items-center">
             <ion-avatar class="ion-justify-content-center ion-align-items-center">
               <img *ngIf="!bs64logo"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4slZPf98jLI5cZmJ6VgdfI1Y7pBbNTcxoHQ&usqp=CAU" />
-              <img *ngIf="bs64logo"  src="data:image/jpeg;base64,{{ usuario.datos.logo }}" />
+              <img *ngIf="bs64logo"  src="data:image/jpeg;base64,{{ usuario?.logo }}" />
             </ion-avatar>
-            <ion-label class="text-sm"> {{ usuario?.datos.NombreTrabajador }}  ({{ usuario?.datos.Usuario }}) </ion-label>         
+            <ion-label class="text-sm"> {{ usuario?.NombreTrabajador }}  ({{ usuario?.Usuario }}) </ion-label>         
           </ion-col>
 
           <ion-col size="2">

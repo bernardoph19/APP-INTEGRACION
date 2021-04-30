@@ -6,7 +6,7 @@
   "webDir": "www",
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 300,
+      "launchShowDuration": 0,
       "SplashShowOnlyFirstTime": "false",
       "androidSplashResourceName": "splash",
       "SplashScreen": "screen",
@@ -26,7 +26,7 @@
       "FadeSplashScreenDuration": "300",
       "SplashShowOnlyFirstTime": "false",
       "SplashScreen": "screen",
-      "SplashScreenDelay": "300",
+      "SplashScreenDelay": "3000",
       "AndroidPersistentFileLocation": "Compatibility"
     }
   }

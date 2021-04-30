@@ -35,7 +35,7 @@ export class RepAdministrativoPage implements OnInit {
     private modalEditNombRe     : ModalController,
     private salert              : AlertService,
     private dataStorageService  : DataStorageService,
-    private router             : Router,  
+    private router              : Router,  
   ) {
    
     this.createFormReport(); 

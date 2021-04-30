@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataStorageService } from 'src/app/services/data-storage.service';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service.service';
+
 
 @Component({
   selector: 'app-menu-principal',
@@ -48,17 +50,21 @@ export class MenuPrincipalPage implements OnInit {
   ];
 
   constructor(
-    public dataStorage : DataStorageService
+    private auth               : AuthService,
+    private router             : Router,  
+    
   ) {
 
    }
 
   async ngOnInit() { 
-    this.usuario = await this.dataStorage.get('login');
+    this.usuario =  await this.auth.obtenerDatosStorage();
     this.bs64logo = true;
   }
 
   cerraSession() {
+    this.auth.logout();
+    this.router.navigate(['/login'], { replaceUrl : true});
 
   }
 
