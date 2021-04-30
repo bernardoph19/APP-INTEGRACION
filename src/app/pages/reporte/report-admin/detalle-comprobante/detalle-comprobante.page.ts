@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Share } from '@capacitor/core';
 import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
 import { DataStorageService } from 'src/app/services/data-storage.service';
@@ -37,8 +35,6 @@ export class DetalleComprobantePage implements OnInit {
 
   constructor( 
     public Descargar            : ActionSheetController,
-    private http                : HttpClient,
-    private route               : ActivatedRoute,
     private dataStorageService  : DataStorageService,
     private modal               : ModalController,
     private sreportVenta        : ReporteVentaService,
@@ -280,6 +276,7 @@ export class DetalleComprobantePage implements OnInit {
 
     this.initialize();
     const body = { ... this.FileAsBody };
+    debugger
 
     this.sreportVenta.pdf(body).subscribe((response: any) => {
       if (response.exito) this.downloadFile( response, 'pdf' );

@@ -56,9 +56,6 @@ export class MenuPrincipalPage implements OnInit {
   async ngOnInit() { 
     this.usuario = await this.dataStorage.get('login');
     this.bs64logo = true;
-    console.log(this.usuario.logo);
-    //    (usuario !== undefined) ? '' : usuario.datos.logo
-    debugger
   }
 
   cerraSession() {
