@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">FC Integracion</string>
+    <string name="title_activity_main">FC Integracion</string>
+    <string name="package_name">pe.innovated.appintegra</string>
+    <string name="custom_url_scheme">pe.innovated.appintegra</string>
+</resources>
