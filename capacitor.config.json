@@ -6,8 +6,17 @@
   "webDir": "www",
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 0
-    }
+      "launchShowDuration": 300,
+      "SplashShowOnlyFirstTime": "false",
+      "androidSplashResourceName": "splash",
+      "SplashScreen": "screen",
+      "launchAutoHide": false,
+      "spinnerColor": "#5cd053",
+      "showSpinner": true,
+      "splashFullScreen": true,
+      "splashImmersive": true,
+      "androidScaleType": "CENTER_CROP"
+    }    
   },
   "cordova": {
     "preferences": {
@@ -17,7 +26,7 @@
       "FadeSplashScreenDuration": "300",
       "SplashShowOnlyFirstTime": "false",
       "SplashScreen": "screen",
-      "SplashScreenDelay": "3000",
+      "SplashScreenDelay": "300",
       "AndroidPersistentFileLocation": "Compatibility"
     }
   }
