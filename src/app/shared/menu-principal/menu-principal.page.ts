@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 
 @Component({
   selector: 'app-menu-principal',
@@ -7,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuPrincipalPage implements OnInit {
 
-  open: boolean;
+  open      : boolean;
+  usuario   : any
+  bs64logo  : boolean = false;
+  user      : string;
+
 
   pages = [
-
-   
 
     {
       title: 'Documentos',
@@ -43,9 +46,23 @@ export class MenuPrincipalPage implements OnInit {
      }
      
   ];
-  constructor() { }
 
-  ngOnInit() {
+  constructor(
+    public dataStorage : DataStorageService
+  ) {
+
+   }
+
+  async ngOnInit() { 
+    this.usuario = await this.dataStorage.get('login');
+    this.bs64logo = true;
+    console.log(this.usuario.logo);
+    //    (usuario !== undefined) ? '' : usuario.datos.logo
+    debugger
+  }
+
+  cerraSession() {
+
   }
 
 }
