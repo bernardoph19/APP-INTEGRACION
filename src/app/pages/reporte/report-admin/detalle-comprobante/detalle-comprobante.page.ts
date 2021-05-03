@@ -11,11 +11,13 @@ import { Share, Plugins, FilesystemDirectory } from '@capacitor/core';
 import { File as ionFile} from '@ionic-native/file/ngx';
 
 
+
 @Component({
   selector: 'app-detalle-comprobante',
   templateUrl: './detalle-comprobante.page.html',
   styleUrls: ['./detalle-comprobante.page.scss'],
 })
+
 export class DetalleComprobantePage implements OnInit {
   
   @Input() itemCPE               : any      = [];  
@@ -99,7 +101,7 @@ export class DetalleComprobantePage implements OnInit {
           text: 'XLM',
           icon: 'download',
           handler: () => {  /* (Enviado) ?  this.dowloadFilepdf() :  this.salert.Alert('Ops ...', 'Operación no permitida', ''); */
-            this.downloadFilexml();
+            this.getBase64XML();
           }
 
         },
@@ -107,7 +109,7 @@ export class DetalleComprobantePage implements OnInit {
           text: 'CDR',
           icon: 'download',
           handler: () => {
-            this.downloadFilecdr();
+            this.getBase64CDR();
           }
         },
       ]
@@ -277,101 +279,6 @@ export class DetalleComprobantePage implements OnInit {
     
   }
 
-
-  dowloadFilepdf() {
-
-    this.initialize();
-    const body = { ... this.FileAsBody };
-    debugger
-
-    this.sreportVenta.pdf(body).subscribe((response: any) => {
-      if (response.exito) this.downloadFile( response, 'pdf' );
-      else {
-
-        this.tittle = ' Ocurrió algo :c '
-        this.message = response.message ?? "Sin conexion al servidor";
-        this.error = true;
-        this.spinner.hide();
-      }
-      
-    }, (error) => {
-
-      this.tittle = ' Ocurrió algo :c '
-      this.message = error.error.message ?? "Sin conexion al servidor";
-      this.error = true;
-      this.spinner.hide();
-
-    })
-  }
-
-  downloadFilexml() {
-
-    if(!this.enviar){
-      this.salert.Alert('Ops ...', 'Operación no permitida', '');
-      return;
-    }
-
-    this.initialize();
-    const body = {
-      ... this.FileAsBody
-    };
-
-    this.sreportVenta.xml(body).subscribe((response: any) => {
-
-      if (response.exito) this.downloadFile( response, 'xml' );
-      else {
-
-        this.message = response.message ?? "Sin conexion al servidor";
-        this.error = true;
-
-      }
-
-      this.spinner.hide();
-
-    }, (error) => {
-
-      this.message = error.error.message ?? "Sin conexion al servidor";
-      this.error = true;
-      this.spinner.hide();
-
-    });
-
-  }
-
-  downloadFilecdr() {
-
-    if(!this.enviar){
-      this.salert.Alert('Ops ...', 'Operación no permitida', '');
-      return;
-    }
-
-    this.initialize();
-    const body = {
-      ... this.FileAsBody
-    };
-
-    this.sreportVenta.cdr(body).subscribe((response: any) => {
-
-      if (response.exito) this.downloadFile( response, 'cdr' );
-      else {
-
-        this.message = response.message ?? "Sin conexion al servidor";
-        this.error = true;
-
-      }
-
-      this.spinner.hide();
-
-    }, (error) => {
-
-      this.message = error.error.message ?? "Sin conexion al servidor";
-      this.error = true;
-      this.spinner.hide();
-
-    })
-
-  }  
-
   async getDetails(item: any) {
 
     const res = await (this.dataStorageService.get('credenciales'));
@@ -396,58 +303,19 @@ export class DetalleComprobantePage implements OnInit {
 
 
   getBase64PDF() {
+    
     this.initialize();
+    
     const body = { ... this.FileAsBody };
 
     this.sreportVenta.pdf(body).subscribe((response: any) => {
       
       if (response.exito){
 
-        const fileName = 'FC Inte CPE.pdf';
-        const { Filesystem } = Plugins;
+        const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
         const bs64 = response.result;
 
-
-        console.log('siguiente linea directory');
-        console.log(JSON.stringify(FilesystemDirectory.Documents));
-
-
-       /*  this.file.checkFile( this.file.dataDirectory, 'registros.csv' )
-            .then( existe => {
-              console.log('Existe archivo?', existe );
-              return this.escribirEnArchivo( text );
-            })
-            .catch( err => {
-
-              return this.file.createFile( this.file.dataDirectory, 'registros.csv', false )
-                      .then( creado => this.escribirEnArchivo( text ) )
-                      .catch( err2 => console.log( 'No se pudo crear el archivo', err2 ));
-
-            }); */
-
-
-        Filesystem.writeFile({
-          path: fileName,
-          data: bs64,
-          directory: FilesystemDirectory.Documents,
-        }).then(writeFileResponse => {
-            console.log('writeFile success => ' );
-            console.log(JSON.stringify(writeFileResponse));
-
-            this.message = 'El comprobante se descargó correctamente.';
-            this.spinner.hide();
-            this.presentToast(this.message);
-            console.log('okay despues del toast');
-            
-        }, error => {
-            console.log('writeFile error => ', error);
-            this.message = 'No se pudo descargar el documento.';
-            this.spinner.hide();
-            this.presentToast(this.message);
-        });
-
-        console.log('siguiendo documento de codigo');
-        this.spinner.hide();
+        this.escribirArchivo(bs64, fileName, 'pdf');
 
       } else {
 
@@ -470,20 +338,80 @@ export class DetalleComprobantePage implements OnInit {
 
   }
 
-  getPDFFile() {
+  getBase64CDR() {
     
+    this.initialize();
+    
+    const body = { ... this.FileAsBody };
 
-  }
+    this.sreportVenta.cdr(body).subscribe((response: any) => {
 
-  async escribirEnArchivo( base64 :  any ) {
-
-    await this.file.writeExistingFile( this.file.dataDirectory, 'registros.csv', base64 );
-
-    const archivo = `${this.file.dataDirectory}/FC Inte PDF.pdf`;    
+      if (response.exito) {        
         
+        const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.cdr`;
+        const bs64 = response.result;
+
+        this.escribirArchivo(bs64, fileName, 'cdr');
+        
+      } else {
+
+        this.message = response.message ?? "Sin conexion al servidor";
+        this.error = true;
+        this.presentToast(this.message);
+
+      }
+
+      this.spinner.hide();
+
+    }, (error) => {
+
+      this.message = error.error.message ?? "Sin conexion al servidor";
+      this.error = true;
+      this.spinner.hide();
+      this.presentToast(this.message);
+
+    });
+
   }
+  
+
+  getBase64XML() {
+    
+    this.initialize();    
+    const body = { ... this.FileAsBody };
 
 
+    this.sreportVenta.cdr(body).subscribe((response: any) => {
+
+      if (response.exito) {
+                
+        const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.cdr`;
+        const bs64 = response.result;   
+        
+        this.escribirArchivo(bs64, fileName, 'xml');
+        
+      } else {
+
+        this.message = response.message ?? "Sin conexion al servidor";
+        this.error = true;
+        this.spinner.hide();
+        this.presentToast(this.message);
+
+      }
+
+      this.spinner.hide();
+
+    }, (error) => {
+
+      this.message = error.error.message ?? "Sin conexion al servidor";
+      this.error = true;
+      this.spinner.hide();
+      this.presentToast(this.message);
+
+    });
+
+  }
+ 
   async presentToast(ms: string) {
     const toast = await this.toastController.create({
       message: ms,
@@ -493,5 +421,35 @@ export class DetalleComprobantePage implements OnInit {
 
     toast.present();
   }
+
+
+  private escribirArchivo( base64, fileName, ext ){
+
+    const { Filesystem } = Plugins;    
+
+    const extension = ext === 'cdr' ? 'zip' : ext;
+
+    Filesystem.writeFile({
+      path: `${fileName}.${extension}`,
+      data: base64,
+      directory: FilesystemDirectory.Documents,
+    }).then(writeFileResponse => {
+
+        console.log(JSON.stringify(writeFileResponse));
+
+        this.message = 'El comprobante se descargó correctamente.';
+        this.spinner.hide();
+        this.presentToast(this.message);
+        
+    }, error => {
+        console.log('writeFile error => ', error);
+        this.message = 'No se pudo descargar el documento.';
+        this.spinner.hide();
+        this.presentToast(this.message);
+    });
+
+  }
+  
+  
 
 }
