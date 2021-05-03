@@ -9,6 +9,7 @@ import { FunctionsService } from 'src/app/services/functions.service';
 
 import { Share, Plugins, FilesystemDirectory } from '@capacitor/core';
 import { File as ionFile} from '@ionic-native/file/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 
 
@@ -34,7 +35,8 @@ export class DetalleComprobantePage implements OnInit {
   error                          : boolean;
   success                        : boolean;
 
-  credenciales                   : any;  
+  credenciales                   : any;
+  rutaArchivo                    : any;
   
 
   constructor( 
@@ -48,6 +50,8 @@ export class DetalleComprobantePage implements OnInit {
     private sfunction           : FunctionsService,
     public  toastController     : ToastController,
     private file                : ionFile,
+    private social              : SocialSharing,
+    
 
   ) {        
    }
@@ -71,17 +75,65 @@ export class DetalleComprobantePage implements OnInit {
   
   async shared(){
 
-   await Share.share({
-    title: 'See cool stuff',
-    text: 'Really awesome thing you need to see right meow',
-    url: 'http://ionicframework.com/',
-    dialogTitle: 'Share with buddies'
-  });
+    /* await Share.share({
+        title: 'See cool stuff',
+        text: 'Really awesome thing you need to see right meow',
+        url: 'http://ionicframework.com/',
+        dialogTitle: 'Share with buddies'
+      }); */
+
+    //this.initialize();
+    
+    /* const body = { ... this.FileAsBody };
+    let   blob;
+
+    this.sreportVenta.pdf(body).subscribe((response: any) => {
+      
+        if (response.exito){
+          const bs64 = response.result;
+          blob = this.sfunction.base64toBlob(bs64, { type: `application/pdf` });
+        } else {
+          console.log('else');
+        }
+
+    }, (err) => {
+      console.log(err);
+    }); */
+
+
+
+    /* const name_Archivo = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
+    const archivo = `${this.file.dataDirectory}/registros.csv`; */
+
+
+    console.log('haciendo click');
+    console.log(JSON.stringify(this.rutaArchivo));
+
+    await Share.share({
+        title : 'FC Integracion App',
+        text  : 'Datos del documento : ' + this.FileAsBody.codigoComprobante,
+        url   : JSON.stringify(this.rutaArchivo),
+        dialogTitle: 'Comparte más ...'
+      });
+
+
+     /* this.social.share(
+      'Datos del documento : ' + this.FileAsBody.codigoComprobante,
+      'FC Integracion App',
+      this.rutaArchivo,
+      ''
+    ); */
+
+    /*this.social.shareViaWhatsApp(
+      'Datos del documento : ' + this.FileAsBody.codigoComprobante,
+      '',
+      this.rutaArchivo
+    ) */
+
   }
 
   async descargar() {
     
-
     const actionSheet = await this.Descargar.create({
       header: 'Descargar como',
       cssClass: 'my-custom-class',
@@ -166,11 +218,9 @@ export class DetalleComprobantePage implements OnInit {
 
     const email = $event.detail.value;
     
-    debugger
     if (email.length > 0) {
       
-      
-      let emails = email.join(',');    
+      let emails = email.join(',');
     
       const parametro = {
         codigocomprobante : this.itemCPE.CodigoComprobante,
@@ -178,8 +228,6 @@ export class DetalleComprobantePage implements OnInit {
         numero            : this.itemCPE.Numero,
         correos           : emails
       }
-
-      console.log(parametro);
 
       const alert = await this.alert.create({
         cssClass : 'alert',
@@ -192,7 +240,9 @@ export class DetalleComprobantePage implements OnInit {
             cssClass: 'secondary',
             text    : 'NO',
             handler : () => {
-              console.log('Cancelar')
+              console.log('Cancelar');
+
+
             }
           },
           {
@@ -312,8 +362,8 @@ export class DetalleComprobantePage implements OnInit {
       
       if (response.exito){
 
-        const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
-        const bs64 = response.result;
+        const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}`;
+        const bs64 = response;
 
         this.escribirArchivo(bs64, fileName, 'pdf');
 
@@ -348,8 +398,8 @@ export class DetalleComprobantePage implements OnInit {
 
       if (response.exito) {        
         
-        const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.cdr`;
-        const bs64 = response.result;
+        const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}`;
+        const bs64 = response;
 
         this.escribirArchivo(bs64, fileName, 'cdr');
         
@@ -360,8 +410,6 @@ export class DetalleComprobantePage implements OnInit {
         this.presentToast(this.message);
 
       }
-
-      this.spinner.hide();
 
     }, (error) => {
 
@@ -374,7 +422,6 @@ export class DetalleComprobantePage implements OnInit {
 
   }
   
-
   getBase64XML() {
     
     this.initialize();    
@@ -385,10 +432,9 @@ export class DetalleComprobantePage implements OnInit {
 
       if (response.exito) {
                 
-        const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.cdr`;
-        const bs64 = response.result;   
-        
-        this.escribirArchivo(bs64, fileName, 'xml');
+        const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}`;
+        const bs64 = response;        
+        this.escribirArchivo(bs64, fileName, 'txt');
         
       } else {
 
@@ -398,8 +444,6 @@ export class DetalleComprobantePage implements OnInit {
         this.presentToast(this.message);
 
       }
-
-      this.spinner.hide();
 
     }, (error) => {
 
@@ -412,29 +456,35 @@ export class DetalleComprobantePage implements OnInit {
 
   }
  
-  async presentToast(ms: string) {
-    const toast = await this.toastController.create({
-      message: ms,
-      duration: 3000,
-      cssClass:"background"
-    });
+  compartirXML() {
 
-    toast.present();
+    /* this.file
+					.writeFile(this.file.dataDirectory, 'Bitacora.pdf', blob, { replace: true })
+					.then((fileEntry) => {
+						this.fileOpener.open(
+							this.file.dataDirectory + 'Bitacora.pdf',
+							'application/pdf'
+						);
+					}); */
+
   }
-
-
-  private escribirArchivo( base64, fileName, ext ){
+ 
+  private escribirArchivo( res, fileName, ext ) {
 
     const { Filesystem } = Plugins;    
 
-    const extension = ext === 'cdr' ? 'zip' : ext;
+    console.log(res);
+
+    const extension = (ext === 'cdr') ? 'zip' : ext;
+    const bs = res.result;
 
     Filesystem.writeFile({
       path: `${fileName}.${extension}`,
-      data: base64,
-      directory: FilesystemDirectory.Documents,
+      data: bs,
+      directory: FilesystemDirectory.Documents,      
     }).then(writeFileResponse => {
 
+      this.rutaArchivo = writeFileResponse;
         console.log(JSON.stringify(writeFileResponse));
 
         this.message = 'El comprobante se descargó correctamente.';
@@ -448,8 +498,15 @@ export class DetalleComprobantePage implements OnInit {
         this.presentToast(this.message);
     });
 
-  }
-  
-  
+  }    
 
+  async presentToast(ms: string) {
+    const toast = await this.toastController.create({
+      message: ms,
+      duration: 3000,
+      cssClass:"background"
+    });
+
+    toast.present();
+  }
 }

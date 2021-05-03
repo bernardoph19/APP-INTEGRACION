@@ -16,7 +16,7 @@
       "splashFullScreen": true,
       "splashImmersive": true,
       "androidScaleType": "CENTER_CROP"
-    }    
+    }
   },
   "cordova": {
     "preferences": {
