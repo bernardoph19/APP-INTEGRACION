@@ -7,9 +7,11 @@ import { AlertService } from 'src/app/services/alert.service';
 import { IComprobante } from 'src/app/interfaces/cpe';
 import { FunctionsService } from 'src/app/services/functions.service';
 
-import { Share, Plugins, FilesystemDirectory } from '@capacitor/core';
-import { File as ionFile} from '@ionic-native/file/ngx';
+import { Plugins, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
+import { File as ionFile, } from '@ionic-native/file/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
+const { Share, FileSharer } = Plugins;
 
 
 
@@ -37,6 +39,8 @@ export class DetalleComprobantePage implements OnInit {
 
   credenciales                   : any;
   rutaArchivo                    : any;
+
+  base64PDF                       : any;
   
 
   constructor( 
@@ -73,7 +77,18 @@ export class DetalleComprobantePage implements OnInit {
     this.spinner.hide();
   }
   
-  async shared(){
+  async shared() {
+
+    console.log('haciendo click');
+    console.log(JSON.stringify(this.rutaArchivo));
+    //url   : 'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
+
+    //const blob = this.sfunction.base64toBlob(this.base64PDF, { type: `application/pdf` });
+
+    /* await Share.share({
+        title : 'FC APP CPE ' + this.FileAsBody.codigoComprobante,
+        text  : this.base64PDF,                
+    }); */
 
     /* await Share.share({
         title: 'See cool stuff',
@@ -106,21 +121,23 @@ export class DetalleComprobantePage implements OnInit {
     const archivo = `${this.file.dataDirectory}/registros.csv`; */
 
 
-    console.log('haciendo click');
-    console.log(JSON.stringify(this.rutaArchivo));
+    
 
-    await Share.share({
-        title : 'FC Integracion App',
-        text  : 'Datos del documento : ' + this.FileAsBody.codigoComprobante,
-        url   : JSON.stringify(this.rutaArchivo),
-        dialogTitle: 'Comparte más ...'
-      });
+    // await Share.share({
+        //title : 'FC APP CPE ' + this.FileAsBody.codigoComprobante,
+
+        //text  : 'Datos del documento : ' + this.FileAsBody.codigoComprobante,
+        //url   : this.rutaArchivo,
+        //url   : 'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
+        //dialogTitle: 'Comparte más ...'
+    // });
 
 
      /* this.social.share(
       'Datos del documento : ' + this.FileAsBody.codigoComprobante,
       'FC Integracion App',
-      this.rutaArchivo,
+      //this.rutaArchivo,
+      'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
       ''
     ); */
 
@@ -184,6 +201,38 @@ export class DetalleComprobantePage implements OnInit {
   guardar() {
     this.modal.dismiss({  
     });
+  }
+
+  downloadPdf() {
+    const { Filesystem } = Plugins;
+      
+      // Save the PDF to the data Directory of our App
+      const fileName = 'defectreport.pdf';
+      try {
+        Filesystem.writeFile({
+          path: fileName,
+          data: this.base64PDF,
+          directory: FilesystemDirectory.Data,
+          encoding: FilesystemEncoding.UTF8
+        }).then((writeFileResult) => {
+          console.log('File Written');
+          Filesystem.getUri({
+              directory: FilesystemDirectory.Data,
+              path: fileName
+          }).then((getUriResult) => {
+              console.log(getUriResult);
+              const path = getUriResult.uri;
+            //  this.fileOpener.open(path, 'application/pdf')
+              //.then(() => console.log('File is opened'))
+              //.catch(error => console.log('Error openening file', error));
+          }, (error) => {
+              console.log(error);
+          });
+        });
+        console.log('writeFile complete');
+      } catch (error) {
+        console.error('Unable to write file', error);
+      }
   }
 
   async leerDatos() {
@@ -364,6 +413,7 @@ export class DetalleComprobantePage implements OnInit {
 
         const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}`;
         const bs64 = response;
+        this.base64PDF = response.result;
 
         this.escribirArchivo(bs64, fileName, 'pdf');
 
@@ -484,7 +534,7 @@ export class DetalleComprobantePage implements OnInit {
       directory: FilesystemDirectory.Documents,      
     }).then(writeFileResponse => {
 
-      this.rutaArchivo = writeFileResponse;
+      this.rutaArchivo = writeFileResponse.uri;
         console.log(JSON.stringify(writeFileResponse));
 
         this.message = 'El comprobante se descargó correctamente.';
