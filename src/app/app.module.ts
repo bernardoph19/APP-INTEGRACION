@@ -13,7 +13,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { File } from '@ionic-native/file/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-//import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import {  registerLocaleData } from '@angular/common';
 import LocaleEsPe from '@angular/common/locales/es-PE.js';
@@ -35,14 +35,14 @@ registerLocaleData(LocaleEsPe);
     NgxSpinnerModule
   ],
   providers: [
-    StatusBar,
-    File,
+    StatusBar,        
     SocialSharing,
-    //FileOpener,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },    
     { provide: MAT_DATE_LOCALE, useValue: 'es-PE' },
     { provide: LOCALE_ID,  useValue: 'es-PE' },
-    { provide: DEFAULT_CURRENCY_CODE, useValue: 'PEN'}
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'PEN'},
+    File,
+    FileOpener,
   ],
   bootstrap: [AppComponent],
 })

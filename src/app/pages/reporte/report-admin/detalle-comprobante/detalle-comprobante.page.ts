@@ -9,6 +9,7 @@ import { FunctionsService } from 'src/app/services/functions.service';
 
 import { Plugins, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
 import { File as ionFile, } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 const { Share, FileSharer } = Plugins;
@@ -55,7 +56,7 @@ export class DetalleComprobantePage implements OnInit {
     public  toastController     : ToastController,
     private file                : ionFile,
     private social              : SocialSharing,
-    
+    private fileOpener          : FileOpener,
 
   ) {        
    }
@@ -215,16 +216,19 @@ export class DetalleComprobantePage implements OnInit {
           directory: FilesystemDirectory.Data,
           encoding: FilesystemEncoding.UTF8
         }).then((writeFileResult) => {
-          console.log('File Written');
+          console.log(writeFileResult.uri);
           Filesystem.getUri({
               directory: FilesystemDirectory.Data,
               path: fileName
           }).then((getUriResult) => {
               console.log(getUriResult);
               const path = getUriResult.uri;
-            //  this.fileOpener.open(path, 'application/pdf')
-              //.then(() => console.log('File is opened'))
-              //.catch(error => console.log('Error openening file', error));
+              this.fileOpener.open(path, 'application/pdf')
+                  .then(() => console.log('File is opened'))
+                  .catch(error => {
+                    console.log('Error openening file', error);
+                    console.log(JSON.stringify(error));
+                  });
           }, (error) => {
               console.log(error);
           });

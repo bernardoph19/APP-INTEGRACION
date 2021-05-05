@@ -1,1 +1,33 @@
-{}
+{
+  "appId": "pe.innovated.appintegra",
+  "appName": "FC Integracion",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0,
+      "SplashShowOnlyFirstTime": "false",
+      "androidSplashResourceName": "splash",
+      "SplashScreen": "screen",
+      "launchAutoHide": false,
+      "spinnerColor": "#5cd053",
+      "showSpinner": true,
+      "splashFullScreen": true,
+      "splashImmersive": true,
+      "androidScaleType": "CENTER_CROP"
+    }
+  },
+  "cordova": {
+    "preferences": {
+      "ScrollEnabled": "false",
+      "BackupWebStorage": "none",
+      "SplashMaintainAspectRatio": "true",
+      "FadeSplashScreenDuration": "300",
+      "SplashShowOnlyFirstTime": "false",
+      "SplashScreen": "screen",
+      "SplashScreenDelay": "3000",
+      "AndroidPersistentFileLocation": "Compatibility"
+    }
+  }
+}
