@@ -6,7 +6,7 @@ import { MenuPrincipalPage } from './menu-principal.page';
 const routes: Routes = [
 
   { path: '',
-    redirectTo: 'menu-principal/migrador',
+    redirectTo: 'menu-principal/rep-administrativo',
     pathMatch: 'full'
 },
 

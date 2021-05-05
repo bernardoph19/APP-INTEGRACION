@@ -36,7 +36,7 @@ slides: {img: string, titulo: string} [] = [
   }
 
   omitir(){
-    this.navCtrl.navigateRoot ('/menu-principal/migrador');
+    this.navCtrl.navigateRoot ('/menu-principal/rep-administrativo');
   }
 
 }

@@ -18,17 +18,17 @@ export class MenuPrincipalPage implements OnInit {
 
   pages = [
 
-    {
-      title: 'Documentos',
-      icon: 'newspaper-outline',
-       children:[
-         {
-           title: 'Migrador',
-           url: '/menu-principal/migrador',
-           icon: 'logo-ionic',
-         },
-       ]
-    },
+    // {
+    //   title: 'Documentos',
+    //   icon: 'newspaper-outline',
+    //    children:[
+    //      {
+    //        title: 'Migrador',
+    //        url: '/menu-principal/migrador',
+    //        icon: 'logo-ionic',
+    //      },
+    //    ]
+    // },
 
      {  title: 'Reportes',
        icon: 'bar-chart-outline',
