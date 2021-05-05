@@ -13,6 +13,9 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 const { Share, FileSharer } = Plugins;
+import { Buffer } from 'buffer';
+import { HttpClient } from '@angular/common/http';
+
 
 
 
@@ -57,6 +60,7 @@ export class DetalleComprobantePage implements OnInit {
     private file                : ionFile,
     private social              : SocialSharing,
     private fileOpener          : FileOpener,
+    private http                : HttpClient, 
 
   ) {        
    }
@@ -81,7 +85,25 @@ export class DetalleComprobantePage implements OnInit {
   async shared() {
 
     console.log('haciendo click');
-    console.log(JSON.stringify(this.rutaArchivo));
+
+    //const reader = new FileReader();
+
+    const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
+
+    FileSharer.share({
+      filename: fileName,
+      baseData: this.base64PDF,
+      contentType: 'application/pdf'
+    }).then(() => {
+      // do sth 
+        console.log('okays xd')
+      }).catch(error => {
+          console.error("File sharing failed");
+          console.error(JSON.stringify(error.message));
+      });
+
+
+    //console.log(JSON.stringify(this.rutaArchivo));
     //url   : 'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
 
     //const blob = this.sfunction.base64toBlob(this.base64PDF, { type: `application/pdf` });
@@ -135,10 +157,140 @@ export class DetalleComprobantePage implements OnInit {
 
 
      /* this.social.share(
+      'Datos del documento : ' + this.FileAsBody.IDComprobante,
+      '',
+      'file:///storage/emulated/0/Documents/20355166547-03-B001-00013449.pdf',
+      ''
+    ); */
+
+    /*this.social.shareViaWhatsApp(
       'Datos del documento : ' + this.FileAsBody.codigoComprobante,
-      'FC Integracion App',
-      //this.rutaArchivo,
-      'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
+      '',
+      this.rutaArchivo
+    ) */
+
+  }
+  
+  async shared3() {
+
+    console.log('haciendo click');
+
+    const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
+    
+    
+    this.http.get(this.rutaArchivo, { responseType: 'blob'})
+        .subscribe(res => {
+          const reader = new FileReader();
+          
+          reader.onloadend = () => {
+              const result = reader.result as string;
+              const base64 = result.split(',')[1];
+
+              console.log(JSON.stringify(base64));
+              FileSharer.share({
+                filename: fileName,
+                baseData: base64,
+                contentType: 'application/pdf'
+                }).then(() => {
+                // do sth 
+                  console.log('okays xd')
+                }).catch(error => {
+                    console.error("File sharing failed");
+                    console.error(JSON.stringify(error.message));
+                });
+          }
+
+          reader.readAsDataURL(res);
+      
+        })
+    
+
+
+    
+
+  }
+
+  async shared2() {
+
+    console.log('haciendo click');
+
+    //const reader = new FileReader();
+    //Buffer.from(this.base64PDF, 'base64'),
+
+    const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
+
+    const blob = this.sfunction.base64toBlob(this.base64PDF, { type: `application/pdf` });
+
+    Plugins.FileSharer.share({
+      filename: fileName,
+      baseData: blob,
+      contentType: 'application/pdf'
+    }).then(() => {
+      // do sth 
+        console.log('okays xd')
+      }).catch(error => {
+          console.error("File sharing failed");
+          console.error(JSON.stringify(error.message));
+      });
+
+
+    //console.log(JSON.stringify(this.rutaArchivo));
+    //url   : 'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
+
+    //const blob = this.sfunction.base64toBlob(this.base64PDF, { type: `application/pdf` });
+
+    /* await Share.share({
+        title : 'FC APP CPE ' + this.FileAsBody.codigoComprobante,
+        text  : this.base64PDF,                
+    }); */
+
+    /* await Share.share({
+        title: 'See cool stuff',
+        text: 'Really awesome thing you need to see right meow',
+        url: 'http://ionicframework.com/',
+        dialogTitle: 'Share with buddies'
+      }); */
+
+    //this.initialize();
+    
+    /* const body = { ... this.FileAsBody };
+    let   blob;
+
+    this.sreportVenta.pdf(body).subscribe((response: any) => {
+      
+        if (response.exito){
+          const bs64 = response.result;
+          blob = this.sfunction.base64toBlob(bs64, { type: `application/pdf` });
+        } else {
+          console.log('else');
+        }
+
+    }, (err) => {
+      console.log(err);
+    }); */
+
+
+
+    /* const name_Archivo = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
+    const archivo = `${this.file.dataDirectory}/registros.csv`; */
+
+
+    
+
+    // await Share.share({
+        //title : 'FC APP CPE ' + this.FileAsBody.codigoComprobante,
+
+        //text  : 'Datos del documento : ' + this.FileAsBody.codigoComprobante,
+        //url   : this.rutaArchivo,
+        //url   : 'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
+        //dialogTitle: 'Comparte más ...'
+    // });
+
+
+     /* this.social.share(
+      'Datos del documento : ' + this.FileAsBody.IDComprobante,
+      '',
+      'file:///storage/emulated/0/Documents/20355166547-03-B001-00013449.pdf',
       ''
     ); */
 
@@ -208,32 +360,39 @@ export class DetalleComprobantePage implements OnInit {
     const { Filesystem } = Plugins;
       
       // Save the PDF to the data Directory of our App
-      const fileName = 'defectreport.pdf';
+      //const fileName = 'defectreport.pdf';
+      const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
       try {
         Filesystem.writeFile({
           path: fileName,
           data: this.base64PDF,
-          directory: FilesystemDirectory.Data,
-          encoding: FilesystemEncoding.UTF8
-        }).then((writeFileResult) => {
-          console.log(writeFileResult.uri);
-          Filesystem.getUri({
-              directory: FilesystemDirectory.Data,
-              path: fileName
-          }).then((getUriResult) => {
-              console.log(getUriResult);
-              const path = getUriResult.uri;
-              this.fileOpener.open(path, 'application/pdf')
+          directory: FilesystemDirectory.Documents,
+          //encoding: FilesystemEncoding.UTF8
+        }).then((get) => {
+          
+          this.fileOpener.showOpenWithDialog(get.uri, 'application/pdf')          
                   .then(() => console.log('File is opened'))
                   .catch(error => {
                     console.log('Error openening file', error);
                     console.log(JSON.stringify(error));
                   });
+
+          
+
+          /* Filesystem.getUri({
+              directory: FilesystemDirectory.Documents,
+              path: fileName
+          }).then((getUriResult) => {
+              console.log(getUriResult);
+              const path = getUriResult.uri;
+              
           }, (error) => {
               console.log(error);
-          });
+          }); */
+
+
         });
-        console.log('writeFile complete');
+        
       } catch (error) {
         console.error('Unable to write file', error);
       }
@@ -526,9 +685,6 @@ export class DetalleComprobantePage implements OnInit {
   private escribirArchivo( res, fileName, ext ) {
 
     const { Filesystem } = Plugins;    
-
-    console.log(res);
-
     const extension = (ext === 'cdr') ? 'zip' : ext;
     const bs = res.result;
 
