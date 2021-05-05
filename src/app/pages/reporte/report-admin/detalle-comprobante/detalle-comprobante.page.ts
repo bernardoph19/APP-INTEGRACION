@@ -200,8 +200,8 @@ export class DetalleComprobantePage implements OnInit {
                 });
           }
 
+          
           reader.readAsDataURL(res);
-      
         })
     
 

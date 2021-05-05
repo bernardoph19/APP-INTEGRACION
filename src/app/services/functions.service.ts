@@ -86,6 +86,22 @@ export class FunctionsService {
     FileSaver.saveAs(data, FileName + EXCEL_EXT);
   }
 
+  exportarExcelIonic(json: any, excelFileName: string)  {
+
+    const workSheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workBook: XLSX.WorkBook = { Sheets: { 'data': workSheet }, SheetNames: ['data'] };
+    const excelbuffer: any = XLSX.write(workBook, { bookType: 'xlsx', type: 'array' });
+    const r = this.saveAsExcelIonic(excelbuffer, excelFileName);
+    return r;
+
+  }
+
+  private saveAsExcelIonic(buffer: any, FileName: string) {
+    const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
+    return data;
+  }
+
+  
 
 
 }
