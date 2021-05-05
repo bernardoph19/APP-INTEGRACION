@@ -37,30 +37,31 @@
   <div class="flex" *ngIf="!mostrarDatos">
     <span class="noenviado"></span>
     <span class="text-">No Enviado</span>
-    <button class="enviar focus" (click)="enviarComprobanteSunat()">Enviar</button>
+    <button class="enviar focus" style="font-size: 14px;" (click)="enviarComprobanteSunat()">Enviar</button>
   </div>
 
   <!-- enviado -->
   <div class="flex border-b" *ngIf="mostrarDatos">
     <span class="enviado"></span>
     <span class="text-">Enviado</span>
-    <button class="enviar focus coprobanteenviado" [class.showingData]="mostrarDatos === true" >Enviar</button>
+    <button class="enviar focus coprobanteenviado" style="font-size: 14px;" [class.showingData]="mostrarDatos === true" >Enviar</button>
   </div>
   
-  <ion-item>    
+  <ion-item class="ion-no-padding">    
     <ion-label class="flex-jus"> Condición
       <span  class="text-t font">{{seleccionado}}</span>      
     </ion-label>
   </ion-item>
 
-  <div *ngIf="mostrarDatos">
-    <ion-label class="flex-jus">
-      <span class="text-t">Rpta.Envio:</span>
-      <span class="text-as text-t font">{{itemCPE.respuestaenvio}}</span>
+  <div *ngIf="mostrarDatos" class="mt-2">
+    <ion-label>
+      <span class="text-t font">Rpta.Envio:</span>
+      <span class="text-as text-t ">{{itemCPE.respuestaenvio}}</span>
     </ion-label>
-    <ion-label class="flex-jus">
-      <span class="text-t">Rpta.Validación:</span>
-      <span class="text-as text-t font">{{itemCPE.Resultado_Validez}}</span>
+    <br>
+    <ion-label class="mt-2">
+      <span class="text-t font">Rpta.Validación:</span>
+      <span class="text-as text-t ">{{itemCPE.Resultado_Validez}}</span>
     </ion-label>
   </div>
 
