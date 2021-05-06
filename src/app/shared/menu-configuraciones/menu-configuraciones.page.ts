@@ -18,6 +18,7 @@ export class MenuConfiguracionesPage implements OnInit {
       title: 'Mi Cuenta',
       url: 'micuenta',
       icon: 'newspaper-outline',
+      disables: false
     },
 
   
@@ -25,6 +26,7 @@ export class MenuConfiguracionesPage implements OnInit {
       title: 'Usuarios',
       url: 'usuarios',
       icon: 'people-outline',
+      disables: true
     },
 
   
@@ -32,18 +34,21 @@ export class MenuConfiguracionesPage implements OnInit {
       title: 'Conexiones',
       url: 'conexion',
       icon: 'repeat-outline',
+      disables: true
     },
    
     {
       title: 'Facturación SUNAT',
       url: '/menu-configuraciones/facturacion-sunat',
       icon: 'document-text-outline',
+      disables: true
     },
 
     {
       title: 'Cerrar Sesión',
       url: '/login',
       icon: 'power-outline',
+      disables: false
     },
     
   ];

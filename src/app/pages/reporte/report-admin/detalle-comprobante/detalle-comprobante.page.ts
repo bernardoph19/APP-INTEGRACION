@@ -60,7 +60,7 @@ export class DetalleComprobantePage implements OnInit {
     private file                : ionFile,
     private social              : SocialSharing,
     private fileOpener          : FileOpener,
-    private http                : HttpClient, 
+    private http                : HttpClient,
 
   ) {        
    }

@@ -20,7 +20,7 @@
           </ion-col>
 
           <ion-col size="2">
-            <ion-button disabled routerLink="/menu-configuraciones" shape="round" class="roundas"  color="factedsol">
+            <ion-button routerLink="/menu-configuraciones" shape="round" class="roundas"  color="factedsol">
               <ion-icon name="settings-outline"></ion-icon>
             </ion-button>
           </ion-col>
@@ -38,15 +38,15 @@
         </ion-item>
       </ion-menu-toggle> -->
 
-      <ion-item  lines="none"  class="menunn" button *ngIf="p.children?. length > 0 " (click)=" p.open = !p.open"
-        [class.active-parent]="!p.open"  detail="false">
-        <ion-icon slot="start"  [class.active-parent]="!p.open" [name]="p.icon"></ion-icon>
-        <ion-icon slot="end" name="chevron-forward-outline" *ngIf="p.open"></ion-icon>
-        <ion-icon slot="end" name="chevron-down-outline" *ngIf="!p.open"></ion-icon>
+      <ion-item  lines="none"  class="menunn" button *ngIf="p.children?. length > 0 " (click)=" open = !open"
+        [class.active-parent]="!open"  detail="false">
+        <ion-icon slot="start"  [class.active-parent]="!open" [name]="p.icon"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline" *ngIf="open"></ion-icon>
+        <ion-icon slot="end" name="chevron-down-outline" *ngIf="!open"></ion-icon>
         <ion-label> {{ p.title}}  </ion-label>
       </ion-item> 
 
-      <ion-list  *ngIf="!p.open">
+      <ion-list  *ngIf="!open">
         <ion-menu-toggle >
           <ion-item  lines="none" class="sub-menu"  *ngFor="let submenu of p.children" [routerLink]="submenu.url"
             routerDirection="root" routerLinkActive="active">

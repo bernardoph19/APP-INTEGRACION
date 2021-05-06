@@ -31,7 +31,7 @@ export class MenuPrincipalPage implements OnInit {
     // },
 
      {  title: 'Reportes',
-       icon: 'bar-chart-outline',
+        icon: 'bar-chart-outline',
         children:[
           {
             title: 'Rep. Administrativo',
@@ -44,7 +44,8 @@ export class MenuPrincipalPage implements OnInit {
             url: '/menu-principal/rep-contable',
             icon: 'logo-ionic',
           },
-        ]
+        ],
+        
      }
      
   ];

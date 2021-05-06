@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button
         color="dark"
-        defaultHref="/menu-principal/proceso-migracion"
+        defaultHref="/menu-principal/migrador"
       ></ion-back-button>
     </ion-buttons>
     <ion-title> Configuración </ion-title>
@@ -22,6 +22,7 @@
       color="light"
       button
       class="ion-no-border"
+      disabled="{{config.disables}}"
     >
       <ion-icon slot="start" [name]="config.icon"></ion-icon>
       <ion-label class="cabece"> {{ config.title }} </ion-label>
