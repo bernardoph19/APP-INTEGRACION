@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service.service';
 import { CambiarContrasenaPage } from '../cambiar-contrasena/cambiar-contrasena.page';
 
 
@@ -9,8 +10,12 @@ import { CambiarContrasenaPage } from '../cambiar-contrasena/cambiar-contrasena.
   styleUrls: ['./micuenta.page.scss'],
 })
 export class MicuentaPage implements OnInit {
+  d           : any = {};
 
-  constructor(private modal: ModalController) {}
+  constructor( 
+    private modal  : ModalController,
+    private auth   : AuthService,
+  ) {}
 
  
 
@@ -34,5 +39,8 @@ export class MicuentaPage implements OnInit {
   }
 
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.d = await this.auth.obtenerDatosStorage();
+    console.log(this.d);
+  }
 }

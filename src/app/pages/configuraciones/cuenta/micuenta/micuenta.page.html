@@ -15,7 +15,7 @@
     </ion-avatar>
   </div>
   <div style="align-items: center; text-align: center; justify-items: center;">
-    <span style="font-size: 13px; font-weight: 500; ">Valeria Loyola Mendoza</span>
+    <span style="font-size: 13px; font-weight: 500; ">{{d.Usuario }}</span>
   </div>
 
 
@@ -64,7 +64,7 @@
           <ion-input *ngIf="editar" enabled class="text-xs" type="text" name="nombre" style="font-size: 14px;" required
             placeholder="Valeria Mercedez Carranza">
           </ion-input>
-          <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;"> Valeria Mercedez Carranza</label>
+          <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;"> {{d.NombreTrabajador }} {{ d.ApellidoTrabajador}}</label>
         </ion-item>
 
         <br>
@@ -75,7 +75,7 @@
           <ion-input *ngIf="editar" class="text-xs" type="email" name="correo" style="font-size: 14px;" required
             placeholder="Valeria12@gmail.com">
           </ion-input>
-          <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;"> Valeria12@gmail.com</label>
+          <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;">  {{d.Correo}}</label>
         </ion-item>
 
         <br>
@@ -86,7 +86,7 @@
           <ion-input *ngIf="editar" class="text-xs" type="number" name="telefono" style="font-size: 14px;" required
             placeholder="954 216 287">
           </ion-input>
-          <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;">954 216 287</label>
+          <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;">{{d.Telefono}} </label>
         </ion-item>
 
       </ion-list>
@@ -100,7 +100,7 @@
           <ion-icon style="margin-right: 10px;" name="person-circle-outline"></ion-icon>
           <div class="flex-col">
             <ion-label class="nom">Usuario </ion-label>
-            <ion-label class="nombre">Admin</ion-label>
+            <ion-label class="nombre">{{d.Usuario}}</ion-label>
           </div>
         </ion-item>
 

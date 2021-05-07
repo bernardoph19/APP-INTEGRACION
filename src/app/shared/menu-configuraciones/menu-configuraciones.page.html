@@ -13,19 +13,27 @@
 <ion-content>
   <ion-list>
 
-    <ion-item *ngFor="let config of menuconfi"
+
+    <!-- [routerLink]="config.url"[routerLink]="config.url" -->
+
+    <ion-item *ngFor="let config of menuconfi"  (click)="config.func()"
       lines="none"
-      [routerLink]="config.url"
+      
       routerDirection="root"
       routerLinkActive="active"
       detail="true"
       color="light"
       button
+     
       class="ion-no-border"
       disabled="{{config.disables}}"
     >
+
+   
+
       <ion-icon slot="start" [name]="config.icon"></ion-icon>
       <ion-label class="cabece"> {{ config.title }} </ion-label>
+      
     </ion-item>
   </ion-list>
 </ion-content>
