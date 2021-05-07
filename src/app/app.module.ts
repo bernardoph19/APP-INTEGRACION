@@ -11,9 +11,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { IonicStorageModule } from '@ionic/storage-angular';
+
 import { File } from '@ionic-native/file/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import {  registerLocaleData } from '@angular/common';
 import LocaleEsPe from '@angular/common/locales/es-PE.js';
@@ -43,6 +45,7 @@ registerLocaleData(LocaleEsPe);
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'PEN'},
     File,
     FileOpener,
+    OneSignal,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service.service';
 
 
@@ -14,6 +15,7 @@ export class MenuPrincipalPage implements OnInit {
   usuario   : any
   bs64logo  : boolean = false;
   user      : string;
+  
 
 
   pages = [
@@ -53,7 +55,7 @@ export class MenuPrincipalPage implements OnInit {
   constructor(
     private auth               : AuthService,
     private router             : Router,  
-    
+    private alert              : AlertController, 
   ) {
 
    }
@@ -63,10 +65,35 @@ export class MenuPrincipalPage implements OnInit {
     this.bs64logo = true;
   }
 
-  cerraSession() {
-    this.auth.logout();
-    this.router.navigate(['/login'], { replaceUrl : true});
+  async cerraSession() {
+
+    const alert = await this.alert.create({
+      cssClass : 'alert',
+      header   : 'FC Integracion advertencia',
+      message  : '¿Estas seguro de cerrar sesion?',
+      buttons  : [
+        {
+          text    : 'NO',
+          handler : () => {
+
+          }
+
+        },
+        {
+          text    : 'OK',
+          handler : () => {
+            this.auth.logout();
+            this.router.navigate(['/login'], { replaceUrl: true })            
+
+          }
+        }        
+      ] 
+    });
+ 
+    alert.present(); 
 
   }
+
+  
 
 }

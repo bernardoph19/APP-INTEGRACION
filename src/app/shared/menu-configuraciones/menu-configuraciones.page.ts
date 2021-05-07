@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/services/auth.service.service';
-import { FunctionsService } from 'src/app/services/functions.service';
 import { AlertController } from '@ionic/angular';
-import { trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-menu-configuraciones',
@@ -13,9 +10,7 @@ import { trigger } from '@angular/animations';
 })
 export class MenuConfiguracionesPage implements OnInit {
 
-  constructor(
-    private sfunction           : FunctionsService,
-    private spinner             : NgxSpinnerService,
+  constructor(    
     private router              : Router,
     private auth                : AuthService,
     private alert               : AlertController, 

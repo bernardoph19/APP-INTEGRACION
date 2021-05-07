@@ -80,7 +80,7 @@ export class RepAdministrativoPage implements OnInit {
       .subscribe( (response : any []) => {
 
         if( response.length === 0 ){          
-          const title = 'Oops!!!';
+          const title = 'FC Integracion adventencia';
           const message = 'No se encontro ningún comprobante';
           this.salert.Alert( title, message, '');
           
@@ -93,7 +93,7 @@ export class RepAdministrativoPage implements OnInit {
         this.error     = true;
         this.expiredS  = err.error === 'Unauthorized';
         
-        const title = 'Oops!!!';
+        const title = 'FC Integracion adventencia';
         this.message   = (this.expiredS) ? 'Su sesion Expiró, Inicie sesion nuevamente.' : (err.error.message)  ?? 'Sin conexion al servidor';
         
         this.spinner.hide();

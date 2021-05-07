@@ -11,7 +11,8 @@
   <ion-list>
     <ion-item lines="none">
       <ion-avatar>
-        <img src="https://cde.canaln.pe/actualidad-cesar-acuna-minsa-analizar-segunda-ola-covid-19-y-dar-opinion-tecnica-sobre-elecciones-n430462-764x480-950476.jpg" />
+        <img src="data:image/jpeg;base64,{{ d?.logo }}" />
+        <!-- <img src="https://cde.canaln.pe/actualidad-cesar-acuna-minsa-analizar-segunda-ola-covid-19-y-dar-opinion-tecnica-sobre-elecciones-n430462-764x480-950476.jpg" /> -->
       <!--<input style="display:none;" type="file" accept="image/*, .pdf, .doc, .docx" (change)="fileSelected($event)" #chosenFile />
         <button class="btnAttach" (click)="chosenFile.click()"><ion-icon class="attach" name="attach"></ion-icon></button> -->
       </ion-avatar>    
@@ -40,21 +41,21 @@
       
   <ion-list>
     <h1 class="info">Información Personal</h1>
-    <ion-item button (click)="editarNombre()">   
+    <ion-item button >        <!-- (click)="editarNombre()" -->
       <ion-icon  slot="end" name="person-outline"></ion-icon>       
       <div class="flex-col">
       <ion-label class="nom">Nombre</ion-label>
       <ion-label class="nombre"> {{d.NombreTrabajador }} {{ d.ApellidoTrabajador}} </ion-label>
      </div>     
     </ion-item>
-    <ion-item button  (click)="editarcorreo()">   
+    <ion-item button  >         <!-- (click)="editarcorreo()" -->
       <ion-icon slot="end" name="mail-unread-outline"></ion-icon>
       <div class="flex-col">
       <ion-label class="nom">Correo </ion-label>
       <ion-label class="nombre"> {{d.Correo}} </ion-label>
      </div>     
     </ion-item>
-    <ion-item button (click)="editarNumero()"> 
+    <ion-item button >      <!-- (click)="editarNumero()" -->
       <ion-icon slot="end" name="call-outline"></ion-icon>  
       <div class="flex-col">
       <ion-label class="nom">Número</ion-label>
@@ -73,7 +74,7 @@
       <ion-label class="nombre">{{d.Usuario}}</ion-label>
      </div>     
     </ion-item>
-    <ion-item button  (click)="cambiarContrasena()"> 
+    <ion-item button  >       <!-- (click)="cambiarContrasena()" -->
       <ion-icon slot="end" name="lock-closed"></ion-icon>
       <div class="flex-col">
       <ion-label class="nom">Contraseña</ion-label>

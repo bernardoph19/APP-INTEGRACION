@@ -16,7 +16,7 @@
               <img *ngIf="!bs64logo"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4slZPf98jLI5cZmJ6VgdfI1Y7pBbNTcxoHQ&usqp=CAU" />
               <img *ngIf="bs64logo"  src="data:image/jpeg;base64,{{ usuario?.logo }}" />
             </ion-avatar>
-            <ion-label class="text-sm"> {{ usuario?.NombreTrabajador }}  ({{ usuario?.Usuario }}) </ion-label>         
+            <ion-label class="text-sm"> {{ usuario?.NombreTrabajador }}  </ion-label>          <!-- ({{ usuario?.Usuario }})  -->
           </ion-col>
 
           <ion-col size="2">

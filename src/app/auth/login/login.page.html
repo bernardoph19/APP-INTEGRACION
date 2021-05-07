@@ -24,7 +24,7 @@
           
         <!-- ruc -->
           <ion-item>
-            <ion-input name="ruc" type="text" placeholder="Ruc" formControlName="ruc" required [class.error]="rucNovalido">
+            <ion-input name="ruc" type="text" placeholder="Ruc" formControlName="ruc" required [class.error]="rucNovalido" inputmode="numeric">
               <ion-icon name="business-outline"></ion-icon>
             </ion-input>
           </ion-item>
@@ -96,4 +96,5 @@
   </ion-card>
 </ion-content>
 
-<app-loading></app-loading>
+<!-- <app-loading></app-loading> -->
+<app-spinner></app-spinner>

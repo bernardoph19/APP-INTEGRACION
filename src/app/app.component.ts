@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import {registerWebPlugin} from "@capacitor/core";
 import {FileSharer} from '@byteowls/capacitor-filesharer';
+import { PushService } from './services/push.service';
+import { AuthService } from './services/auth.service.service';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +15,13 @@ import {FileSharer} from '@byteowls/capacitor-filesharer';
 })
 export class AppComponent {
   
-  constructor(private platform: Platform,
-    private statusBar: StatusBar,
-    private router: Router
+  constructor(
+    private platform: Platform,
+    private statusBar : StatusBar,
+    private router    : Router,
+    private pushService : PushService,
+    private auth : AuthService
+
   ) {
     this.iniciarApp();
   }
@@ -26,6 +32,8 @@ export class AppComponent {
       //this.statusBar.styleDefault();
       //this.router.navigateByUrl('/menu-principal/migrador');
       registerWebPlugin(FileSharer);
+      this.pushService.configuracionInicial();
+      this.auth.ValidarToken();
     });
   }
 

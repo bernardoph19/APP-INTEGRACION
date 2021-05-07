@@ -31,9 +31,6 @@
 
         </activity>
 
-            <!-- 
-                Android:name="Android.support.v4.content.FileProvider"
-             -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -44,14 +41,6 @@
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
     </application>
-
-
-    <!-- disque instalar apk -->
-    <!-- <platform name="android">
-    <config-file parent="/manifest" target="AndroidManifest.xml" xmlns:android="http://schemas.android.com/apk/res/android">
-        <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    </config-file>
-    </platform> -->
 
     <!-- Permissions -->
 
