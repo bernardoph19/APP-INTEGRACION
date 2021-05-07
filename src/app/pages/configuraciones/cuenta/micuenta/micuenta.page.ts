@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service.service';
 import { CambiarContrasenaPage } from '../cambiar-contrasena/cambiar-contrasena.page';
 import { EditarNombrePage } from '../editar-nombre/editar-nombre.page';
 import { EditarcorreoPage } from '../editarcorreo/editarcorreo.page';
@@ -11,8 +12,12 @@ import { EditarnumeroPage } from '../editarnumero/editarnumero.page';
   styleUrls: ['./micuenta.page.scss'],
 })
 export class MicuentaPage implements OnInit {
+  d           : any = {};
 
-  constructor(private modal: ModalController) {}
+  constructor( 
+    private modal  : ModalController,
+    private auth   : AuthService,
+  ) {}
 
   // Modal editar Nombre
   async editarNombre() {
@@ -75,5 +80,8 @@ export class MicuentaPage implements OnInit {
   }
 
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.d = await this.auth.obtenerDatosStorage();
+    console.log(this.d);
+  }
 }

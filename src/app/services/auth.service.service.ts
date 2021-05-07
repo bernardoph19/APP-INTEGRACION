@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { mdUserLogin } from '../models/user-login';
+import { mdUseradd, mdUserLogin } from '../models/user-login';
 import { DataStorageService } from './data-storage.service';
 import { FunctionsService } from './functions.service';
 
@@ -12,11 +12,13 @@ import { FunctionsService } from './functions.service';
 export class AuthService {
 
   private urlPath    : string;
+  
   constructor( 
     private http        : HttpClient, 
-    private route       : Router,
-    private sfunction   : FunctionsService,
+    private route       : Router,    
     public  dataStorage : DataStorageService,
+    private sfunction   : FunctionsService,
+
   ) {
     this.urlPath = 'api/usuario/';
   }
@@ -35,5 +37,11 @@ export class AuthService {
     return storage.datos;
   }
   
+  async saveUser( body: mdUseradd ){
+
+    const headers = await this.sfunction._headersApi();
+    return this.http.post(`${environment.urlIntegracionApi}${this.urlPath}usuarioagregar`, body, { headers } )
+
+  }
   
 }

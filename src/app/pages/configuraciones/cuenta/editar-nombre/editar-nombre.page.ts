@@ -8,7 +8,9 @@ import { ModalController } from '@ionic/angular';
 })
 export class EditarNombrePage implements OnInit {
   
-  constructor(private modalEditNombre: ModalController) {}
+  constructor(
+    private modalEditNombre: ModalController
+  ) {}
 
   ngOnInit() {}
 
