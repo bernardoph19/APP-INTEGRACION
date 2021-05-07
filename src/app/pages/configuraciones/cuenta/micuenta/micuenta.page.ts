@@ -43,4 +43,9 @@ export class MicuentaPage implements OnInit {
     this.d = await this.auth.obtenerDatosStorage();
     console.log(this.d);
   }
+
+  onSubmit() {
+
+  }
+  
 }
