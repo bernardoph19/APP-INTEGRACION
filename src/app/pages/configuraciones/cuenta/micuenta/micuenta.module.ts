@@ -6,9 +6,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { MicuentaPageRoutingModule } from './micuenta-routing.module';
 import { MicuentaPage } from './micuenta.page';
-import { EditarcorreoPageModule } from '../editarcorreo/editarcorreo.module';
-import { EditarNombrePageModule } from '../editar-nombre/editar-nombre.module';
-import { EditarnumeroPageModule } from '../editarnumero/editarnumero.module';
 import { CambiarContrasenaPageModule } from '../cambiar-contrasena/cambiar-contrasena.module';
 
 @NgModule({
@@ -17,9 +14,7 @@ import { CambiarContrasenaPageModule } from '../cambiar-contrasena/cambiar-contr
     FormsModule,
     IonicModule,
     MicuentaPageRoutingModule,
-    EditarcorreoPageModule,
-    EditarNombrePageModule,
-    EditarnumeroPageModule,
+  
     CambiarContrasenaPageModule
   ],
   declarations: [MicuentaPage]

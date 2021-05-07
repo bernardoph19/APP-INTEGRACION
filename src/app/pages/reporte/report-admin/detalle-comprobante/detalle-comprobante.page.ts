@@ -17,8 +17,6 @@ import { Buffer } from 'buffer';
 import { HttpClient } from '@angular/common/http';
 
 
-
-
 @Component({
   selector: 'app-detalle-comprobante',
   templateUrl: './detalle-comprobante.page.html',
@@ -43,8 +41,8 @@ export class DetalleComprobantePage implements OnInit {
 
   credenciales                   : any;
   rutaArchivo                    : any;
-
-  base64PDF                       : any;
+  sharePDF                       : boolean = false;
+  base64PDF                      : any;
   
 
   constructor( 
@@ -84,10 +82,6 @@ export class DetalleComprobantePage implements OnInit {
   
   async shared() {
 
-    console.log('haciendo click');
-
-    //const reader = new FileReader();
-
     const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
 
     FileSharer.share({
@@ -101,74 +95,6 @@ export class DetalleComprobantePage implements OnInit {
           console.error("File sharing failed");
           console.error(JSON.stringify(error.message));
       });
-
-
-    //console.log(JSON.stringify(this.rutaArchivo));
-    //url   : 'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
-
-    //const blob = this.sfunction.base64toBlob(this.base64PDF, { type: `application/pdf` });
-
-    /* await Share.share({
-        title : 'FC APP CPE ' + this.FileAsBody.codigoComprobante,
-        text  : this.base64PDF,                
-    }); */
-
-    /* await Share.share({
-        title: 'See cool stuff',
-        text: 'Really awesome thing you need to see right meow',
-        url: 'http://ionicframework.com/',
-        dialogTitle: 'Share with buddies'
-      }); */
-
-    //this.initialize();
-    
-    /* const body = { ... this.FileAsBody };
-    let   blob;
-
-    this.sreportVenta.pdf(body).subscribe((response: any) => {
-      
-        if (response.exito){
-          const bs64 = response.result;
-          blob = this.sfunction.base64toBlob(bs64, { type: `application/pdf` });
-        } else {
-          console.log('else');
-        }
-
-    }, (err) => {
-      console.log(err);
-    }); */
-
-
-
-    /* const name_Archivo = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
-    const archivo = `${this.file.dataDirectory}/registros.csv`; */
-
-
-    
-
-    // await Share.share({
-        //title : 'FC APP CPE ' + this.FileAsBody.codigoComprobante,
-
-        //text  : 'Datos del documento : ' + this.FileAsBody.codigoComprobante,
-        //url   : this.rutaArchivo,
-        //url   : 'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
-        //dialogTitle: 'Comparte más ...'
-    // });
-
-
-     /* this.social.share(
-      'Datos del documento : ' + this.FileAsBody.IDComprobante,
-      '',
-      'file:///storage/emulated/0/Documents/20355166547-03-B001-00013449.pdf',
-      ''
-    ); */
-
-    /*this.social.shareViaWhatsApp(
-      'Datos del documento : ' + this.FileAsBody.codigoComprobante,
-      '',
-      this.rutaArchivo
-    ) */
-
   }
   
   async shared3() {
@@ -214,9 +140,6 @@ export class DetalleComprobantePage implements OnInit {
 
     console.log('haciendo click');
 
-    //const reader = new FileReader();
-    //Buffer.from(this.base64PDF, 'base64'),
-
     const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
 
     const blob = this.sfunction.base64toBlob(this.base64PDF, { type: `application/pdf` });
@@ -225,80 +148,12 @@ export class DetalleComprobantePage implements OnInit {
       filename: fileName,
       baseData: blob,
       contentType: 'application/pdf'
-    }).then(() => {
-      // do sth 
-        console.log('okays xd')
-      }).catch(error => {
-          console.error("File sharing failed");
-          console.error(JSON.stringify(error.message));
-      });
-
-
-    //console.log(JSON.stringify(this.rutaArchivo));
-    //url   : 'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
-
-    //const blob = this.sfunction.base64toBlob(this.base64PDF, { type: `application/pdf` });
-
-    /* await Share.share({
-        title : 'FC APP CPE ' + this.FileAsBody.codigoComprobante,
-        text  : this.base64PDF,                
-    }); */
-
-    /* await Share.share({
-        title: 'See cool stuff',
-        text: 'Really awesome thing you need to see right meow',
-        url: 'http://ionicframework.com/',
-        dialogTitle: 'Share with buddies'
-      }); */
-
-    //this.initialize();
-    
-    /* const body = { ... this.FileAsBody };
-    let   blob;
-
-    this.sreportVenta.pdf(body).subscribe((response: any) => {
-      
-        if (response.exito){
-          const bs64 = response.result;
-          blob = this.sfunction.base64toBlob(bs64, { type: `application/pdf` });
-        } else {
-          console.log('else');
-        }
-
-    }, (err) => {
-      console.log(err);
-    }); */
-
-
-
-    /* const name_Archivo = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
-    const archivo = `${this.file.dataDirectory}/registros.csv`; */
-
-
-    
-
-    // await Share.share({
-        //title : 'FC APP CPE ' + this.FileAsBody.codigoComprobante,
-
-        //text  : 'Datos del documento : ' + this.FileAsBody.codigoComprobante,
-        //url   : this.rutaArchivo,
-        //url   : 'file:///storage/emulated/0/Documents/20355166547-03-B001-00013459.pdf',
-        //dialogTitle: 'Comparte más ...'
-    // });
-
-
-     /* this.social.share(
-      'Datos del documento : ' + this.FileAsBody.IDComprobante,
-      '',
-      'file:///storage/emulated/0/Documents/20355166547-03-B001-00013449.pdf',
-      ''
-    ); */
-
-    /*this.social.shareViaWhatsApp(
-      'Datos del documento : ' + this.FileAsBody.codigoComprobante,
-      '',
-      this.rutaArchivo
-    ) */
+    }).then(() => {      
+      console.log('okays xd')
+    }).catch(error => {
+        console.error("File sharing failed");
+        console.error(JSON.stringify(error.message));
+    });
 
   }
 
@@ -314,7 +169,7 @@ export class DetalleComprobantePage implements OnInit {
           role: 'destructive',
           cssClass: 'pdf',
           icon: 'download',
-          handler: () => {  /* this.dowloadFilepdf() ; */ 
+          handler: () => {
             this.getBase64PDF();
           }
 
@@ -322,7 +177,7 @@ export class DetalleComprobantePage implements OnInit {
         {
           text: 'XLM',
           icon: 'download',
-          handler: () => {  /* (Enviado) ?  this.dowloadFilepdf() :  this.salert.Alert('Ops ...', 'Operación no permitida', ''); */
+          handler: () => { 
             this.getBase64XML();
           }
 
@@ -357,11 +212,11 @@ export class DetalleComprobantePage implements OnInit {
   }
 
   downloadPdf() {
+
     const { Filesystem } = Plugins;
       
-      // Save the PDF to the data Directory of our App
-      //const fileName = 'defectreport.pdf';
       const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}.pdf`;
+      
       try {
         Filesystem.writeFile({
           path: fileName,
@@ -371,30 +226,18 @@ export class DetalleComprobantePage implements OnInit {
         }).then((get) => {
           
           this.fileOpener.showOpenWithDialog(get.uri, 'application/pdf')          
-                  .then(() => console.log('File is opened'))
-                  .catch(error => {
-                    console.log('Error openening file', error);
-                    console.log(JSON.stringify(error));
-                  });
-
-          
-
-          /* Filesystem.getUri({
-              directory: FilesystemDirectory.Documents,
-              path: fileName
-          }).then((getUriResult) => {
-              console.log(getUriResult);
-              const path = getUriResult.uri;
-              
-          }, (error) => {
-              console.log(error);
-          }); */
-
+              .then(() => console.log('File is opened'))
+              .catch(error => {
+                console.log('Error openening file', error);
+                console.log(JSON.stringify(error));
+              });
 
         });
         
       } catch (error) {
-        console.error('Unable to write file', error);
+        console.error('Unable to write file');
+        console.log(JSON.stringify(error));        
+        this.presentToast('No se pudo leer el documento.');        
       }
   }
 
@@ -423,7 +266,6 @@ export class DetalleComprobantePage implements OnInit {
     this.FileAsBody.client            = this.itemCPE.ClienteDenominacion;
     this.FileAsBody.ruc               = this.credenciales.ruc;
     
-
   }
  
   async obtenerCorreos($event) {
@@ -641,13 +483,13 @@ export class DetalleComprobantePage implements OnInit {
     const body = { ... this.FileAsBody };
 
 
-    this.sreportVenta.cdr(body).subscribe((response: any) => {
+    this.sreportVenta.xml(body).subscribe((response: any) => {
 
       if (response.exito) {
                 
         const fileName = `${this.FileAsBody.ruc}-${this.FileAsBody.codigoComprobante}-${this.FileAsBody.serie}-${this.FileAsBody.numero}`;
         const bs64 = response;        
-        this.escribirArchivo(bs64, fileName, 'txt');
+        this.escribirArchivo(bs64, fileName, 'xml');
         
       } else {
 
@@ -668,21 +510,8 @@ export class DetalleComprobantePage implements OnInit {
     });
 
   }
- 
-  compartirXML() {
-
-    /* this.file
-					.writeFile(this.file.dataDirectory, 'Bitacora.pdf', blob, { replace: true })
-					.then((fileEntry) => {
-						this.fileOpener.open(
-							this.file.dataDirectory + 'Bitacora.pdf',
-							'application/pdf'
-						);
-					}); */
-
-  }
- 
-  private escribirArchivo( res, fileName, ext ) {
+  
+  private escribirArchivo( res : any, fileName : string, ext : string ) {
 
     const { Filesystem } = Plugins;    
     const extension = (ext === 'cdr') ? 'zip' : ext;
@@ -693,11 +522,13 @@ export class DetalleComprobantePage implements OnInit {
       data: bs,
       directory: FilesystemDirectory.Documents,      
     }).then(writeFileResponse => {
+      if(ext == 'pdf'){ this.sharePDF = true; }
+      
 
       this.rutaArchivo = writeFileResponse.uri;
         console.log(JSON.stringify(writeFileResponse));
 
-        this.message = 'El comprobante se descargó correctamente.';
+        this.message = writeFileResponse.uri;
         this.spinner.hide();
         this.presentToast(this.message);
         
@@ -713,7 +544,7 @@ export class DetalleComprobantePage implements OnInit {
   async presentToast(ms: string) {
     const toast = await this.toastController.create({
       message: ms,
-      duration: 3000,
+      duration: 4500,
       cssClass:"background"
     });
 

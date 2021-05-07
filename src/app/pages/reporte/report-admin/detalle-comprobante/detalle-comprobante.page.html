@@ -7,21 +7,12 @@
       <ion-button (click)="cancelar()"  color="dark">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
-      <!-- <ion-button (click)="shared3()" >
-        <ion-icon name="share-social"></ion-icon>
-      </ion-button> -->
     </ion-buttons>
 
 
     <ion-title>Detalle</ion-title>
-    <ion-buttons slot="end">     
-      <!-- <ion-button (click)="shared()" >
-        <ion-icon name="share-social"></ion-icon>
-      </ion-button>
-      <ion-button (click)="shared2()" >
-        <ion-icon name="share-social"></ion-icon>
-      </ion-button> -->
-      <ion-button (click)="downloadPdf()" >
+    <ion-buttons slot="end">          
+      <ion-button *ngIf="sharePDF" (click)="downloadPdf()" >
         <ion-icon name="share-social"></ion-icon>
       </ion-button>
       <ion-button (click)="descargar()" >
