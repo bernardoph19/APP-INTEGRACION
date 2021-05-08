@@ -9,10 +9,9 @@
 
 <ion-content class=" bg" color="light" class="ion-padding">
   <div style="justify-content: center; display: flex; justify-items: center;">
-    <ion-avatar>
-      <img
-        src="https://media-exp1.licdn.com/dms/image/C4E03AQFcrZtvbxcMBQ/profile-displayphoto-shrink_200_200/0/1614789262164?e=1624492800&v=beta&t=lz_DY1wpyNQQ64RmMfylsOFOcA1aZxpblGjiM9jUvf4">
-    </ion-avatar>
+    <ion-avatar>      
+        <img *ngIf="bs64logo"  src="data:image/jpeg;base64,{{ d?.logo }}" />
+      </ion-avatar>
   </div>
   <div style="align-items: center; text-align: center; justify-items: center;">
     <span style="font-size: 13px; font-weight: 500; ">{{d.Usuario }}</span>
@@ -24,22 +23,22 @@
       <ion-row>
         <ion-col size="7">
           <ion-icon name="mail-outline"></ion-icon>
-          <ion-label>thomas12@gmail.com </ion-label>
+          <ion-label>{{ d.Correo }} </ion-label>
         </ion-col>
         <ion-col size="5">
           <ion-icon class="telefono" name="call-outline"></ion-icon>
-          <ion-label> 985 124 548 </ion-label>
+          <ion-label> {{ d.Telefono }} </ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
 
 
-    <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <form (ngSubmit)="ModificarUsuario()" [formGroup]="formUsuario">
 
 
       <ion-list>
         <ion-item lines="none" style="display: flex; align-items: center; justify-items: center; jus">
-          <h1 style="font-size: 15px; font-weight: 500;">Información Personal</h1>
+          <h1 style="font-size: 15px; font-weight: 500">Información Personal</h1>
 
           <!-- editar -->
           <ion-buttons slot="end" *ngIf="!editar">
@@ -92,6 +91,10 @@
       </ion-list>
 
 
+    </form>
+    
+    <form [formGroup]="formChangePass" (nsSubmit)="changePass" >      
+
       <ion-list>
         <label class="info">Cambiar Contraseña</label>
         <br>
@@ -103,9 +106,9 @@
             <ion-label class="nombre">{{d.Usuario}}</ion-label>
           </div>
         </ion-item>
-
+  
         <br>
-
+  
         <!-- Contraseña -->
         <ion-item>
           <ion-icon name="lock-closed" style="margin-right: 10px;"></ion-icon>
@@ -120,11 +123,12 @@
             </ion-button>
           </ion-buttons>
         </ion-item>
-
-
+  
+  
       </ion-list>
-    </form>
 
+    </form>
+  
   </div>
 
 

@@ -56,4 +56,20 @@ export class AlertService {
 
   }
 
+  async alertEditarUser( title : string, message : string) {
+    const alert = await this.alert.create({
+      cssClass : 'alert',
+      header   : title,
+      message  : message,
+      buttons  : [
+        {
+          text    : 'OK',
+          handler : () => {}
+        }
+      ] 
+    });
+
+    alert.present();  
+  }
+
 }

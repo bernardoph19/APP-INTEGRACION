@@ -36,6 +36,12 @@ export class AuthService {
 
     return storage.datos;
   }
+  
+  async getLoginStorage( key : string) {
+    const storage =  await this.dataStorage.get( key );
+
+    return storage;
+  }
 
   setDatosStorage( key : string, body : any) {
     this.dataStorage.set( key,  body );    
@@ -44,7 +50,7 @@ export class AuthService {
   async saveUser( body: mdUseradd ){
 
     const headers = await this.sfunction._headersApi();
-    return this.http.post(`${environment.urlIntegracionApi}${this.urlPath}usuarioagregar`, body, { headers } )
+    return this.http.post(`${environment.urlIntegracionApi}${this.urlPath}usuarioagregar`, body, { headers } );
 
   }
 
