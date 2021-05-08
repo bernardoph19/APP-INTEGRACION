@@ -151,3 +151,13 @@ body {
   border: 2px solid red;
   border-radius: 4px;
 }
+
+
+ion-toast.toast-mess {
+  opacity: 0.9;
+  text-align: center;
+  //color: var(--ion-color-light);
+  //--background: var(--ion-color-dark);
+  --background: white;  
+  --color:black !important;
+}

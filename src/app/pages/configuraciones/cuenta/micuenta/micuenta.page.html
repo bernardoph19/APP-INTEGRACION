@@ -10,7 +10,7 @@
 <ion-content class=" bg" color="light" class="ion-padding">
   <div style="justify-content: center; display: flex; justify-items: center;">
     <ion-avatar>      
-        <img *ngIf="bs64logo"  src="data:image/jpeg;base64,{{ d?.logo }}" />
+        <img src="data:image/jpeg;base64,{{d?.logo}}" />
       </ion-avatar>
   </div>
   <div style="align-items: center; text-align: center; justify-items: center;">
@@ -42,14 +42,14 @@
 
           <!-- editar -->
           <ion-buttons slot="end" *ngIf="!editar">
-            <ion-button (click)="editar= !editar" style="border-radius: 100px; background: #f0f0f3;">
+            <ion-button (click)="showEditar()" style="border-radius: 100px; background: #f0f0f3;">
               <ion-icon src="assets/img/editar.svg"></ion-icon>
             </ion-button>
           </ion-buttons>
 
           <!-- guardar -->
           <ion-buttons slot="end" *ngIf="editar">
-            <ion-button (click)="editar = !editar" color="light" style="border-radius: 100px; background: #f0f0f3;">
+            <ion-button (click)="showEditar()" color="light" style="border-radius: 100px; background: #f0f0f3;">
               <ion-icon src="assets/img/guardar.svg"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -93,7 +93,7 @@
 
     </form>
     
-    <form [formGroup]="formChangePass" (nsSubmit)="changePass" >      
+    <form [formGroup]="formChangePass" (nsSubmit)="changePass()" >      
 
       <ion-list>
         <label class="info">Cambiar Contraseña</label>

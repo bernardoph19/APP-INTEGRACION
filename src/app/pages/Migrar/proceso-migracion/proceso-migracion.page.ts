@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-proceso-migracion',
@@ -9,9 +10,25 @@ export class ProcesoMigracionPage implements OnInit {
 
   @Input() titulo: string;
 
-  constructor() { }
+  constructor(
+    public  toastController    : ToastController,
+  ) { }
 
   ngOnInit() {
+  }
+
+  migrarNext() {
+    this.presentToast('Próximamente ...')
+  }
+
+  async presentToast(ms: string) {
+    const toast = await this.toastController.create({
+      message: ms,
+      duration: 3000,
+      cssClass:"toast-mess"
+    });
+
+    toast.present();
   }
 
 }

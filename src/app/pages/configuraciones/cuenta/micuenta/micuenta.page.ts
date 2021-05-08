@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service.service';
 import { CambiarContrasenaPage } from '../cambiar-contrasena/cambiar-contrasena.page';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
@@ -24,12 +24,13 @@ export class MicuentaPage implements OnInit {
   formUsuario         : FormGroup;
 
   constructor( 
-    private modal       : ModalController,
-    private auth        : AuthService,
-    private svalidator  : FormValidatorService,
-    private spinner     : NgxSpinnerService,
-    private fb          : FormBuilder,
-    private salert      : AlertService,
+    private modal              : ModalController,
+    private auth               : AuthService,
+    private svalidator         : FormValidatorService,
+    private spinner            : NgxSpinnerService,
+    private fb                 : FormBuilder,
+    private salert             : AlertService,
+    public  toastController    : ToastController,
 
   ) {
 
@@ -76,7 +77,7 @@ export class MicuentaPage implements OnInit {
 
   //Modal Cambiar Contraseña
   async cambiarContrasena() {
-    const modal = await this.modal.create({
+    /* const modal = await this.modal.create({
       component: CambiarContrasenaPage,
       componentProps: {
         // nombre: 'Bernardo ',
@@ -86,7 +87,11 @@ export class MicuentaPage implements OnInit {
     
     await modal.present();
     const { data } = await modal.onDidDismiss();
-    console.log('retorno con daots', data);
+    console.log('retorno con daots', data); */
+
+    this.presentToast('Próximamente ... ');
+    
+    
   }
 
   onSubmit() {
@@ -105,8 +110,7 @@ export class MicuentaPage implements OnInit {
       
       let   newDatos = await this.auth.getLoginStorage('login');
       const datos    = newDatos.datos;
-      
-      
+            
       datos['NombreTrabajador']     = body.nombre;
       datos['ApellidoTrabajador']   = body.apellido;
       datos['Telefono']             = body.telefono;
@@ -116,12 +120,12 @@ export class MicuentaPage implements OnInit {
       newDatos.splice(0, 1);
       newDatos.unshift(datos);
 
-      this.auth.setDatosStorage('login', newDatos); 
+      this.auth.setDatosStorage('login', newDatos);
       this.spinner.hide();
       
       this.salert.alertEditarUser('FC Integracion aviso', 'Sus datos se actualizaron.')
     }, ( error )=>{
-      console.log(error)
+      console.log(JSON.stringify(error))
       
       const cnn_expi = error.error === 'Unauthorized';      
       this.message = cnn_expi ? 'conexion expirada, vuelva a iniciar sesion' : error.error.message ?? 'Sin conexion al servidor';
@@ -130,6 +134,25 @@ export class MicuentaPage implements OnInit {
     })
   }
 
+
+  changePass() {
+
+  }
+
+  showEditar() {
+    //this.editar= !this.editar
+    this.presentToast('Próximamente ...')
+  }
+
+  async presentToast(ms: string) {
+    const toast = await this.toastController.create({
+      message: ms,
+      duration: 3000,
+      cssClass:"toast-mess"
+    });
+
+    toast.present();
+  }
 
 
   
