@@ -34,8 +34,6 @@
 
 
     <form (ngSubmit)="ModificarUsuario()" [formGroup]="formUsuario">
-
-
       <ion-list>
         <ion-item lines="none" style="display: flex; align-items: center; justify-items: center; jus">
           <h1 style="font-size: 15px; font-weight: 500">Información Personal</h1>
@@ -50,6 +48,11 @@
           <!-- guardar -->
           <ion-buttons slot="end" *ngIf="editar">
             <ion-button (click)="showEditar()" color="light" style="border-radius: 100px; background: #f0f0f3;">
+              <ion-icon >  </ion-icon>
+            </ion-button>
+           
+
+            <ion-button color="light" style="border-radius: 100px; background: #f0f0f3;"  type="submit">
               <ion-icon src="assets/img/guardar.svg"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -60,18 +63,32 @@
         <ion-item>
           <ion-icon slot="end" style="margin-bottom: -10px;" name="person-outline"></ion-icon>
           <ion-label class="text-sm font-semibold font-fa" position="stacked">Nombre</ion-label>
-          <ion-input *ngIf="editar" enabled class="text-xs" type="text" name="nombre" style="font-size: 14px;" required
-            placeholder="Valeria Mercedez Carranza">
-          </ion-input>
-          <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;"> {{d.NombreTrabajador }} {{ d.ApellidoTrabajador}}</label>
+
+          <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;"> {{d.NombreTrabajador }} {{ d.ApellidoTrabajador}}</label>          
+          
+          <ion-input *ngIf="editar" enabled class="text-xs" type="text" name="nombre" style="font-size: 14px;" formControlName="nombre" required placeholder="Valeria"> </ion-input>        
+        
         </ion-item>
 
         <br>
+        
+        <!-- Apellidos -->
+        <ion-item  *ngIf="editar" >
+          <ion-icon slot="end" style="margin-bottom: -10px;" name="person-outline"></ion-icon>
+          <ion-label class="text-sm font-semibold font-fa" position="stacked">Apellidos</ion-label>       
+          
+          <ion-input  enabled class="text-xs" type="text" name="nombre" style="font-size: 14px;" formControlName="apellido" required placeholder="Mercedez Carranza"> </ion-input>
+        
+        </ion-item>
+
+        <br *ngIf="editar">
+        
         <!-- correo -->
         <ion-item>
           <ion-icon slot="end" style="margin-bottom: -10px;" name="mail-unread-outline"></ion-icon>
           <ion-label class="text-sm font-semibold font-fa" position="stacked">Correo</ion-label>
-          <ion-input *ngIf="editar" class="text-xs" type="email" name="correo" style="font-size: 14px;" required
+          
+          <ion-input *ngIf="editar" class="text-xs" type="email" name="correo" style="font-size: 14px;"  formControlName="correo" required 
             placeholder="Valeria12@gmail.com">
           </ion-input>
           <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;">  {{d.Correo}}</label>
@@ -82,7 +99,8 @@
         <ion-item>
           <ion-icon slot="end" style="margin-bottom: -10px;" name="call-outline"></ion-icon>
           <ion-label class="text-sm font-semibold font-fa" position="stacked">Número</ion-label>
-          <ion-input *ngIf="editar" class="text-xs" type="number" name="telefono" style="font-size: 14px;" required
+          
+          <ion-input *ngIf="editar" class="text-xs" type="number" name="telefono" style="font-size: 14px;"  formControlName="telefono" required
             placeholder="954 216 287">
           </ion-input>
           <label *ngIf="!editar" style="font-size: 14px; padding-top: 10px;">{{d.Telefono}} </label>
@@ -93,7 +111,7 @@
 
     </form>
     
-    <form [formGroup]="formChangePass" (nsSubmit)="changePass()" >      
+    <form [formGroup]="formPass"  >      
 
       <ion-list>
         <label class="info">Cambiar Contraseña</label>
@@ -108,22 +126,31 @@
         </ion-item>
   
         <br>
-  
+        
         <!-- Contraseña -->
         <ion-item>
           <ion-icon name="lock-closed" style="margin-right: 10px;"></ion-icon>
           <div class="flex-col">
-            <ion-label class="nom">Contraseña </ion-label>
-            <ion-label class="nombre">***********</ion-label>
+            <ion-label class="nom">Contraseña </ion-label>            
+            <ion-input name="password" type="password" placeholder="Contraseña" formControlName="passNow"></ion-input>
           </div>
+
+
           <ion-buttons slot="end">
-            <ion-button (click)="cambiarContrasena()"
-              style="border-radius: 100px; text-transform: none; font-size: 13px; background: #f0f0f3; ">
+            <ion-button  style="border-radius: 100px; text-transform: none; font-size: 13px; background: #f0f0f3;"  (click)="cambiarContrasena()">
               Verificar
             </ion-button>
           </ion-buttons>
         </ion-item>
-  
+
+        
+        <div *ngIf="passNowInvalid">
+          <ng-container>
+            <div class="error_message">
+            campo requerido
+            </div>
+          </ng-container>
+        </div>
   
       </ion-list>
 
@@ -134,3 +161,5 @@
 
 
 </ion-content>
+
+<app-spinner></app-spinner>

@@ -6,8 +6,8 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class DataStorageService {
   
-  //private _storage: Storage | null = null;
-  public _storage : Storage;
+  private _storage: Storage | null = null;
+  //public _storage : Storage;
 
   constructor(
     private storage: Storage

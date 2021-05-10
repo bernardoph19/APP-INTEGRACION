@@ -23,12 +23,10 @@ export class AuthService {
     this.urlPath = 'api/usuario/';
   }
 
-  login( body : mdUserLogin ) {
-    return this.http.post(`${environment.urlIntegracionApi}${this.urlPath}iniciosesion`, body );
-  }
+  
 
-  logout() {
-    this.dataStorage.clearAllStorage();    
+  setDatosStorage( key : string, body : any) {
+    this.dataStorage.set( key,  body );    
   }
 
   async obtenerDatosStorage() {
@@ -43,10 +41,30 @@ export class AuthService {
     return storage;
   }
 
-  setDatosStorage( key : string, body : any) {
-    this.dataStorage.set( key,  body );    
+
+
+
+  async ValidarToken() {
+    try  {
+      const a = await this.ComprobantesServidor({fecha:'2021/04/01'});
+    }  catch (e)  {
+      
+      if(e.error=='Unauthorized') {
+        this.logout();
+        this.route.navigate(['/login'], { replaceUrl : true })
+      }
+    }
   }
-  
+
+  async ComprobantesServidor( body: any )
+  {
+    const headers = await this.sfunction._headersApi();
+    return this.http.post(`${environment.urlIntegracionApi}venta/ventalistarporfecha`, body,{ headers })
+  }
+
+
+
+
   async saveUser( body: mdUseradd ){
 
     const headers = await this.sfunction._headersApi();
@@ -54,29 +72,22 @@ export class AuthService {
 
   }
 
-  async ValidarToken() {
-    try 
-    {
-      const a = await this.ComprobantesServidor({fecha:'2021/04/01'});
-    } 
-    catch (e) 
-    {
-      if(e.error=='Unauthorized')
-      {
-        /* localStorage.removeItem('_token_login_m');
-        this.route.navigateByUrl('/inicio') */
+  
+  
+  
+  async changePassword( body:any ){
 
-        this.logout();
-        this.route.navigate(['/login'], { replaceUrl : true })
-      }
-    }
-  }
-
-
-  async ComprobantesServidor( body: any )
-  {
     const headers = await this.sfunction._headersApi();
-    return this.http.post(`${environment.urlIntegracionApi}venta/ventalistarporfecha`, body,{ headers })
+    return this.http.post(`${environment.urlIntegracionApi}${this.urlPath}cambiarpassword`, body, { headers });
   }
+
+  login( body : mdUserLogin ) {
+    return this.http.post(`${environment.urlIntegracionApi}${this.urlPath}iniciosesion`, body );
+  }
+
+  logout() {
+    this.dataStorage.clearAllStorage();    
+  }
+      
   
 }

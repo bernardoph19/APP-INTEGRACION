@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'src/app/services/alert.service';
+import { Observable, of } from 'rxjs';
+
 
 
 @Component({
@@ -18,10 +20,14 @@ export class MicuentaPage implements OnInit {
   cambiarcontra       : boolean;
   guardar             : boolean;
   message             : string;
+  changePass          : boolean      = false;
+  idusuario           : string;
   
+  datosComplete       : any = {}
   d                   : any = {};
-  formChangePass      : FormGroup;
+  formPass            : FormGroup;
   formUsuario         : FormGroup;
+  editar              : boolean;
 
   constructor( 
     private modal              : ModalController,
@@ -36,27 +42,33 @@ export class MicuentaPage implements OnInit {
 
     this.cambiarcontra = false;
     this.guardar =false;
-    this.createForm_Pass();
-    this.createForm_Usuario();
+    this.loadStorage();
 
+    this.createForm_Usuario();
+    this.createForm_Pass();
   }
 
+  
  
   createForm_Pass() {
-    this.formChangePass = this.fb.group({
-      passNow   : [ '', Validators.required ],
-      newpass   : [ '', Validators.required ],
-      repeatpass: [ '', Validators.required ]
-    });
+    this.formPass = this.fb.group({ passNow   : [ '', Validators.required ] });
   }
 
-  createForm_Usuario(){
+  get passNowInvalid(){
+    return this.svalidator.control_invalid('passNow', this.formPass);
+  }
+
+
+
+
+  createForm_Usuario() {
     this.formUsuario = this.fb.group({
       idusuario         : [ this.d.IdUsuario ],
       idrol             : [ this.d.idrol ],
       ruc               : [ this.d.ruc ],
       usuario           : [ this.d.Usuario, Validators.required ],
       password          : [ '' ],
+      //nombre            : [ this.d.NombreTrabajador + ' ' + this.d.ApellidoTrabajador, Validators.required ],
       nombre            : [ this.d.NombreTrabajador, Validators.required ],
       apellido          : [ this.d.ApellidoTrabajador, Validators.required ],
       numerodocumento   : [ this.d.DNI, Validators.required ],
@@ -66,64 +78,91 @@ export class MicuentaPage implements OnInit {
     });
   }
 
+  get Nombre(){
+    return this.svalidator.control_invalid('nombre', this.formUsuario);
+  }
 
-  editar: boolean;
+  get Apellidos(){
+    return this.svalidator.control_invalid('apellido', this.formUsuario);
+  }  
 
-  async ngOnInit() {
-    this.d = await this.auth.obtenerDatosStorage();
-    
+  get Telefono(){
+    return this.svalidator.control_invalid('telefono', this.formUsuario);
+  }
+
+  get Correo(){
+    return this.svalidator.control_invalid('correo', this.formUsuario);
+  }
+
+
+
+
+  async ngOnInit() { }
+
+  async loadStorage() {
+    this.datosComplete = await this.auth.getLoginStorage('login');
+    this.d = this.datosComplete.datos;
+    console.log(this.d)
   }
 
 
   //Modal Cambiar Contraseña
-  async cambiarContrasena() {
-    /* const modal = await this.modal.create({
-      component: CambiarContrasenaPage,
-      componentProps: {
-        // nombre: 'Bernardo ',
-        // pais: 'Peru',
-      },
-    });
+  async cambiarContrasena() {    
+
+    if( this.formPass.controls.passNow.invalid ){
+      this.formPass.controls.passNow.markAsTouched();
+      return;
+    }   
     
-    await modal.present();
-    const { data } = await modal.onDidDismiss();
-    console.log('retorno con daots', data); */
+    this.spinner.show();
 
-    this.presentToast('Próximamente ... ');
+    const body = {
+      ruc     : this.d.ruc,
+      usuario : this.d.Usuario,
+      password: this.formPass.value.passNow
+    }
+
+    this.auth.login( body ).subscribe( (response : any ) => {
+      if( response.message === 'exito' ){
+        this.idusuario = response.result.datos.IdUsuario;
+
+        this.saveNewPass(this.idusuario)
+      }
     
+      this.spinner.hide();
+
+    }, (error)=>{
+
+      this.changePass = false;
+      this.message = error.error.message === null || error.error.message === undefined ? "Sin conexion al servidor" : 'La contraseña que ingreso es incorrecta !!!';
+      this.spinner.hide();
+      this.presentToast(this.message)
+    })
     
-  }
-
-  onSubmit() {
-
-  }
-
+  } 
 
   async ModificarUsuario() {    
     
     if( this.formUsuario.invalid ) { return this.svalidator.Empty_data(this.formUsuario); }
     
     const body = { ...this.formUsuario.value  };
+    
     this.spinner.show();
 
     (await this.auth.saveUser( body ).then(r => r)).subscribe( async response =>{
       
-      let   newDatos = await this.auth.getLoginStorage('login');
-      const datos    = newDatos.datos;
-            
-      datos['NombreTrabajador']     = body.nombre;
-      datos['ApellidoTrabajador']   = body.apellido;
-      datos['Telefono']             = body.telefono;
-      datos['Correo']               = body.correo;
-      datos['DNI']                  = body.numerodocumento;
+      this.d.NombreTrabajador     = body.nombre;
+      this.d.ApellidoTrabajador   = body.apellido;
+      this.d.Telefono             = body.telefono;
+      this.d.Correo               = body.correo;
 
-      newDatos.splice(0, 1);
-      newDatos.unshift(datos);
-
-      this.auth.setDatosStorage('login', newDatos);
+      //al parecer es mutable    
+      this.auth.setDatosStorage('login', this.datosComplete);
+      this.editar = !this.editar;
       this.spinner.hide();
       
       this.salert.alertEditarUser('FC Integracion aviso', 'Sus datos se actualizaron.')
+
     }, ( error )=>{
       console.log(JSON.stringify(error))
       
@@ -134,14 +173,41 @@ export class MicuentaPage implements OnInit {
     })
   }
 
-
-  changePass() {
-
+  async saveNewPass(id : string) {
+    const modal = await this.modal.create({
+      component: CambiarContrasenaPage,
+      componentProps: {
+        idusuario: id,
+        // pais: 'Peru',
+      },
+    });
+    
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    console.log('retorno con datos', data);
+    
   }
 
+
   showEditar() {
-    //this.editar= !this.editar
-    this.presentToast('Próximamente ...')
+    this.editar= !this.editar;
+
+    this.formUsuario.patchValue({
+      idusuario         :  this.d.IdUsuario,
+      idrol             :  this.d.idrol ,
+      ruc               :  this.d.ruc ,
+      usuario           :  this.d.Usuario ,
+      password          :  '' ,
+      numerodocumento   :  this.d.DNI ,
+      nombre            :  this.d.NombreTrabajador,
+      apellido          :  this.d.ApellidoTrabajador,
+      telefono          :  this.d.Telefono,
+      correo            :  this.d.Correo,
+      editar            :  true 
+    });
+
+
+    //this.presentToast('Próximamente ...')
   }
 
   async presentToast(ms: string) {
