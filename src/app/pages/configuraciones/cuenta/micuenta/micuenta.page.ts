@@ -100,8 +100,7 @@ export class MicuentaPage implements OnInit {
 
   async ngOnInit() { }
 
-  async loadStorage() {
-    debugger
+  async loadStorage() { 
     this.datosComplete = await this.auth.getLoginStorage('login');
     this.d = this.datosComplete.datos;
   }
