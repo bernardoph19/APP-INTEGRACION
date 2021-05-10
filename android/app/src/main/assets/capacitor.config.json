@@ -1,6 +1,6 @@
 {
-  "appId": "pe.innovated.appintegra",
-  "appName": "FC Integracion",
+  "appId": "com.innovated.appfactedsol",
+  "appName": "Factesol",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
