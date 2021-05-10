@@ -27,7 +27,7 @@ export class MicuentaPage implements OnInit {
   d                   : any = {};
   formPass            : FormGroup;
   formUsuario         : FormGroup;
-  editar              : boolean;
+  editar              : boolean      = false;
 
   constructor( 
     private modal              : ModalController,
@@ -97,14 +97,14 @@ export class MicuentaPage implements OnInit {
 
 
 
+
   async ngOnInit() { }
 
   async loadStorage() {
+    debugger
     this.datosComplete = await this.auth.getLoginStorage('login');
     this.d = this.datosComplete.datos;
-    console.log(this.d)
   }
-
 
   //Modal Cambiar Contraseña
   async cambiarContrasena() {    
@@ -123,9 +123,8 @@ export class MicuentaPage implements OnInit {
     }
 
     this.auth.login( body ).subscribe( (response : any ) => {
-      if( response.message === 'exito' ){
+      if( response.message === 'exito' ) {
         this.idusuario = response.result.datos.IdUsuario;
-
         this.saveNewPass(this.idusuario)
       }
     
@@ -134,7 +133,7 @@ export class MicuentaPage implements OnInit {
     }, (error)=>{
 
       this.changePass = false;
-      this.message = error.error.message === null || error.error.message === undefined ? "Sin conexion al servidor" : 'La contraseña que ingreso es incorrecta !!!';
+      this.message = error.error.message === null || error.error.message === undefined ? "Sin conexion al servidor" : 'La contraseña que ingreso es incorrecta.';
       this.spinner.hide();
       this.presentToast(this.message)
     })
@@ -158,7 +157,7 @@ export class MicuentaPage implements OnInit {
 
       //al parecer es mutable    
       this.auth.setDatosStorage('login', this.datosComplete);
-      this.editar = !this.editar;
+      this.editar = false;
       this.spinner.hide();
       
       this.salert.alertEditarUser('FC Integracion aviso', 'Sus datos se actualizaron.')
@@ -178,19 +177,20 @@ export class MicuentaPage implements OnInit {
       component: CambiarContrasenaPage,
       componentProps: {
         idusuario: id,
-        // pais: 'Peru',
       },
     });
     
     await modal.present();
-    const { data } = await modal.onDidDismiss();
-    console.log('retorno con datos', data);
+    const { data }    = await modal.onDidDismiss();
+    this.changePass   = false;
+    this.formPass.reset();
+    ( data.data !== '' ) ? this.presentToast(data.data) : console.log('cancelar');
     
   }
 
 
   showEditar() {
-    this.editar= !this.editar;
+    this.editar = true;
 
     this.formUsuario.patchValue({
       idusuario         :  this.d.IdUsuario,
@@ -206,8 +206,10 @@ export class MicuentaPage implements OnInit {
       editar            :  true 
     });
 
+  }
 
-    //this.presentToast('Próximamente ...')
+  cancelar() {
+    this.editar = false;
   }
 
   async presentToast(ms: string) {

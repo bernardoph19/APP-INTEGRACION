@@ -23,6 +23,9 @@ export class FormValidatorService {
   control_invalid( dato:string , forma:FormGroup ){
     return forma.get(dato).invalid && forma.get(dato).touched;
   }
-
+  
+  sinResultado ( res : any ){
+    if (res== undefined) return false;
+  }
   
 }

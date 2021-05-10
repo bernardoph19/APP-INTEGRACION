@@ -27,12 +27,14 @@
         <ion-item>
           <ion-label position="floating"> Nueva Contraseña</ion-label>
           <ion-input type="password"  formControlName="newpass"  required> </ion-input>
+          <div *ngIf="newpassInvalid" class="error_message"> campo requerido </div>
         </ion-item>
 
-        <!-- Cambiar Contraseña         -->
+        <!-- confirmar Contraseña -->
         <ion-item>
           <ion-label position="floating">Confirmar Contraseña</ion-label>
           <ion-input type="password"  formControlName="repeatpass"  required> </ion-input>
+          <div *ngIf="repeatpassInvalid" class="error_message"> campo requerido </div>
         </ion-item>          
         
       </ion-list>

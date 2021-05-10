@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActionSheetController, AlertController, ModalController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -12,9 +12,9 @@ import { File as ionFile, } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
-const { Share, FileSharer } = Plugins;
+const  { Share, FileSharer } = Plugins;
 import { Buffer } from 'buffer';
-import { HttpClient } from '@angular/common/http';
+import { ToastService } from 'src/app/services/toast.service';
 
 
 @Component({
@@ -54,11 +54,10 @@ export class DetalleComprobantePage implements OnInit {
     private salert              : AlertService,
     private alert               : AlertController,
     private sfunction           : FunctionsService,
-    public  toastController     : ToastController,
     private file                : ionFile,
     private social              : SocialSharing,
     private fileOpener          : FileOpener,
-    private http                : HttpClient,
+    private stoast              : ToastService,
 
   ) {        
    }
@@ -97,7 +96,7 @@ export class DetalleComprobantePage implements OnInit {
       });
   }
   
-  async shared3() {
+  /* async shared3() {
 
     console.log('haciendo click');
 
@@ -129,12 +128,8 @@ export class DetalleComprobantePage implements OnInit {
           
           reader.readAsDataURL(res);
         })
-    
 
-
-    
-
-  }
+  } */
 
   async shared2() {
 
@@ -237,7 +232,7 @@ export class DetalleComprobantePage implements OnInit {
       } catch (error) {
         console.error('Unable to write file');
         console.log(JSON.stringify(error));        
-        this.presentToast('No se pudo leer el documento.');        
+        this.stoast.showToastShort('No se pudo leer el documento.');        
       }
   }
 
@@ -428,7 +423,7 @@ export class DetalleComprobantePage implements OnInit {
         this.message = response.message ?? "Sin conexion al servidor";
         this.error = true;
         this.spinner.hide();
-        this.presentToast(this.message);
+        this.stoast.showToastShort(this.message);
       }
       
     }, (error) => {
@@ -437,7 +432,7 @@ export class DetalleComprobantePage implements OnInit {
       this.message = error.error.message ?? "Sin conexion al servidor";
       this.error = true;
       this.spinner.hide();
-      this.presentToast(this.message);
+      this.stoast.showToastShort(this.message);
 
     })
 
@@ -462,7 +457,7 @@ export class DetalleComprobantePage implements OnInit {
 
         this.message = response.message ?? "Sin conexion al servidor";
         this.error = true;
-        this.presentToast(this.message);
+        this.stoast.showToastShort(this.message);
 
       }
 
@@ -471,7 +466,7 @@ export class DetalleComprobantePage implements OnInit {
       this.message = error.error.message ?? "Sin conexion al servidor";
       this.error = true;
       this.spinner.hide();
-      this.presentToast(this.message);
+      this.stoast.showToastShort(this.message);
 
     });
 
@@ -496,7 +491,7 @@ export class DetalleComprobantePage implements OnInit {
         this.message = response.message ?? "Sin conexion al servidor";
         this.error = true;
         this.spinner.hide();
-        this.presentToast(this.message);
+        this.stoast.showToastShort(this.message);
 
       }
 
@@ -505,7 +500,7 @@ export class DetalleComprobantePage implements OnInit {
       this.message = error.error.message ?? "Sin conexion al servidor";
       this.error = true;
       this.spinner.hide();
-      this.presentToast(this.message);
+      this.stoast.showToastShort(this.message);
 
     });
 
@@ -530,24 +525,15 @@ export class DetalleComprobantePage implements OnInit {
 
         this.message = writeFileResponse.uri;
         this.spinner.hide();
-        this.presentToast(this.message);
+        this.stoast.showToastShort(this.message);
         
     }, error => {
         console.log('writeFile error => ', error);
         this.message = 'No se pudo descargar el documento.';
         this.spinner.hide();
-        this.presentToast(this.message);
+        this.stoast.showToastShort(this.message);
     });
 
   }    
-
-  async presentToast(ms: string) {
-    const toast = await this.toastController.create({
-      message: ms,
-      duration: 4500,
-      cssClass:"background"
-    });
-
-    toast.present();
-  }
+ 
 }

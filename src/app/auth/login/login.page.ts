@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service.service';
 import { FormGroup,  FormBuilder, Validators} from '@angular/forms';
-import { ValidarformloginService } from 'src/app/services/validarformlogin.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastController } from '@ionic/angular';
+import { FormValidatorService } from 'src/app/services/form-validator.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private auth               : AuthService,
-    private vform              : ValidarformloginService,
+    private vform              : FormValidatorService,
     private formBuilder        : FormBuilder,
     private router             : Router,    
     private spinner            : NgxSpinnerService,
@@ -42,7 +42,7 @@ export class LoginPage implements OnInit {
   inicioSesion() {
 
     if( this.formLogin.invalid ){
-      return this.vform.emptyData(this.formLogin);
+      return this.vform.Empty_data(this.formLogin);
     }
 
     this.spinner.show();
@@ -87,15 +87,15 @@ export class LoginPage implements OnInit {
  
   //Metodos GET para capturar errores en los inputs
   get rucNovalido(){
-    return this.vform.controlInvalid("usuario", this.formLogin);
+    return this.vform.control_invalid("ruc", this.formLogin);
   }
 
   get userNovalido(){
-    return this.vform.controlInvalid("usuario", this.formLogin);
+    return this.vform.control_invalid("usuario", this.formLogin);
   }
 
   get passNovalido(){
-    return this.vform.controlInvalid("password", this.formLogin);
+    return this.vform.control_invalid("password", this.formLogin);
   }
  
   async presentToast(ms: string) {

@@ -20,22 +20,15 @@
     </ion-card-header>
 
     <form (ngSubmit)="inicioSesion()" [formGroup]="formLogin">
-      <ion-card-content>
-          
+
+      <ion-card-content>          
         <!-- ruc -->
           <ion-item>
-            <ion-input name="ruc" type="text" placeholder="Ruc"  formControlName="ruc" required [class.error]="rucNovalido" inputmode="numeric">
+            <ion-input name="ruc" type="text" placeholder="Ruc"  formControlName="ruc" required inputmode="numeric">
               <ion-icon name="business-outline"></ion-icon>
             </ion-input>
           </ion-item>
-          
-          <div *ngIf="rucNovalido">
-            <ng-container>
-              <div class="error_message">
-                Campo requerido
-              </div>
-            </ng-container>
-          </div>
+          <div *ngIf="rucNovalido" class="error_message">  campo requerido </div>
          
           <!-- Usuario -->
           <ion-item>
@@ -43,13 +36,7 @@
               <ion-icon name="person-outline"></ion-icon>
             </ion-input>
           </ion-item>
-          <div *ngIf="userNovalido">
-            <ng-container>
-              <div class="error_message">
-              campo requerido
-              </div>
-            </ng-container>
-          </div>
+          <div *ngIf="userNovalido"  class="error_message"> campo requerido </div>
 
           <!-- password -->
           <ion-item>
@@ -57,22 +44,8 @@
               <ion-icon name="lock-closed"></ion-icon>
             </ion-input>
           </ion-item>
-          <div *ngIf="passNovalido">
-            <ng-container>
-              <div class="error_message">
-              campo requerido
-              </div>
-            </ng-container>
-          </div>
+          <div *ngIf="passNovalido" class="error_message">  campo requerido </div>
           
-          <!-- <div *ngIf="error">
-            <ng-container>
-              <div class="error_message">
-                {{message}}
-              </div>
-            </ng-container>
-          </div>  -->         
-
           <!-- Olvidaste tu contraseña -->
           <div class="olvist">
             <a class="olvist">¿Olvidaste tu contraseña? </a>
@@ -89,8 +62,8 @@
           <div class="text-tag">
             <span>¿No tienes una cuenta? <a class="registr"> Registrate</a> </span>
           </div>
-
       </ion-card-content>
+
     </form>
 
   </ion-card>

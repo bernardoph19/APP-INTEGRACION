@@ -8,11 +8,11 @@ import { ReporteVentaService } from 'src/app/services/reporte-venta.service';
 
 import { AlertService } from 'src/app/services/alert.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastController } from '@ionic/angular';
 //import { Share } from '@capacitor/core';
 
 import { Plugins, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
-const { Share } = Plugins;
+import { ToastService } from 'src/app/services/toast.service';
+const  { Share } = Plugins;
 
 @Component({
   selector: 'app-rep-contable',
@@ -44,7 +44,7 @@ export class RepContablePage implements OnInit {
     private dataStorageService  : DataStorageService,
     private router              : Router,
     private salert              : AlertService,
-    public  toastController     : ToastController,    
+    private stoast              : ToastService,
 
 
   ) {
@@ -110,7 +110,7 @@ export class RepContablePage implements OnInit {
         } else {
           
           this.message = 'No se encontraron datos';
-          this.presentToast(this.message);
+          this.stoast.showToastLongShort(this.message);          
         }
       }
       this.spinner.hide();
@@ -137,7 +137,7 @@ export class RepContablePage implements OnInit {
       if(this.data.length < 1) {     
 
         this.message = 'No se encontraron datos';
-        this.presentToast(this.message);
+        this.stoast.showToastLongShort(this.message);
         return;
 
       }
@@ -162,13 +162,13 @@ export class RepContablePage implements OnInit {
          
       } else {        
         this.message = 'Algunos comprobantes aun no han sido enviados, envie todos los comprobantes de el mes seleccinado para poder exportar a excel'
-        this.presentToast(this.message);
+        this.stoast.showToastLongShort(this.message);
       }
     } 
     catch (error) 
     {      
       this.message = 'No se encontraron datos'
-      this.presentToast(this.message);
+      this.stoast.showToastLongShort(this.message);
     }
 
   }
@@ -205,20 +205,6 @@ export class RepContablePage implements OnInit {
     });
 
   }
-
-  async presentToast(ms: string) {
-    let seg = 3000;
-
-    if(ms !== 'No se encontraron datos') {  seg = 7000; }
-
-    const toast = await this.toastController.create({
-      message: ms,
-      duration: seg,
-      cssClass:"background"
-    });
-
-    toast.present();
-  }  
 
 
   

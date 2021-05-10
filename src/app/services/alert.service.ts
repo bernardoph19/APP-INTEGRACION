@@ -25,36 +25,6 @@ export class AlertService {
     alert.present();    
 
   }
-  
-  async AlertAnular( title : string, message : string, redi : void) {
-
-     const alert = await this.alert.create({
-      cssClass : 'alert',
-      header   : title,
-      message  : message,
-      backdropDismiss : false,
-      buttons  : [
-        {
-          text    : 'OK',
-          handler : () => { }
-        },
-        {
-          role: 'cancel',
-          cssClass: 'secondary',
-          text    : 'Cancelar',
-          handler : () => {
-
-          }
-        }
-      ] 
-    });
-
-    alert.present();    
-    
-    return await alert.onDidDismiss();
-    
-
-  }
 
   async alertEditarUser( title : string, message : string) {
     const alert = await this.alert.create({
