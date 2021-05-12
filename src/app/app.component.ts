@@ -28,12 +28,13 @@ export class AppComponent {
 
   
   iniciarApp() {
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
       //this.statusBar.styleDefault();
       //this.router.navigateByUrl('/menu-principal/migrador');
       registerWebPlugin(FileSharer);
       this.pushService.configuracionInicial();
-      this.auth.ValidarToken();
+      await this.auth.ValidarToken();
+      
     });
   }
 

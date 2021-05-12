@@ -12,6 +12,7 @@ import { FunctionsService } from './functions.service';
 export class AuthService {
 
   private urlPath    : string;
+  private urlPath2    : string;
   
   constructor( 
     private http        : HttpClient, 
@@ -21,6 +22,7 @@ export class AuthService {
 
   ) {
     this.urlPath = 'api/usuario/';
+    this.urlPath2 = 'api/venta/';
   }
 
   
@@ -44,22 +46,26 @@ export class AuthService {
 
 
 
-  async ValidarToken() {
+  async ValidarToken() {    
     try  {
-      const a = await this.ComprobantesServidor({fecha:'2021/04/01'});
+      
+      const a = await this.ComprobantesServidor({fecha:"2021/04/01"});
+      
     }  catch (e)  {
       
-      if(e.error=='Unauthorized') {
+      if(e.error=='Unauthorized') {        
         this.logout();
         this.route.navigate(['/login'], { replaceUrl : true })
-      }
+      }      
+
     }
   }
 
-  async ComprobantesServidor( body: any )
-  {
+  async ComprobantesServidor( body: any )  {
+
     const headers = await this.sfunction._headersApi();
-    return this.http.post(`${environment.urlIntegracionApi}venta/ventalistarporfecha`, body,{ headers })
+    return this.http.post(`${environment.urlIntegracionApi}${this.urlPath2}/ventalistarporfecha`, body,{ headers }).toPromise()
+    
   }
 
 
