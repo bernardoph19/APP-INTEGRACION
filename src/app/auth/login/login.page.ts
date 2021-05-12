@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
     private auth               : AuthService,
     private vform              : FormValidatorService,
     private formBuilder        : FormBuilder,
-    private router             : Router,    
+    private router             : Router,
     private spinner            : NgxSpinnerService,
     public  toastController    : ToastController,
     
