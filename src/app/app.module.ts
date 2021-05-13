@@ -29,7 +29,7 @@ registerLocaleData(LocaleEsPe);
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot(),    
     AppRoutingModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
